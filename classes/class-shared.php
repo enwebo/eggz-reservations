@@ -75,7 +75,7 @@ class Plugin_Name_Shared {
 	} // get_cache_name()
 
 	/**
-	 * Returns a post object of employee posts
+	 * Returns a post object of posttypename posts
 	 *
 	 * Check for cache first, if it exists, returns that
 	 * If not, gets the ordered posts, collects their IDS,

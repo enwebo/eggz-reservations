@@ -84,7 +84,7 @@ class Plugin_Name_CPT_PostTypeName {
 	} // posttypename_column_content()
 
 	/**
-	 * Sorts the employee admin list by the display order
+	 * Sorts the posttypename admin list by the display order
 	 *
 	 * @param 		array 		$vars 			The current query vars array
 	 *
@@ -146,7 +146,7 @@ class Plugin_Name_CPT_PostTypeName {
 	/**
 	 * Creates a new custom post type
 	 */
-	public static function new_cpt_employee() {
+	public static function new_cpt_posttypename() {
 
 		$cap_type 	= 'post';
 		$plural 	= 'posttypes';
@@ -213,6 +213,6 @@ class Plugin_Name_CPT_PostTypeName {
 
 		register_post_type( $cpt_name, $opts );
 
-	} // new_cpt_employee()
+	} // new_cpt_posttypename()
 
 } // class

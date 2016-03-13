@@ -121,7 +121,7 @@ class Plugin_Name_Public {
 	} // set_options()
 
 	/**
-	 * Processes shortcode employeelist
+	 * Processes shortcode shortcodename
 	 *
 	 * @param 	array 	$atts 		Shortcode attributes
 	 *
@@ -131,7 +131,7 @@ class Plugin_Name_Public {
 
 		ob_start();
 
-		$defaults['department'] 	= '';
+		$defaults['taxonomyname'] 	= '';
 		$defaults['loop-template'] 	= $this->plugin_name . '-loop';
 		$defaults['order'] 			= 'ASC';
 		$defaults['quantity'] 		= 100;
