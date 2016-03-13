@@ -5,7 +5,7 @@
  *
  * Defines a taxonomy and other related functionality.
  *
- * @link 		http://slushman.com
+ * @link 		http://example.com
  * @since 		1.0.0
  *
  * @package 	Plugin_Name
