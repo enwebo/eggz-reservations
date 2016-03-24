@@ -12,7 +12,7 @@
 
 if ( ! empty( $atts['label'] ) ) {
 
-	?><label for="<?php echo esc_attr( $atts['id'] ); ?>"><?php esc_html_e( $atts['label'], 'plugin-name' ); ?>: </label><?php
+	?><label for="<?php echo esc_attr( $atts['id'] ); ?>"><?php echo wp_kses( $atts['label'], array( 'code' => array() ) ); ?>: </label><?php
 
 }
 
@@ -24,7 +24,7 @@ if ( ! empty( $atts['label'] ) ) {
 
 if ( ! empty( $atts['blank'] ) ) {
 
-	?><option value><?php esc_html_e( $atts['blank'], 'plugin-name' ); ?></option><?php
+	?><option value><?php echo wp_kses( $atts['blank'], array( 'code' => array() ) ); ?></option><?php
 
 }
 
@@ -48,7 +48,7 @@ if ( ! empty( $atts['selections'] ) ) {
 			value="<?php echo esc_attr( $value ); ?>" <?php
 			selected( $atts['value'], $value ); ?>><?php
 
-			esc_html_e( $label, 'plugin-name' );
+			echo wp_kses( $label, array( 'code' => array() ) );
 
 		?></option><?php
 
@@ -57,4 +57,4 @@ if ( ! empty( $atts['selections'] ) ) {
 }
 
 ?></select>
-<span class="description"><?php esc_html_e( $atts['description'], 'plugin-name' ); ?></span>
+<span class="description"><?php echo wp_kses( $atts['description'], array( 'code' => array() ) ); ?></span>

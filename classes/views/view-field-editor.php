@@ -14,4 +14,4 @@
 
 wp_editor( $atts['value'], $atts['id'], $atts['settings'] );
 
-?><span class="description"><?php esc_html_e( $atts['description'], 'plugin-name' ); ?></span>
+?><span class="description"><?php echo wp_kses( $atts['description'], array( 'code' => array() ) ); ?></span>

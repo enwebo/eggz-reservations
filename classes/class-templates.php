@@ -1,17 +1,17 @@
 <?php
 
-if ( ! function_exists( 'plugin_name_templates' ) ) {
+if ( ! function_exists( 'plugin_name_get_template' ) ) {
 
 	/**
 	 * Public API for adding and removing temmplates.
 	 *
 	 * @return 		object 			Instance of the templates class
 	 */
-	function plugin_name_templates() {
+	function plugin_name_get_template() {
 
 		return Plugin_Name_Templates::this();
 
-	} // plugin_name_templates()
+	} // plugin_name_get_template()
 
 } // check
 
@@ -92,7 +92,7 @@ class Plugin_Name_Templates {
 	 */
 	public function loop_content_link_begin( $item, $meta = array() ) {
 
-		include plugin_name_templates( 'loop-content-link-begin', 'loop' );
+		include plugin_name_get_template( 'loop-content-link-begin', 'loop' );
 
 	} // loop_content_link_begin()
 
@@ -104,18 +104,60 @@ class Plugin_Name_Templates {
 	 */
 	public function loop_content_link_end( $item, $meta = array() ) {
 
-		include plugin_name_templates( 'loop-content-link-end', 'loop' );
+		include plugin_name_get_template( 'loop-content-link-end', 'loop' );
 
 	} // loop_content_link_end()
 
 	/**
+	 * Includes the featured image template
+	 *
+	 * @hooked 		plugin-name-loop-content 		10
+	 *
+	 * @param 		object 		$item 		A post object
+	 * @param 		array 		$meta 		The post metadata
+	 */
+	public function loop_content_image( $item, $meta = array() ) {
+
+		include plugin_name_get_template( 'loop-content-image', 'loop' );
+
+	} // loop_content_image()
+
+	/**
 	 * Includes the meta field template file
 	 */
-	public function loop_content_meta_field() {
+	public function loop_content_meta_field( $item, $meta = array() ) {
 
-		include plugin_name_templates( 'loop-content-meta-field', 'loop' );
+		include plugin_name_get_template( 'loop-content-meta-field', 'loop' );
 
 	} // loop_content_meta_field()
+
+	/**
+	 * Includes the plugin-name-subtitle template
+	 *
+	 * @hooked 		plugin-name-loop-content 		30
+	 *
+	 * @param 		object 		$item 		Post object
+	 * @param 		array 		$meta 		The post metadata
+	 */
+	public function loop_content_subtitle( $item, $meta = array() ) {
+
+		include plugin_name_get_template( 'loop-content-subtitle', 'loop' );
+
+	} // loop_content_subtitle()
+
+	/**
+	 * Includes the plugin-name-title template
+	 *
+	 * @hooked 		plugin-name-loop-content 		20
+	 *
+	 * @param 		object 		$item 		Post object
+	 * @param 		array 		$meta 		The post metadata
+	 */
+	public function loop_content_title( $item, $meta = array() ) {
+
+		include plugin_name_get_template( 'loop-content-title', 'loop' );
+
+	} // loop_content_title()
 
 	/**
 	 * Includes the content wrap start template file
@@ -127,7 +169,7 @@ class Plugin_Name_Templates {
 	 */
 	public function loop_content_wrap_begin( $item, $meta = array() ) {
 
-		include plugin_name_templates( 'loop-content-wrap-begin', 'loop' );
+		include plugin_name_get_template( 'loop-content-wrap-begin', 'loop' );
 
 	} // loop_content_wrap_begin()
 
@@ -139,7 +181,7 @@ class Plugin_Name_Templates {
 	 */
 	public function loop_content_wrap_end( $item, $meta = array() ) {
 
-		include plugin_name_templates( 'loop-content-wrap-end', 'loop' );
+		include plugin_name_get_template( 'loop-content-wrap-end', 'loop' );
 
 	} // loop_content_wrap_end()
 
@@ -167,7 +209,7 @@ class Plugin_Name_Templates {
 
 		}
 
-		include plugin_name_templates( 'loop-wrap-begin', 'loop' );
+		include plugin_name_get_template( 'loop-wrap-begin', 'loop' );
 
 	} // list_wrap_begin()
 
@@ -178,7 +220,7 @@ class Plugin_Name_Templates {
 	 */
 	public function loop_wrap_end( $args ) {
 
-		include plugin_name_templates( 'loop-wrap-end', 'loop' );
+		include plugin_name_get_template( 'loop-wrap-end', 'loop' );
 
 	} // list_wrap_end()
 
@@ -198,7 +240,7 @@ class Plugin_Name_Templates {
 	 */
 	public function single_posttypename_meta_field( $meta ) {
 
-		include plugin_name_templates( 'single-posttypename-metafield', 'single' );
+		include plugin_name_get_template( 'single-posttypename-metafield', 'single' );
 
 	} // single_posttypename_meta_field()
 
@@ -207,7 +249,7 @@ class Plugin_Name_Templates {
 	 */
 	public function single_posttypename_content() {
 
-		include plugin_name_templates( 'single-posttypename-content', 'single' );
+		include plugin_name_get_template( 'single-posttypename-content', 'single' );
 
 	} // single_posttypename_content()
 
@@ -216,16 +258,25 @@ class Plugin_Name_Templates {
 	 */
 	public function single_posttypename_posttitle() {
 
-		include plugin_name_templates( 'single-posttypename-posttitle', 'single' );
+		include plugin_name_get_template( 'single-posttypename-posttitle', 'single' );
 
 	} // single_posttypename_posttitle()
+
+	/**
+	 * Includes the single posttypename post title
+	 */
+	public function single_posttypename_subtitle( $meta ) {
+
+		include plugin_name_get_template( 'single-posttypename-subtitle', 'single' );
+
+	} // single_posttypename_subtitle()
 
 	/**
 	 * Include the single posttypename thumbnail
 	 */
 	public function single_posttypename_thumbnail() {
 
-		include plugin_name_templates( 'single-posttypename-thumbnail', 'single' );
+		include plugin_name_get_template( 'single-posttypename-thumbnail', 'single' );
 
 	} // single_posttypename_thumbnail()
 

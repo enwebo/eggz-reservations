@@ -36,6 +36,8 @@ class Plugin_Name_Sanitize {
 	 */
 	public function clean( $data, $type ) {
 
+		$check = '';
+
 		if ( empty( $type ) ) {
 
 			$check = new WP_Error( 'forgot_type', __( 'Specify the data type to sanitize.', 'plugin-name' ) );

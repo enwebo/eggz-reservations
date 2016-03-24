@@ -382,7 +382,7 @@ class Plugin_Name_Admin {
 			$this->plugin_name,
 			$this->plugin_name . '-settingssection',
 			array(
-				'description' 	=> 'Text field description.',
+				'description' 	=> __( 'Text field description.', 'plugin-name' ),
 				'id' 			=> 'text-field',
 				'value' 		=> '',
 			)
@@ -395,11 +395,24 @@ class Plugin_Name_Admin {
 			$this->plugin_name,
 			$this->plugin_name . '-settingssection',
 			array(
-				'description' 	=> 'Select description.',
+				'description' 	=> __( 'Select description.', 'plugin-name' ),
 				'id' 			=> 'select-field',
-				'selections'	=> array( 'One', 'Two', 'Three' ),
+				'selections'	=> array(
+					array( 'label' => esc_html__( 'Label', 'plugin-name' ), 'value' => 'value' ),
+				),
 				'value' 		=> ''
 			)
+		);
+
+		add_settings_field(
+			'editor-field',
+			apply_filters( $this->plugin_name . 'label-editor-field', esc_html__( 'Editor Field', 'plugin-name' ) ),
+			array( $this, 'field_editor' ),
+			$this->plugin_name,
+			$this->plugin_name . '-messages',
+			array(
+				'description' 	=> __( 'Editor field description.',
+				'id' 			=> 'howtoapply', 'plugin-name' )
 		);
 
 	} // register_fields()
@@ -477,12 +490,8 @@ class Plugin_Name_Admin {
 
 		foreach ( $options as $option ) {
 
-			$sanitizer = new Plugin_Name_Sanitize();
-
-			$sanitizer->set_data( $input[$option[0]] );
-			$sanitizer->set_type( $option[1] );
-
-			$valid[$option[0]] = $sanitizer->clean();
+			$sanitizer 			= new Plugin_Name_Sanitize();
+			$valid[$option[0]] 	= $sanitizer->clean( $input[$option[0]], $option[1] );
 
 			if ( $valid[$option[0]] != $input[$option[0]] ) {
 
