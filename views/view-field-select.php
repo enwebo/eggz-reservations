@@ -17,7 +17,7 @@ if ( ! empty( $atts['label'] ) ) {
 }
 
 ?><select
-	aria-label="<?php esc_attr( _e( $atts['aria'], 'plugin-name' ) ); ?>"
+	aria-label="<?php echo wp_kses( $atts['aria'], array( 'code' => array() ) ); ?>"
 	class="<?php echo esc_attr( $atts['class'] ); ?>"
 	id="<?php echo esc_attr( $atts['id'] ); ?>"
 	name="<?php echo esc_attr( $atts['name'] ); ?>"><?php

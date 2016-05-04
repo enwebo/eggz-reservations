@@ -74,11 +74,11 @@ function plugin_name_get_template( $name, $location = '' ) {
 
 		if ( empty( $location ) ) {
 
-			$template = plugin_dir_path( __FILE__ ) . 'views/' . $name . '.php';
+			$template = plugin_dir_path( dirname( __FILE__ ) ) . 'views/' . $name . '.php';
 
 		} else {
 
-			$template = plugin_dir_path( __FILE__ ) . 'views/' . $location . '/' . $name . '.php';
+			$template = plugin_dir_path( dirname( __FILE__ ) ) . 'views/' . $location . '/' . $name . '.php';
 
 		}
 

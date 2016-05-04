@@ -161,7 +161,7 @@ class Plugin_Name_Admin_Metaboxes {
 		if ( ! is_admin() ) { return; }
 		if ( 'posttypename' != $post->post_type ) { return; }
 
-		include( plugin_dir_path( __FILE__ ) . 'views/view-metabox-' . $params['args']['file'] . '.php' );
+		include( plugin_dir_path( dirname( __FILE__ ) ) . 'views/view-metabox-' . $params['args']['file'] . '.php' );
 
 	} // metabox()
 
@@ -173,7 +173,7 @@ class Plugin_Name_Admin_Metaboxes {
 		if ( ! is_admin() ) { return; }
 		if ( 'posttypename' !== $post->post_type ) { return; }
 
-		include( plugin_dir_path( __FILE__ ) . 'views/view-metabox-subtitle.php' );
+		include( plugin_dir_path( dirname( __FILE__ ) ) . 'views/view-metabox-subtitle.php' );
 
 	} // metabox_subtitle()
 

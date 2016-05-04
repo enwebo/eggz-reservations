@@ -136,9 +136,13 @@ class Plugin_Name_Admin {
 		$defaults['name'] 			= $this->plugin_name . '-options[' . $args['id'] . ']';
 		$defaults['value'] 			= 0;
 
-		apply_filters( $this->plugin_name . '-field-checkbox-options-defaults', $defaults );
-
-		$atts = wp_parse_args( $args, $defaults );
+		/**
+		 * plugin-name-field-checkbox-options-defaults filter
+		 *
+		 * @param 	array 	$defaults 		The default settings for the field
+		 */
+		$defaults 	= apply_filters( $this->plugin_name . '-field-checkbox-options-defaults', $defaults );
+		$atts 		= wp_parse_args( $args, $defaults );
 
 		if ( ! empty( $this->options[$atts['id']] ) ) {
 
@@ -146,7 +150,7 @@ class Plugin_Name_Admin {
 
 		}
 
-		include( plugin_dir_path( __FILE__ ) . 'views/view-field-checkbox.php' );
+		include( plugin_dir_path( dirname( __FILE__ ) ) . 'views/view-field-checkbox.php' );
 
 	} // field_checkbox()
 
@@ -165,9 +169,13 @@ class Plugin_Name_Admin {
 		$defaults['name'] 			= $this->plugin_name . '-options[' . $args['id'] . ']';
 		$defaults['value'] 			= 0;
 
-		apply_filters( $this->plugin_name . '-field-radios-options-defaults', $defaults );
-
-		$atts = wp_parse_args( $args, $defaults );
+		/**
+		 * plugin-name-field-radios-options-defaults filter
+		 *
+		 * @param 	array 	$defaults 		The default settings for the field
+		 */
+		$defaults 	= apply_filters( $this->plugin_name . '-field-radios-options-defaults', $defaults );
+		$atts 		= wp_parse_args( $args, $defaults );
 
 		if ( ! empty( $this->options[$atts['id']] ) ) {
 
@@ -175,7 +183,7 @@ class Plugin_Name_Admin {
 
 		}
 
-		include( plugin_dir_path( __FILE__ ) . 'views/view-field-radios.php' );
+		include( plugin_dir_path( dirname( __FILE__ ) ) . 'views/view-field-radios.php' );
 
 	} // field_radios()
 
@@ -200,9 +208,13 @@ class Plugin_Name_Admin {
 		$defaults['selections'] 	= array();
 		$defaults['value'] 			= '';
 
-		apply_filters( $this->plugin_name . '-field-select-options-defaults', $defaults );
-
-		$atts = wp_parse_args( $args, $defaults );
+		/**
+		 * plugin-name-field-select-options-defaults filter
+		 *
+		 * @param 	array 	$defaults 		The default settings for the field
+		 */
+		$defaults 	= apply_filters( $this->plugin_name . '-field-select-options-defaults', $defaults );
+		$atts 		= wp_parse_args( $args, $defaults );
 
 		if ( ! empty( $this->options[$atts['id']] ) ) {
 
@@ -220,7 +232,7 @@ class Plugin_Name_Admin {
 
 		}
 
-		include( plugin_dir_path( __FILE__ ) . 'views/view-field-select.php' );
+		include( plugin_dir_path( dirname( __FILE__ ) ) . 'views/view-field-select.php' );
 
 	} // field_select()
 
@@ -241,9 +253,13 @@ class Plugin_Name_Admin {
 		$defaults['type'] 			= 'text';
 		$defaults['value'] 			= '';
 
-		apply_filters( $this->plugin_name . '-field-text-options-defaults', $defaults );
-
-		$atts = wp_parse_args( $args, $defaults );
+		/**
+		 * plugin-name-field-text-options-defaults filter
+		 *
+		 * @param 	array 	$defaults 		The default settings for the field
+		 */
+		$defaults 	= apply_filters( $this->plugin_name . '-field-text-options-defaults', $defaults );
+		$atts 		= wp_parse_args( $args, $defaults );
 
 		if ( ! empty( $this->options[$atts['id']] ) ) {
 
@@ -251,7 +267,7 @@ class Plugin_Name_Admin {
 
 		}
 
-		include( plugin_dir_path( __FILE__ ) . 'views/view-field-text.php' );
+		include( plugin_dir_path( dirname( __FILE__ ) ) . 'views/view-field-text.php' );
 
 	} // field_text()
 
@@ -273,9 +289,13 @@ class Plugin_Name_Admin {
 		$defaults['rows'] 			= 10;
 		$defaults['value'] 			= '';
 
-		apply_filters( $this->plugin_name . '-field-textarea-options-defaults', $defaults );
-
-		$atts = wp_parse_args( $args, $defaults );
+		/**
+		 * plugin-name-field-textarea-options-defaults filter
+		 *
+		 * @param 	array 	$defaults 		The default settings for the field
+		 */
+		$defaults 	= apply_filters( $this->plugin_name . '-field-textarea-options-defaults', $defaults );
+		$atts 		= wp_parse_args( $args, $defaults );
 
 		if ( ! empty( $this->options[$atts['id']] ) ) {
 
@@ -283,7 +303,7 @@ class Plugin_Name_Admin {
 
 		}
 
-		include( plugin_dir_path( __FILE__ ) . 'views/view-field-textarea.php' );
+		include( plugin_dir_path( dirname( __FILE__ ) ) . 'views/view-field-textarea.php' );
 
 	} // field_textarea()
 
@@ -351,7 +371,7 @@ class Plugin_Name_Admin {
 	 */
 	public function page_help() {
 
-		include( plugin_dir_path( __FILE__ ) . 'views/view-page-help.php' );
+		include( plugin_dir_path( dirname( __FILE__ ) ) . 'views/view-page-help.php' );
 
 	} // page_help()
 
@@ -364,7 +384,7 @@ class Plugin_Name_Admin {
 	 */
 	public function page_options() {
 
-		include( plugin_dir_path( __FILE__ ) . 'views/view-page-settings.php' );
+		include( plugin_dir_path( dirname( __FILE__ ) ) . 'views/view-page-settings.php' );
 
 	} // page_options()
 
@@ -411,8 +431,9 @@ class Plugin_Name_Admin {
 			$this->plugin_name,
 			$this->plugin_name . '-messages',
 			array(
-				'description' 	=> __( 'Editor field description.',
-				'id' 			=> 'howtoapply', 'plugin-name' )
+				'description' 	=> __( 'Editor field description.', 'plugin-name' ),
+				'id' 			=> 'howtoapply'
+			)
 		);
 
 	} // register_fields()
@@ -461,7 +482,7 @@ class Plugin_Name_Admin {
 	 */
 	public function section_settingssection( $params ) {
 
-		include( plugin_dir_path( __FILE__ ) . 'views/view-section-settingssection.php' );
+		include( plugin_dir_path( dirname( __FILE__ ) ) . 'views/view-section-settingssection.php' );
 
 	} // section_settingssection()
 
