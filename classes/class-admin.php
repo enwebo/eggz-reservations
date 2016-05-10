@@ -3,11 +3,11 @@
 /**
  * The admin-specific functionality of the plugin.
  *
- * @link 		http://example.com
+ * @link 		http://enwebo.com
  * @since 		1.0.0
  *
- * @package 	Plugin_Name
- * @subpackage 	Plugin_Name/classes
+ * @package 	Eggz_Reservations
+ * @subpackage 	Eggz_Reservations/classes
  */
 
 /**
@@ -16,11 +16,11 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package 	Plugin_Name
- * @subpackage 	Plugin_Name/classes
- * @author 		Your Name <email@example.com>
+ * @package 	Eggz_Reservations
+ * @subpackage 	Eggz_Reservations/classes
+ * @author 		Your Name <contact@enwebo.com>
  */
-class Plugin_Name_Admin {
+class Eggz_Reservations_Admin {
 
 	/**
 	 * The plugin options.
@@ -80,8 +80,8 @@ class Plugin_Name_Admin {
 		// add_submenu_page( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function);
 
 		add_submenu_page(
-			'edit.php?post_type=posttypename',
-			apply_filters( $this->plugin_name . '-settings-page-title', esc_html__( 'Plugin Name Settings', 'plugin-name' ) ),
+			'edit.php?post_type=reservation',
+			apply_filters( $this->plugin_name . '-settings-page-title', esc_html__( 'Reservations Settings', 'plugin-name' ) ),
 			apply_filters( $this->plugin_name . '-settings-menu-title', esc_html__( 'Settings', 'plugin-name' ) ),
 			'manage_options',
 			$this->plugin_name . '-settings',
@@ -89,8 +89,8 @@ class Plugin_Name_Admin {
 		);
 
 		add_submenu_page(
-			'edit.php?post_type=posttypename',
-			apply_filters( $this->plugin_name . '-settings-page-title', esc_html__( 'Plugin Name Help', 'plugin-name' ) ),
+			'edit.php?post_type=reservation',
+			apply_filters( $this->plugin_name . '-settings-page-title', esc_html__( 'Reservations Help', 'plugin-name' ) ),
 			apply_filters( $this->plugin_name . '-settings-menu-title', esc_html__( 'Help', 'plugin-name' ) ),
 			'manage_options',
 			$this->plugin_name . '-help',
@@ -106,7 +106,7 @@ class Plugin_Name_Admin {
 	 */
 	public function enqueue_styles() {
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/plugin-name-admin.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/eggz-reservations-admin.css', array(), $this->version, 'all' );
 
 	} // enqueue_styles()
 
@@ -117,7 +117,7 @@ class Plugin_Name_Admin {
 	 */
 	public function enqueue_scripts() {
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/plugin-name-admin.js', array( 'jquery' ), $this->version, true );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/eggz-reservations-admin.js', array( 'jquery' ), $this->version, true );
 
 	} // enqueue_scripts()
 
@@ -334,7 +334,7 @@ class Plugin_Name_Admin {
 	 */
 	public function link_settings( $links ) {
 
-		$links[] = sprintf( '<a href="%s">%s</a>', admin_url( 'edit.php?post_type=posttypename&page=plugin-name-settings' ), esc_html__( 'Settings', 'plugin-name' ) );
+		$links[] = sprintf( '<a href="%s">%s</a>', admin_url( 'edit.php?post_type=reservation&page=eggz-reservations-settings' ), esc_html__( 'Settings', 'plugin-name' ) );
 
 		return $links;
 
@@ -354,7 +354,7 @@ class Plugin_Name_Admin {
 
 		if ( $file == PLUGIN_NAME_FILE ) {
 
-			$links[] = '<a href="http://twitter.com/slushman">Twitter</a>';
+			$links[] = '<a href="http://twitter.com/enwebo">Enwebo</a>';
 
 		}
 
@@ -397,12 +397,12 @@ class Plugin_Name_Admin {
 
 		add_settings_field(
 			'text-field',
-			apply_filters( $this->plugin_name . '-label-text-field', esc_html__( 'Text Field', 'plugin-name' ) ),
+			apply_filters( $this->plugin_name . '-label-text-field', esc_html__( 'Text Field', 'eggz-reservations' ) ),
 			array( $this, 'field_text' ),
 			$this->plugin_name,
 			$this->plugin_name . '-settingssection',
 			array(
-				'description' 	=> __( 'Text field description.', 'plugin-name' ),
+				'description' 	=> __( 'Text field description.', 'eggz-reservations' ),
 				'id' 			=> 'text-field',
 				'value' 		=> '',
 			)
@@ -410,7 +410,7 @@ class Plugin_Name_Admin {
 
 		add_settings_field(
 			'select-field',
-			apply_filters( $this->plugin_name . '-label-select-field', esc_html__( 'Select Field', 'plugin-name' ) ),
+			apply_filters( $this->plugin_name . '-label-select-field', esc_html__( 'Select Field', 'eggz-reservations' ) ),
 			array( $this, 'field_select' ),
 			$this->plugin_name,
 			$this->plugin_name . '-settingssection',
@@ -418,7 +418,7 @@ class Plugin_Name_Admin {
 				'description' 	=> __( 'Select description.', 'plugin-name' ),
 				'id' 			=> 'select-field',
 				'selections'	=> array(
-					array( 'label' => esc_html__( 'Label', 'plugin-name' ), 'value' => 'value' ),
+					array( 'label' => esc_html__( 'Label', 'eggz-reservations' ), 'value' => 'value' ),
 				),
 				'value' 		=> ''
 			)
@@ -426,12 +426,12 @@ class Plugin_Name_Admin {
 
 		add_settings_field(
 			'editor-field',
-			apply_filters( $this->plugin_name . 'label-editor-field', esc_html__( 'Editor Field', 'plugin-name' ) ),
+			apply_filters( $this->plugin_name . 'label-editor-field', esc_html__( 'Editor Field', 'eggz-reservations' ) ),
 			array( $this, 'field_editor' ),
 			$this->plugin_name,
 			$this->plugin_name . '-messages',
 			array(
-				'description' 	=> __( 'Editor field description.', 'plugin-name' ),
+				'description' 	=> __( 'Editor field description.', 'eggz-reservations' ),
 				'id' 			=> 'howtoapply'
 			)
 		);
@@ -447,7 +447,7 @@ class Plugin_Name_Admin {
 
 		add_settings_section(
 			$this->plugin_name . '-settingssection',
-			apply_filters( $this->plugin_name . '-section-settingssection-title', esc_html__( 'Settings Section', 'plugin-name' ) ),
+			apply_filters( $this->plugin_name . '-section-settingssection-title', esc_html__( 'Settings Section', 'eggz-reservations' ) ),
 			array( $this, 'section_settingssection' ),
 			$this->plugin_name
 		);
@@ -511,12 +511,12 @@ class Plugin_Name_Admin {
 
 		foreach ( $options as $option ) {
 
-			$sanitizer 			= new Plugin_Name_Sanitize();
+			$sanitizer 			= new Eggz_Reservations_Sanitize();
 			$valid[$option[0]] 	= $sanitizer->clean( $input[$option[0]], $option[1] );
 
 			if ( $valid[$option[0]] != $input[$option[0]] ) {
 
-				add_settings_error( $option[0], $option[0] . '_error', esc_html__( $option[0] . ' error.', 'plugin-name' ), 'error' );
+				add_settings_error( $option[0], $option[0] . '_error', esc_html__( $option[0] . ' error.', 'eggz-reservations' ), 'error' );
 
 			}
 

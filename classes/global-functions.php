@@ -17,11 +17,11 @@
  *
  * @return 	mixed 					The SVG code
  */
-function plugin_name_get_svg( $svg ) {
+function eggz_reservations_get_svg( $svg ) {
 
 	if ( empty( $svg ) ) { return; }
 
-	$list = Plugin_Name_Public::get_svg_list();
+	$list = Eggz_Reservations_Public::get_svg_list();
 
 	return $list[$svg];
 
@@ -53,12 +53,12 @@ function plugin_name_get_svg( $svg ) {
  *
  * @return 	string 						The path to the template
  */
-function plugin_name_get_template( $name, $location = '' ) {
+function eggz_reservations_get_template( $name, $location = '' ) {
 
 	$template = '';
 
 	$locations[] = "{$name}.php";
-	$locations[] = "/plugin-name/{$name}.php";
+	$locations[] = "/eggz-reservations/{$name}.php";
 	$locations[] = "/templates/{$name}.php";
 	$locations[] = "/views/{$name}.php";
 
@@ -67,7 +67,7 @@ function plugin_name_get_template( $name, $location = '' ) {
 	 *
 	 * @param 	array 		$locations 			File names and/or paths to check
 	 */
-	$locations 	= apply_filters( 'plugin-name-template-paths', $locations );
+	$locations 	= apply_filters( 'eggz-reservations-template-paths', $locations );
 	$template 	= locate_template( $locations, TRUE );
 
 	if ( empty( $template ) ) {
@@ -86,4 +86,4 @@ function plugin_name_get_template( $name, $location = '' ) {
 
 	return $template;
 
-} // plugin_name_get_template()
+} // eggz_reservations_get_template()

@@ -1,28 +1,28 @@
 <?php
 
-if ( ! function_exists( 'plugin_name_get_template' ) ) {
+if ( ! function_exists( 'eggz_reservations_templates' ) ) {
 
 	/**
 	 * Public API for adding and removing temmplates.
 	 *
 	 * @return 		object 			Instance of the templates class
 	 */
-	function plugin_name_get_template() {
+	function eggz_reservations_templates() {
 
-		return Plugin_Name_Templates::this();
+		return Eggz_Reservations_Templates::this();
 
-	} // plugin_name_get_template()
+	} // eggz_reservations_templates()
 
 } // check
 
 /**
  * The public-facing functionality of the plugin.
  *
- * @link 		http://example.com
+ * @link 		http://enwebo.com
  * @since 		1.0.0
  *
- * @package 	Plugin_Name
- * @subpackage 	Plugin_Name/classes
+ * @package 	Eggz_Reservations
+ * @subpackage 	Eggz_Reservations/classes
  */
 
 /**
@@ -30,11 +30,11 @@ if ( ! function_exists( 'plugin_name_get_template' ) ) {
  *
  * Defines the methods for creating the templates.
  *
- * @package 	Plugin_Name
- * @subpackage 	Plugin_Name/classes
+ * @package 	Eggz_Reservations
+ * @subpackage 	Eggz_Reservations/classes
  *
  */
-class Plugin_Name_Templates {
+class Eggz_Reservations_Templates {
 
 	/**
 	 * Private static reference to this class
@@ -52,6 +52,14 @@ class Plugin_Name_Templates {
 	 * @var 		string 			$options    The plugin options.
 	 */
 	private $options;
+	/**
+	 * The plugin options.
+	 *
+	 * @since 		1.0.0
+	 * @access 		private
+	 * @var 		string 			$options    The plugin options.
+	 */
+	private $plugin_name;
 
 	/**
 	 * Initialize the class and set its properties.
@@ -92,7 +100,7 @@ class Plugin_Name_Templates {
 	 */
 	public function loop_content_link_begin( $item, $meta = array() ) {
 
-		include plugin_name_get_template( 'loop-content-link-begin', 'loop' );
+		include eggz_reservations_get_template( 'loop-content-link-begin', 'loop' );
 
 	} // loop_content_link_begin()
 
@@ -104,7 +112,7 @@ class Plugin_Name_Templates {
 	 */
 	public function loop_content_link_end( $item, $meta = array() ) {
 
-		include plugin_name_get_template( 'loop-content-link-end', 'loop' );
+		include eggz_reservations_get_template( 'loop-content-link-end', 'loop' );
 
 	} // loop_content_link_end()
 
@@ -118,7 +126,7 @@ class Plugin_Name_Templates {
 	 */
 	public function loop_content_image( $item, $meta = array() ) {
 
-		include plugin_name_get_template( 'loop-content-image', 'loop' );
+		include eggz_reservations_get_template( 'loop-content-image', 'loop' );
 
 	} // loop_content_image()
 
@@ -127,7 +135,7 @@ class Plugin_Name_Templates {
 	 */
 	public function loop_content_meta_field( $item, $meta = array() ) {
 
-		include plugin_name_get_template( 'loop-content-meta-field', 'loop' );
+		include eggz_reservations_get_template( 'loop-content-meta-field', 'loop' );
 
 	} // loop_content_meta_field()
 
@@ -141,7 +149,7 @@ class Plugin_Name_Templates {
 	 */
 	public function loop_content_subtitle( $item, $meta = array() ) {
 
-		include plugin_name_get_template( 'loop-content-subtitle', 'loop' );
+		include eggz_reservations_get_template( 'loop-content-subtitle', 'loop' );
 
 	} // loop_content_subtitle()
 
@@ -155,7 +163,7 @@ class Plugin_Name_Templates {
 	 */
 	public function loop_content_title( $item, $meta = array() ) {
 
-		include plugin_name_get_template( 'loop-content-title', 'loop' );
+		include eggz_reservations_get_template( 'loop-content-title', 'loop' );
 
 	} // loop_content_title()
 
@@ -169,7 +177,7 @@ class Plugin_Name_Templates {
 	 */
 	public function loop_content_wrap_begin( $item, $meta = array() ) {
 
-		include plugin_name_get_template( 'loop-content-wrap-begin', 'loop' );
+		include eggz_reservations_get_template( 'loop-content-wrap-begin', 'loop' );
 
 	} // loop_content_wrap_begin()
 
@@ -181,7 +189,7 @@ class Plugin_Name_Templates {
 	 */
 	public function loop_content_wrap_end( $item, $meta = array() ) {
 
-		include plugin_name_get_template( 'loop-content-wrap-end', 'loop' );
+		include eggz_reservations_get_template( 'loop-content-wrap-end', 'loop' );
 
 	} // loop_content_wrap_end()
 
@@ -209,7 +217,7 @@ class Plugin_Name_Templates {
 
 		}
 
-		include plugin_name_get_template( 'loop-wrap-begin', 'loop' );
+		include eggz_reservations_get_template( 'loop-wrap-begin', 'loop' );
 
 	} // list_wrap_begin()
 
@@ -220,7 +228,7 @@ class Plugin_Name_Templates {
 	 */
 	public function loop_wrap_end( $args ) {
 
-		include plugin_name_get_template( 'loop-wrap-end', 'loop' );
+		include eggz_reservations_get_template( 'loop-wrap-end', 'loop' );
 
 	} // list_wrap_end()
 
@@ -234,51 +242,51 @@ class Plugin_Name_Templates {
 	} // set_options()
 
 	/**
-	 * Includes the single posttypename meta field
+	 * Includes the single reservation meta field
 	 *
 	 * @param 		array 		$meta 		The post metadata
 	 */
-	public function single_posttypename_meta_field( $meta ) {
+	public function single_reservation_meta_field( $meta ) {
 
-		include plugin_name_get_template( 'single-posttypename-metafield', 'single' );
+		include eggz_reservations_get_template( 'single-reservation-metafield', 'single' );
 
 	} // single_posttypename_meta_field()
 
 	/**
-	 * Includes the single posttypename content
+	 * Includes the single reservation content
 	 */
-	public function single_posttypename_content() {
+	public function single_reservation_content() {
 
-		include plugin_name_get_template( 'single-posttypename-content', 'single' );
+		include eggz_reservations_get_template( 'single-reservation-content', 'single' );
 
 	} // single_posttypename_content()
 
 	/**
-	 * Includes the single posttypename post title
+	 * Includes the single reservation post title
 	 */
-	public function single_posttypename_posttitle() {
+	public function single_reservation_posttitle() {
 
-		include plugin_name_get_template( 'single-posttypename-posttitle', 'single' );
+		include eggz_reservations_get_template( 'single-reservation-posttitle', 'single' );
 
-	} // single_posttypename_posttitle()
+	} // single_reservation_posttitle()
 
 	/**
-	 * Includes the single posttypename post title
+	 * Includes the single reservation post title
 	 */
-	public function single_posttypename_subtitle( $meta ) {
+	public function single_reservation_subtitle( $meta ) {
 
-		include plugin_name_get_template( 'single-posttypename-subtitle', 'single' );
+		include eggz_reservations_get_template( 'single-reservation-subtitle', 'single' );
 
-	} // single_posttypename_subtitle()
+	} // single_reservation_subtitle()
 
 	/**
 	 * Include the single posttypename thumbnail
 	 */
-	public function single_posttypename_thumbnail() {
+	public function single_reservation_thumbnail() {
 
-		include plugin_name_get_template( 'single-posttypename-thumbnail', 'single' );
+		include eggz_reservations_get_template( 'single-reservation-thumbnail', 'single' );
 
-	} // single_posttypename_thumbnail()
+	} // single_reservation_thumbnail()
 
 	/**
 	 * Returns a reference to this class. Used for removing

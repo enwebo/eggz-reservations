@@ -6,8 +6,8 @@
  * @link 		http://example.com
  * @since 		1.0.0
  *
- * @package 	Plugin_Name
- * @subpackage 	Plugin_Name/classes
+ * @package 	Eggz_Reservations
+ * @subpackage 	Eggz_Reservations/classes
  */
 
 /**
@@ -16,11 +16,11 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package 	Plugin_Name
- * @subpackage 	Plugin_Name/classes
+ * @package 	Eggz_Reservations
+ * @subpackage 	Eggz_Reservations/classes
  * @author 		Your Name <email@example.com>
  */
-class Plugin_Name_Public {
+class Eggz_Reservations_Public {
 
 	/**
 	 * The post meta data
@@ -82,7 +82,7 @@ class Plugin_Name_Public {
 	 */
 	public function enqueue_styles() {
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/plugin-name-public.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/eggz-reservations-public.css', array(), $this->version, 'all' );
 
 	} // enqueue_styles()
 
@@ -93,7 +93,7 @@ class Plugin_Name_Public {
 	 */
 	public function enqueue_scripts() {
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/plugin-name-public.js', array( 'jquery' ), $this->version, true );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/eggz-reservations-public.js', array( 'jquery' ), $this->version, true );
 
 	} // enqueue_scripts()
 

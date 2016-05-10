@@ -9,7 +9,7 @@
  * @subpackage 	Plugin_Name/classes
  */
 
-class Plugin_Name_Sanitize {
+class Eggz_Reservations_Sanitize {
 
 	/**
 	 * Constructor
@@ -88,7 +88,7 @@ class Plugin_Name_Sanitize {
 		/**
 		 * Add additional santization after the default .
 		 */
-		do_action( 'plugin_name_post_sanitize', $sanitized );
+		do_action( 'eggz_reservations_post_sanitize', $sanitized );
 
 		return $sanitized;
 

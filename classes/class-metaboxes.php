@@ -2,21 +2,21 @@
 /**
  * The metabox-specific functionality of the plugin.
  *
- * @link 		http://slushman.com
+ * @link 		http://enwebo.com
  * @since 		1.0.0
  *
- * @package 	Plugin_Name
- * @subpackage 	Plugin_Name/classes
+ * @package 	Eggz_Reservations
+ * @subpackage 	Eggz_Reservations/classes
  */
 
 /**
  * The metabox-specific functionality of the plugin.
  *
- * @package 	Plugin_Name
- * @subpackage 	Plugin_Name/classes
- * @author 		Slushman <chris@slushman.com>
+ * @package 	Eggz_Reservations
+ * @subpackage 	Eggz_Reservations/classes
+ * @author 		Slushman <contact@enwebo.com>
  */
-class Plugin_Name_Admin_Metaboxes {
+class Eggz_Reservations_Admin_Metaboxes {
 
 	/**
 	 * The post meta data
@@ -72,14 +72,14 @@ class Plugin_Name_Admin_Metaboxes {
 		// add_meta_box( $id, $title, $callback, $screen, $context, $priority, $callback_args );
 
 		add_meta_box(
-			'plugin_name_metabox_name',
-			apply_filters( $this->plugin_name . '-metabox-name-title', esc_html__( 'Metabox Name', 'plugin-name' ) ),
+			'eggz_reservations_table',
+			apply_filters( $this->plugin_name . '-metabox-name-title', esc_html__( 'Table', 'plugin-name' ) ),
 			array( $this, 'metabox' ),
-			'posttypename',
+			'reservation',
 			'normal',
 			'default',
 			array(
-				'file' => 'metabox-name'
+				'file' => 'table'
 			)
 		);
 
@@ -117,7 +117,7 @@ class Plugin_Name_Admin_Metaboxes {
 		$nonces 		= array();
 		$nonce_check 	= 0;
 
-		$nonces[] 	= 'nonce_plugin_name_metabox_name';
+		$nonces[] 	= 'nonce_eggz_reservations_table';
 
 		foreach ( $nonces as $nonce ) {
 
@@ -159,7 +159,7 @@ class Plugin_Name_Admin_Metaboxes {
 	public function metabox( $post, $params ) {
 
 		if ( ! is_admin() ) { return; }
-		if ( 'posttypename' != $post->post_type ) { return; }
+		if ( 'reservation' != $post->post_type ) { return; }
 
 		include( plugin_dir_path( dirname( __FILE__ ) ) . 'views/view-metabox-' . $params['args']['file'] . '.php' );
 
@@ -171,7 +171,7 @@ class Plugin_Name_Admin_Metaboxes {
 	public function metabox_subtitle( $post ) {
 
 		if ( ! is_admin() ) { return; }
-		if ( 'posttypename' !== $post->post_type ) { return; }
+		if ( 'reservation' !== $post->post_type ) { return; }
 
 		include( plugin_dir_path( dirname( __FILE__ ) ) . 'views/view-metabox-subtitle.php' );
 
@@ -185,7 +185,7 @@ class Plugin_Name_Admin_Metaboxes {
 		global $post;
 
 		if ( empty( $post ) ) { return; }
-		if ( 'posttypename' != $post->post_type ) { return; }
+		if ( 'reservation' != $post->post_type ) { return; }
 
 		$this->meta = get_post_custom( $post->ID );
 
@@ -204,7 +204,7 @@ class Plugin_Name_Admin_Metaboxes {
 
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) { return $post_id; }
 		if ( ! current_user_can( 'edit_post', $post_id ) ) { return $post_id; }
-		if ( 'posttypename' != $post->post_type ) { return $post_id; }
+		if ( 'reservation' != $post->post_type ) { return $post_id; }
 
 		$nonce_check = $this->check_nonces( $_POST );
 
@@ -215,7 +215,7 @@ class Plugin_Name_Admin_Metaboxes {
 		foreach ( $metas as $meta ) {
 
 			$value 		= ( empty( $this->meta[$meta[0]][0] ) ? '' : $this->meta[$meta[0]][0] );
-			$sanitizer 	= new Plugin_Name_Sanitize();
+			$sanitizer 	= new Eggz_Reservations_Sanitize();
 			$new_value 	= $sanitizer->clean( $_POST[$meta[0]], $meta[1] );
 
 			update_post_meta( $post_id, $meta[0], $new_value );

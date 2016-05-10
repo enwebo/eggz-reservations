@@ -10,7 +10,7 @@
  * @subpackage 	Plugin_Name/classes
  */
 
-class Plugin_Name_Shared {
+class Eggz_Reservations_Shared {
 
 	/**
 	 * The ID of this plugin.
@@ -131,7 +131,7 @@ class Plugin_Name_Shared {
 
 		$args['no_found_rows']				= true;
 		$args['order'] 						= $params['order'];
-		$args['post_type'] 					= 'posttypename';
+		$args['post_type'] 					= 'reservation';
 		$args['post_status'] 				= 'publish';
 		$args['posts_per_page'] 			= absint( $params['quantity'] );
 		$args['update_post_term_cache'] 	= false;
@@ -143,13 +143,13 @@ class Plugin_Name_Shared {
 
 		if ( empty( $params ) ) { return $args; }
 
-		if ( ! empty( $params['taxonomyname'] ) ) {
+		if ( ! empty( $params['table'] ) ) {
 
 			$args['tax_query'][0]['field'] 		= 'slug';
-			$args['tax_query'][0]['taxonomy'] 	= 'taxonomyname';
-			$args['tax_query'][0]['terms'] 		= $params['taxonomyname'];
+			$args['tax_query'][0]['taxonomy'] 	= 'table';
+			$args['tax_query'][0]['terms'] 		= $params['table'];
 
-			unset( $args['taxonomyname'] );
+			unset( $args['table'] );
 
 		}
 

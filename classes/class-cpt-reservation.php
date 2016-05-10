@@ -12,7 +12,7 @@
  * @subpackage 	Plugin_Name/classes
  * @author 		Slushman <chris@slushman.com>
  */
-class Plugin_Name_CPT_PostTypeName {
+class Eggz_Reservations_CPT_Reservation {
 
 	/**
 	 * The ID of this plugin.
@@ -59,7 +59,7 @@ class Plugin_Name_CPT_PostTypeName {
 	 *
 	 * @return 		string 							The column content
 	 */
-	public function posttypename_column_content( $column_name, $post_id  ) {
+	public function reservation_column_content( $column_name, $post_id  ) {
 
 		if ( empty( $post_id ) ) { return; }
 
@@ -80,6 +80,18 @@ class Plugin_Name_CPT_PostTypeName {
 			echo '</a>';
 
 		}
+		if ( 'table' === $column_name ) {
+			// $args = array('orderby' => 'name', 'order' => 'ASC', 'fields' => 'all');
+			$terms = wp_get_post_terms ( $post_id, 'table', array('orderby' => 'name', 'order' => 'ASC', 'fields' => 'all') );
+
+			foreach ( $terms as $term ) {
+				echo '<a href="' . esc_url( get_edit_term_link( $term, 'table', 'reservation' ) ) .  '">';
+				echo $term->name;
+				echo '</a>';
+
+			}
+			
+		}
 
 	} // posttypename_column_content()
 
@@ -90,11 +102,11 @@ class Plugin_Name_CPT_PostTypeName {
 	 *
 	 * @return 		array 						The modified query vars array
 	 */
-	public function posttypename_order_sorting( $vars ) {
+	public function reservation_order_sorting( $vars ) {
 
 		if ( empty( $vars ) ) { return $vars; }
 		if ( ! is_admin() ) { return $vars; }
-		if ( ! isset( $vars['post_type'] ) || 'posttypename' !== $vars['post_type'] ) { return $vars; }
+		if ( ! isset( $vars['post_type'] ) || 'reservation' !== $vars['post_type'] ) { return $vars; }
 
 		if ( isset( $vars['orderby'] ) && 'sortable-column' === $vars['orderby'] ) {
 
@@ -108,25 +120,27 @@ class Plugin_Name_CPT_PostTypeName {
 		return $vars;
 
 	} // posttypename_order_sorting()
+	
 
 	/**
-	 * Registers additional columns for the Plugin_Name admin listing
+	 * Registers additional columns for the Eggz_Reservations admin listing
 	 * and reorders the columns.
 	 *
 	 * @param 		array 		$columns 		The current columns
 	 *
 	 * @return 		array 						The modified columns
 	 */
-	public function posttypename_register_columns( $columns ) {
+	public function reservation_register_columns( $columns ) {
 
 		$new['cb'] 				= '<input type="checkbox" />';
-		$new['thumbnail'] 		= __( 'Thumbnail', 'plugin-name' );
-		$new['sortable-column'] = __( 'Sortable Column', 'plugin-name' );
+		$new['title'] 		= __( 'Title', 'eggz-reservations' );
+		$new['table'] 		= __( 'Table', 'eggz-reservations' );
+		$new['thumbnail'] 		= __( 'Thumbnail', 'eggz-reservations' );
 		$new['date'] 			= __( 'Date' );
 
 		return $new;
 
-	} // posttypename_register_columns()
+	} // reservation_register_columns()
 
 	/**
 	 * Registers sortable columns
@@ -135,23 +149,23 @@ class Plugin_Name_CPT_PostTypeName {
 	 *
 	 * @return 		array 							The modified sortable columns
 	 */
-	public function posttypename_sortable_columns( $sortables ) {
+	public function reservation_sortable_columns( $sortables ) {
 
-		$sortables['sortable-column'] = 'display-order';
+		$sortables['table'] = 'table-order';
 
 		return $sortables;
 
-	} // posttypename_sortable_columns()
+	} // reservation_sortable_columns()
 
 	/**
 	 * Creates a new custom post type
 	 */
-	public static function new_cpt_posttypename() {
+	public static function new_cpt_reservation() {
 
 		$cap_type 	= 'post';
-		$plural 	= 'posttypes';
-		$single 	= 'posttype';
-		$cpt_name 	= 'posttypename';
+		$plural 	= 'Reservations';
+		$single 	= 'Reservation';
+		$cpt_name 	= 'reservation';
 
 		$opts['can_export']								= TRUE;
 		$opts['capability_type']						= $cap_type;
@@ -160,7 +174,7 @@ class Plugin_Name_CPT_PostTypeName {
 		$opts['has_archive']							= FALSE;
 		$opts['hierarchical']							= FALSE;
 		$opts['map_meta_cap']							= TRUE;
-		$opts['menu_icon']								= 'dashicons-groups';
+		$opts['menu_icon']								= 'dashicons-store';
 		$opts['menu_position']							= 25;
 		$opts['public']									= TRUE;
 		$opts['publicly_querable']						= TRUE;
@@ -171,7 +185,7 @@ class Plugin_Name_CPT_PostTypeName {
 		$opts['show_in_menu']							= TRUE;
 		$opts['show_in_nav_menu']						= TRUE;
 		$opts['show_ui']								= TRUE;
-		$opts['supports']								= array( 'title', 'editor', 'thumbnail' );
+		$opts['supports']								= array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' );
 		$opts['taxonomies']								= array();
 
 		$opts['capabilities']['delete_others_posts']	= "delete_others_{$cap_type}s";
@@ -188,31 +202,31 @@ class Plugin_Name_CPT_PostTypeName {
 		$opts['capabilities']['read_post']				= "read_{$cap_type}";
 		$opts['capabilities']['read_private_posts']		= "read_private_{$cap_type}s";
 
-		$opts['labels']['add_new']						= esc_html__( "Add New {$single}", 'plugin-name' );
-		$opts['labels']['add_new_item']					= esc_html__( "Add New {$single}", 'plugin-name' );
-		$opts['labels']['all_items']					= esc_html__( $plural, 'plugin-name' );
-		$opts['labels']['edit_item']					= esc_html__( "Edit {$single}" , 'plugin-name');
-		$opts['labels']['menu_name']					= esc_html__( $plural, 'plugin-name' );
-		$opts['labels']['name']							= esc_html__( $plural, 'plugin-name' );
-		$opts['labels']['name_admin_bar']				= esc_html__( $single, 'plugin-name' );
-		$opts['labels']['new_item']						= esc_html__( "New {$single}", 'plugin-name' );
-		$opts['labels']['not_found']					= esc_html__( "No {$plural} Found", 'plugin-name' );
-		$opts['labels']['not_found_in_trash']			= esc_html__( "No {$plural} Found in Trash", 'plugin-name' );
-		$opts['labels']['parent_item_colon']			= esc_html__( "Parent {$plural} :", 'plugin-name' );
-		$opts['labels']['search_items']					= esc_html__( "Search {$plural}", 'plugin-name' );
-		$opts['labels']['singular_name']				= esc_html__( $single, 'plugin-name' );
-		$opts['labels']['view_item']					= esc_html__( "View {$single}", 'plugin-name' );
+		$opts['labels']['add_new']						= esc_html__( "Add New {$single}", 'eggz-reservations' );
+		$opts['labels']['add_new_item']					= esc_html__( "Add New {$single}", 'eggz-reservations' );
+		$opts['labels']['all_items']					= esc_html__( $plural, 'eggz-reservations' );
+		$opts['labels']['edit_item']					= esc_html__( "Edit {$single}" , 'eggz-reservations');
+		$opts['labels']['menu_name']					= esc_html__( $plural, 'eggz-reservations' );
+		$opts['labels']['name']							= esc_html__( $plural, 'eggz-reservations' );
+		$opts['labels']['name_admin_bar']				= esc_html__( $single, 'eggz-reservations' );
+		$opts['labels']['new_item']						= esc_html__( "New {$single}", 'eggz-reservations' );
+		$opts['labels']['not_found']					= esc_html__( "No {$plural} Found", 'eggz-reservations' );
+		$opts['labels']['not_found_in_trash']			= esc_html__( "No {$plural} Found in Trash", 'eggz-reservations' );
+		$opts['labels']['parent_item_colon']			= esc_html__( "Parent {$plural} :", 'eggz-reservations' );
+		$opts['labels']['search_items']					= esc_html__( "Search {$plural}", 'eggz-reservations' );
+		$opts['labels']['singular_name']				= esc_html__( $single, 'eggz-reservations' );
+		$opts['labels']['view_item']					= esc_html__( "View {$single}", 'eggz-reservations' );
 
 		$opts['rewrite']['ep_mask']						= EP_PERMALINK;
 		$opts['rewrite']['feeds']						= FALSE;
 		$opts['rewrite']['pages']						= TRUE;
-		$opts['rewrite']['slug']						= esc_html__( $cpt_name, 'plugin-name' );
+		$opts['rewrite']['slug']						= esc_html__( $cpt_name, 'eggz-reservations' );
 		$opts['rewrite']['with_front']					= TRUE;
 
-		$opts = apply_filters( 'plugin-name-cpt-posttypename-options', $opts );
+		$opts = apply_filters( 'eggz-reservations-cpt-reservation-options', $opts );
 
 		register_post_type( $cpt_name, $opts );
 
-	} // new_cpt_posttypename()
+	} // new_cpt_reservation()
 
 } // class
