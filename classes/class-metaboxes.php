@@ -194,11 +194,12 @@ class Eggz_Reservations_Admin_Metaboxes {
 	/**
 	 * Saves metabox data
 	 *
-	 * @since 		1.0.0
-	 * @access 		public
+	 * @since        1.0.0
+	 * @access        public
 	 *
-	 * @param 		int 		$post_id 		The post ID
-	 * @param 		object 		$post 			The post object
+	 * @param        int $post_id The post ID
+	 * @param        object $post The post object
+	 * @return 		int
 	 */
 	public function validate_meta( $post_id, $post ) {
 

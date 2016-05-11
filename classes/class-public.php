@@ -121,6 +121,29 @@ class Eggz_Reservations_Public {
 	} // set_options()
 
 	/**
+	 * Adds a default single view template for a job opening
+	 *
+	 * @param 	string 		$template 		The name of the template
+	 * @return 	mixed 						The single template
+	 */
+	public function single_cpt_template( $template ) {
+
+		global $post;
+
+		$return = $template;
+
+	    if ( $post->post_type == 'reservation' ) {
+
+			$return = eggz_reservations_get_template( 'single-reservation' );
+
+		}
+
+		return $return;
+
+	} // single_cpt_template()
+
+
+	/**
 	 * Processes shortcode shortcodename
 	 *
 	 * @param 	array 	$atts 		Shortcode attributes

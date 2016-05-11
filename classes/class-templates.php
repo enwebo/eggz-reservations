@@ -197,23 +197,23 @@ class Eggz_Reservations_Templates {
 	 * Includes the list wrap start template file and sets the value of $class.
 	 *
 	 * If the taxonomyname shortcode attribute is used, it sets $class as the
-	 * taxonomyname or taxonomynames. Otherwise, $class is blank.
+	 * table or tables. Otherwise, $class is blank.
 	 *
 	 * @param 		array 		$args 		The shortcode attributes
 	 */
 	public function loop_wrap_begin( $args ) {
 
-		if ( empty( $args['taxonomyname'] ) ) {
+		if ( empty( $args['table'] ) ) {
 
 			$class = '';
 
-		} elseif ( is_array( $args['taxonomyname'] ) ) {
+		} elseif ( is_array( $args['table'] ) ) {
 
-			$class = str_replace( ',', ' ', $args['taxonomyname'] );
+			$class = str_replace( ',', ' ', $args['table'] );
 
 		} else {
 
-			$class = $args['taxonomyname'];
+			$class = $args['table'];
 
 		}
 

@@ -237,7 +237,7 @@ class Eggz_Reservations {
 
 		$this->loader->action( 'add_meta_boxes_reservation', $plugin_metaboxes, 'add_metaboxes' );
 		$this->loader->action( 'save_post_reservation', $plugin_metaboxes, 'validate_meta', 10, 2 );
-		$this->loader->action( 'edit_form_after_title', $plugin_metaboxes, 'metabox_subtitle', 10, 2 );
+		//$this->loader->action( 'edit_form_after_title', $plugin_metaboxes, 'metabox_subtitle', 10, 2 );
 		$this->loader->action( 'add_meta_boxes_reservation', $plugin_metaboxes, 'set_meta' );
 		$this->loader->filter( 'post_type_labels_reservation', $plugin_metaboxes, 'change_featured_image_labels', 10, 1 );
 

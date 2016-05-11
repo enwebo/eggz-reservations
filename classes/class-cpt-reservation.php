@@ -132,11 +132,11 @@ class Eggz_Reservations_CPT_Reservation {
 	 */
 	public function reservation_register_columns( $columns ) {
 
-		$new['cb'] 				= '<input type="checkbox" />';
+		$new['cb'] 			= '<input type="checkbox" />';
 		$new['title'] 		= __( 'Title', 'eggz-reservations' );
 		$new['table'] 		= __( 'Table', 'eggz-reservations' );
-		$new['thumbnail'] 		= __( 'Thumbnail', 'eggz-reservations' );
-		$new['date'] 			= __( 'Date' );
+		$new['thumbnail'] 	= __( 'Thumbnail', 'eggz-reservations' );
+		$new['date'] 		= __( 'Date' );
 
 		return $new;
 
