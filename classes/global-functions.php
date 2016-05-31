@@ -10,6 +10,27 @@
  */
 
 /**
+ * Returns the result of the get_max global function
+ */
+function eggz_reservations_get_max( $array ) {
+
+	if ( empty( $array ) ) { return '$array is empty!'; }
+
+ 		$count = array();
+
+		foreach ( $array as $name => $field ) {
+
+			$count[$name] = count( $field );
+
+		} //
+
+		$count = max( $count );
+
+		return $count;
+
+} // eggz_reservations_get_max()
+
+/**
  * Returns the requested SVG
  *
  * @param 	string 		$svg 		The name of the icon to return
@@ -86,4 +107,7 @@ function eggz_reservations_get_template( $name, $location = '' ) {
 
 	return $template;
 
-} // eggz_reservations_get_template()
+}
+
+
+

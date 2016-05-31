@@ -57,7 +57,7 @@ class Eggz_Reservations_Admin_Metaboxes {
 		$this->plugin_name 	= $plugin_name;
 		$this->version 		= $version;
 
-	}
+	} // __construct()
 
 	/**
 	 * Registers metaboxes with WordPress
@@ -73,13 +73,13 @@ class Eggz_Reservations_Admin_Metaboxes {
 
 		add_meta_box(
 			'eggz_reservations_table',
-			apply_filters( $this->plugin_name . '-metabox-name-title', esc_html__( 'Table', 'plugin-name' ) ),
+			apply_filters( $this->plugin_name . '-metabox-name-title', esc_html__( 'Reservation Details', 'eggz-reservations' ) ),
 			array( $this, 'metabox' ),
 			'reservation',
 			'normal',
 			'default',
 			array(
-				'file' => 'table'
+				'file' => 'details'
 			)
 		);
 
@@ -95,10 +95,10 @@ class Eggz_Reservations_Admin_Metaboxes {
 	 */
 	public function change_featured_image_labels( $labels ) {
 
-		$labels->featured_image 		= 'Featured Image';
-		$labels->set_featured_image 	= 'Set featured image';
-		$labels->remove_featured_image 	= 'Remove featured image';
-		$labels->use_featured_image 	= 'Use as featured image';
+		$labels->featured_image 		= esc_html__( 'Featured Image', 'eggz-reservations' );
+		$labels->set_featured_image 	= esc_html__( 'Set featured image', 'eggz-reservations' );
+		$labels->remove_featured_image 	= esc_html__( 'Remove featured image', 'eggz-reservations' );
+		$labels->use_featured_image 	= esc_html__( 'Use as featured image', 'eggz-reservations' );
 
 		return $labels;
 
@@ -144,6 +144,7 @@ class Eggz_Reservations_Admin_Metaboxes {
 		$fields = array();
 
 		$fields[] 	= array( 'field-name', 'field-type', 'Field Label' );
+		$fields[] = array( 'repeat-test', 'repeater', array( array( 'test1', 'text' ), array( 'test2', 'text' ), array( 'test3', 'text' ) ) );
 
 		return $fields;
 
@@ -161,7 +162,7 @@ class Eggz_Reservations_Admin_Metaboxes {
 		if ( ! is_admin() ) { return; }
 		if ( 'reservation' != $post->post_type ) { return; }
 
-		include( plugin_dir_path( dirname( __FILE__ ) ) . 'views/view-metabox-' . $params['args']['file'] . '.php' );
+		include( plugin_dir_path( dirname( __FILE__ ) ) . 'views/metaboxes/metabox-' . $params['args']['file'] . '.php' );
 
 	} // metabox()
 
@@ -173,7 +174,7 @@ class Eggz_Reservations_Admin_Metaboxes {
 		if ( ! is_admin() ) { return; }
 		if ( 'reservation' !== $post->post_type ) { return; }
 
-		include( plugin_dir_path( dirname( __FILE__ ) ) . 'views/view-metabox-subtitle.php' );
+		include( plugin_dir_path( dirname( __FILE__ ) ) . 'views/metaboxes/metabox-subtitle.php' );
 
 	} // metabox_subtitle()
 
@@ -191,21 +192,30 @@ class Eggz_Reservations_Admin_Metaboxes {
 
 	} // set_meta()
 
+
 	/**
 	 * Saves metabox data
 	 *
-	 * @since        1.0.0
-	 * @access        public
+	 * Repeater section works like this:
+	 *  	Loops through meta fields
+	 *  		Loops through submitted data
+	 *  		Sanitizes each field into $clean array
+	 *   	Gets max of $clean to use in FOR loop
+	 *   	FOR loops through $clean, adding each value to $new_value as an array
 	 *
-	 * @param        int $post_id The post ID
-	 * @param        object $post The post object
-	 * @return 		int
+	 * @since 	1.0.0
+	 * @access 	public
+	 * @param 	int 		$post_id 		The post ID
+	 * @param 	object 		$object 		The post object
+	 * @return 	void
 	 */
-	public function validate_meta( $post_id, $post ) {
+	public function validate_meta( $post_id, $object ) {
 
+		//wp_die( '<pre>' . print_r( $_POST ) . '</pre>' );
+		//
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) { return $post_id; }
 		if ( ! current_user_can( 'edit_post', $post_id ) ) { return $post_id; }
-		if ( 'reservation' != $post->post_type ) { return $post_id; }
+		if ( 'job' !== $object->post_type ) { return $post_id; }
 
 		$nonce_check = $this->check_nonces( $_POST );
 
@@ -215,13 +225,45 @@ class Eggz_Reservations_Admin_Metaboxes {
 
 		foreach ( $metas as $meta ) {
 
-			$value 		= ( empty( $this->meta[$meta[0]][0] ) ? '' : $this->meta[$meta[0]][0] );
-			$sanitizer 	= new Eggz_Reservations_Sanitize();
-			$new_value 	= $sanitizer->clean( $_POST[$meta[0]], $meta[1] );
+			$name = $meta[0];
+			$type = $meta[1];
 
-			update_post_meta( $post_id, $meta[0], $new_value );
+			if ( 'repeater' === $type && is_array( $meta[2] ) ) {
 
-			unset( $sanitizer );
+				$clean = array();
+
+				foreach ( $meta[2] as $field ) {
+
+					foreach ( $_POST[$field[0]] as $data ) {
+
+						if ( empty( $data ) ) { continue; }
+
+						$clean[$field[0]][] = $this->sanitizer( $field[1], $data );
+
+					} // foreach
+
+				} // foreach
+
+				$count 		= eggz_reservations_get_max( $clean );
+				$new_value 	= array();
+
+				for ( $i = 0; $i < $count; $i++ ) {
+
+					foreach ( $clean as $field_name => $field ) {
+
+						$new_value[$i][$field_name] = $field[$i];
+
+					} // foreach $clean
+
+				} // for
+
+			} else {
+
+				$new_value = $this->sanitizer( $type, $_POST[$name] );
+
+			}
+
+			update_post_meta( $post_id, $name, $new_value );
 
 		} // foreach
 

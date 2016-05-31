@@ -1,0 +1,139 @@
+/**
+ * All of the CSS for your public-facing functionality should be
+ * included in this file.
+ */
+
+.reservation-box {
+    list-style: none;
+    margin: 0;
+}
+
+#datepicker span.input-group-addon,
+#timepicker span.input-group-addon {
+    width: 0px;
+    overflow: hidden;
+    height: 0px;
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+input,
+select {
+    font-size: 13px;
+    color: #0e1845;
+    border: 1px solid #cfd1da;
+    border-radius: 0;
+    box-shadow: none;
+    padding: .375rem .75rem;
+    background-color: #fff;
+    background-image: none;
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+.eggz-reservations-title {
+  font-size: 15px;
+  font-family: "Source Code Pro";
+  color: rgb(9, 19, 65);
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.reservation-details {
+    display: none;
+}
+
+.detail-label {
+    float: left;
+    min-width: 160px;
+}
+
+.detail-row {
+    margin-bottom: 10px;
+}
+
+.reservation-heading-wrap {
+    border: 2px solid #eee;
+    display: block;
+    overflow: hidden;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.reservation-heading-wrap:hover {
+    cursor: pointer;
+    border-color:#d0ae5e;
+}
+
+.eggz-reservations-title  {
+  font-size: 15px;
+  font-family: "Source Code Pro";
+  color: rgb(9, 19, 65);
+  text-transform: uppercase;
+  line-height: 1em;
+}
+
+.eggz-reservations-date {
+    line-height: 1em;
+    margin: 0;
+    font-size: 13px;
+}
+
+
+.eggz-reservations-heading {
+    float: left;
+    padding: 25px;
+}
+
+.eggz-reservations-table {
+    float: right;
+    padding: 0;
+    height: 100%;
+}
+
+.eggz-reservations-table .dropdown button {
+    padding: 15px;
+    height: 90px;
+    width: 90px;
+    border: none;
+    border-left: 2px solid #eee;
+}
+
+.eggz-reservations-tools {
+    text-align: center;
+    line-height: 50px;
+    font-size: 20px;
+    position: relative;
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
+.tools:before {
+    content: "";
+    border-bottom: 2px solid #eee;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 24px;
+}
+
+.tools a {
+    background: #fff;
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    position: relative;
+    z-index: 999;
+    margin: 0;
+}
+
+.field-name{
+  float:left;
+  margin-right: 10px;
+  width: 40%;
+}
+
+
+
+

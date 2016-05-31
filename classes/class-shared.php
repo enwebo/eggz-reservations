@@ -75,7 +75,7 @@ class Eggz_Reservations_Shared {
 	} // get_cache_name()
 
 	/**
-	 * Returns a post object of posttypename posts
+	 * Returns a post object of reservation posts
 	 *
 	 * Check for cache first, if it exists, returns that
 	 * If not, gets the ordered posts, collects their IDS,

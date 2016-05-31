@@ -40,7 +40,7 @@ class Eggz_Reservations_CPT_Reservation {
 		$this->plugin_name 	= $plugin_name;
 		$this->version 		= $version;
 
-	}
+	} // __construct()
 
 	/**
 	 * Registers additional image sizes
@@ -80,23 +80,45 @@ class Eggz_Reservations_CPT_Reservation {
 			echo '</a>';
 
 		}
-		if ( 'table' === $column_name ) {
-			// $args = array('orderby' => 'name', 'order' => 'ASC', 'fields' => 'all');
+
+		if ( 'rtable' === $column_name ) {
+
 			$terms = wp_get_post_terms ( $post_id, 'table', array('orderby' => 'name', 'order' => 'ASC', 'fields' => 'all') );
 
 			foreach ( $terms as $term ) {
 				echo '<a href="' . esc_url( get_edit_term_link( $term, 'table', 'reservation' ) ) .  '">';
 				echo $term->name;
-				echo '</a>';
+				echo '</a> ';
 
 			}
 			
 		}
 
-	} // posttypename_column_content()
+		if ( 'rdate' === $column_name ) {
+
+			$date = get_post_meta( $post_id, 'reservation_date', true );
+			echo $date;
+			
+		}
+
+		if ( 'rtime' === $column_name ) {
+
+			$time = get_post_meta( $post_id, 'reservation_time', true );
+			echo $time;
+			
+		}
+
+		if ( 'rpersons' === $column_name ) {
+
+			$persons = get_post_meta( $post_id, 'reservation_persons', true );
+			echo $persons;
+			
+		}
+
+	} // reservation_column_content()
 
 	/**
-	 * Sorts the posttypename admin list by the display order
+	 * Sorts the reservation admin list by the display order
 	 *
 	 * @param 		array 		$vars 			The current query vars array
 	 *
@@ -119,7 +141,7 @@ class Eggz_Reservations_CPT_Reservation {
 
 		return $vars;
 
-	} // posttypename_order_sorting()
+	} // reservation_order_sorting()
 	
 
 	/**
@@ -133,10 +155,12 @@ class Eggz_Reservations_CPT_Reservation {
 	public function reservation_register_columns( $columns ) {
 
 		$new['cb'] 			= '<input type="checkbox" />';
-		$new['title'] 		= __( 'Title', 'eggz-reservations' );
-		$new['table'] 		= __( 'Table', 'eggz-reservations' );
-		$new['thumbnail'] 	= __( 'Thumbnail', 'eggz-reservations' );
-		$new['date'] 		= __( 'Date' );
+		$new['title'] 		= __( 'Name', 'eggz-reservations' );
+		$new['rtable'] 		= __( 'Table', 'eggz-reservations' );
+		$new['rdate'] 		= __( 'Date', 'eggz-reservations' );
+		$new['rtime'] 		= __( 'Hour', 'eggz-reservations' );
+		$new['rpersons'] 	= __( 'Persons', 'eggz-reservations' );
+		$new['date'] 		= __( 'Added on', 'eggz-reservations' );
 
 		return $new;
 
@@ -151,7 +175,10 @@ class Eggz_Reservations_CPT_Reservation {
 	 */
 	public function reservation_sortable_columns( $sortables ) {
 
-		$sortables['table'] = 'table-order';
+		$sortables['rtable'] = 'table-order';
+		$sortables['rdate'] = 'date-order';
+		$sortables['rtime'] = 'time-order';
+		$sortables['rpersons'] = 'persons-order';
 
 		return $sortables;
 
@@ -185,7 +212,7 @@ class Eggz_Reservations_CPT_Reservation {
 		$opts['show_in_menu']							= TRUE;
 		$opts['show_in_nav_menu']						= TRUE;
 		$opts['show_ui']								= TRUE;
-		$opts['supports']								= array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' );
+		$opts['supports']								= array( 'title', 'editor', 'author', 'custom-fields' );
 		$opts['taxonomies']								= array();
 
 		$opts['capabilities']['delete_others_posts']	= "delete_others_{$cap_type}s";

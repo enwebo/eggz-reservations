@@ -65,6 +65,25 @@ class Eggz_Reservations_Admin {
 
 	} // __construct()
 
+
+	/**
+     * Adds notices for the admin to display.
+     * Saves them in a temporary plugin option.
+     * This method is called on plugin activation, so its needs to be static.
+     */
+    public static function add_admin_notices() {
+    	
+    	$notices 	= get_option( 'eggz_reservations_deferred_admin_notices', array() );
+  		
+  		$notices[] 	= array( 'class' => 'updated', 'notice' => esc_html__( 'Eggz Reservations: Custom Activation Message', 'eggz-reservations' ) );
+  		$notices[] 	= array( 'class' => 'error', 'notice' => esc_html__( 'Eggz Reservations: Problem Activation Message', 'eggz-reservations' ) );
+  		
+  		apply_filters( 'eggz_reservations_admin_notices', $notices );
+  		update_option( 'eggz_reservations_deferred_admin_notices', $notices );
+
+    } // add_admin_notices
+
+
 	/**
 	 * Adds a settings page link to a menu
 	 *
@@ -99,6 +118,48 @@ class Eggz_Reservations_Admin {
 
 	} // add_menu()
 
+
+	/**
+     * Manages any updates or upgrades needed before displaying notices.
+     * Checks plugin version against version required for displaying
+     * notices.
+     */
+	public function admin_notices_init() {
+
+		$current_version = '1.0.0';
+
+		if ( $this->version !== $current_version ) {
+
+			// Do whatever upgrades needed here.
+			update_option('my_plugin_version', $current_version);
+
+			$this->add_notice();
+
+		}
+
+	} // admin_notices_init()
+
+	/**
+	 * Displays admin notices
+	 *
+	 * @return 	string 			Admin notices
+	 */
+	public function display_admin_notices() {
+
+		$notices = get_option( 'eggz_reservations_deferred_admin_notices' );
+
+		if ( empty( $notices ) ) { return; }
+
+		foreach ( $notices as $notice ) {
+
+			echo '<div class="' . esc_attr( $notice['class'] ) . '"><p>' . $notice['notice'] . '</p></div>';
+
+		}
+
+		delete_option( 'eggz_reservations_deferred_admin_notices' );
+
+    } // display_admin_notices()
+
 	/**
 	 * Register the stylesheets for the admin area.
 	 *
@@ -118,6 +179,12 @@ class Eggz_Reservations_Admin {
 	public function enqueue_scripts() {
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/eggz-reservations-admin.js', array( 'jquery' ), $this->version, true );
+		wp_enqueue_script( $this->plugin_name .'-repeater', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/eggz-reservations-repeater.js', array( 'jquery' ), $this->version, true );
+		wp_enqueue_script( 'jquery-ui-datepicker' );
+		
+		$localize['repeatertitle'] = __( 'File Name', 'eggz-reservations' );
+		
+		wp_localize_script( 'eggz-reservations', 'erdata', $localize );
 
 	} // enqueue_scripts()
 
@@ -150,9 +217,32 @@ class Eggz_Reservations_Admin {
 
 		}
 
-		include( plugin_dir_path( dirname( __FILE__ ) ) . 'views/view-field-checkbox.php' );
+		include( plugin_dir_path( dirname( __FILE__ ) ) . 'views/fields/field-checkbox.php' );
 
 	} // field_checkbox()
+
+	/**
+	 * Creates an editor field
+	 *
+	 * NOTE: ID must only be lowercase letter, no spaces, dashes, or underscores.
+	 *
+	 * @param 	array 		$args 			The arguments for the field
+	 * @return 	string 						The HTML field
+	 */
+	public function field_editor( $args ) {
+		
+		$defaults['description'] 	= '';
+		$defaults['settings'] 		= array( 'textarea_name' => $this->plugin_name . '-options[' . $args['id'] . ']' );
+		$defaults['value'] 			= '';
+		
+		$defaults = apply_filters( $this->plugin_name . '-field-editor-options-defaults', $defaults );
+		$atts = wp_parse_args( $args, $defaults );
+		if ( ! empty( $this->options[$atts['id']] ) ) {
+			$atts['value'] = $this->options[$atts['id']];
+		}
+		include( plugin_dir_path( dirname( __FILE__ ) ) . 'views/fields/field-editor.php' );
+	} // field_editor()
+
 
 	/**
 	 * Creates a set of radios field
@@ -183,9 +273,53 @@ class Eggz_Reservations_Admin {
 
 		}
 
-		include( plugin_dir_path( dirname( __FILE__ ) ) . 'views/view-field-radios.php' );
+		include( plugin_dir_path( dirname( __FILE__ ) ) . 'views/fields/field-radios.php' );
 
 	} // field_radios()
+
+
+	/**
+	 * Creates a repeater field
+	 *
+	 * Note: label is blank since its created in the Settings API
+	 *
+	 * @param 	array 		$args 			The arguments for the field
+	 *
+	 * @return 	string 						The HTML field
+	 */
+	public function field_repeater( $args ) {
+
+		$defaults['class'] 			= 'repeater';
+		$defaults['fields'] 		= array();
+		$defaults['id'] 			= '';
+		$defaults['label-add'] 		= esc_html__( 'Add Item', 'eggz-reservations' );
+		$defaults['label-edit'] 	= esc_html__( 'Edit Item', 'eggz-reservations' );
+		$defaults['label-header'] 	= esc_html__( 'Item Name', 'eggz-reservations' );
+		$defaults['label-remove'] 	= esc_html__( 'Remove Item', 'eggz-reservations' );
+		$defaults['title-field'] 	= '';
+/*
+		$defaults['name'] 			= $this->plugin_name . '-options[' . $args['id'] . ']';
+*/
+		$defaults 	= apply_filters( $this->plugin_name . '-field-repeater-options-defaults', $defaults );
+		$setatts 	= wp_parse_args( $args, $defaults );
+		$count 		= 1;
+		$repeater 	= array();
+
+		if ( ! empty( $this->options[$setatts['id']] ) ) {
+
+			$repeater = maybe_unserialize( $this->options[$setatts['id']] );
+
+		}
+
+		if ( ! empty( $repeater ) ) {
+
+			$count = count( $repeater );
+
+		}
+
+		include( plugin_dir_path( dirname( __FILE__ ) ) . 'views/fields/field-repeater.php' );
+	} // field_repeater()
+
 
 	/**
 	 * Creates a select field
@@ -232,7 +366,7 @@ class Eggz_Reservations_Admin {
 
 		}
 
-		include( plugin_dir_path( dirname( __FILE__ ) ) . 'views/view-field-select.php' );
+		include( plugin_dir_path( dirname( __FILE__ ) ) . 'views/fields/field-select.php' );
 
 	} // field_select()
 
@@ -267,7 +401,7 @@ class Eggz_Reservations_Admin {
 
 		}
 
-		include( plugin_dir_path( dirname( __FILE__ ) ) . 'views/view-field-text.php' );
+		include( plugin_dir_path( dirname( __FILE__ ) ) . 'views/fields/field-text.php' );
 
 	} // field_text()
 
@@ -303,7 +437,7 @@ class Eggz_Reservations_Admin {
 
 		}
 
-		include( plugin_dir_path( dirname( __FILE__ ) ) . 'views/view-field-textarea.php' );
+		include( plugin_dir_path( dirname( __FILE__ ) ) . 'views/fields/field-textarea.php' );
 
 	} // field_textarea()
 
@@ -316,8 +450,12 @@ class Eggz_Reservations_Admin {
 
 		$options = array();
 
-		$options[] = array( 'text-field', 'text', '' );
+		$options[] = array( 'days-for-reservations', 'text', '' );
+		$options[] = array( 'persons-for-reservations', 'text', '' );
 		$options[] = array( 'select-field', 'select', '' );
+		$options[] = array( 'howtoapply', 'editor', '' );
+		$options[] = array( 'open-hours', 'repeater', array( array( 'day', 'text' ), array( 'open_hours', 'text' ), array( 'close_hours', 'text' ) ) );
+
 
 		return $options;
 
@@ -371,7 +509,7 @@ class Eggz_Reservations_Admin {
 	 */
 	public function page_help() {
 
-		include( plugin_dir_path( dirname( __FILE__ ) ) . 'views/view-page-help.php' );
+		include( plugin_dir_path( dirname( __FILE__ ) ) . 'views/pages/page-help.php' );
 
 	} // page_help()
 
@@ -384,7 +522,7 @@ class Eggz_Reservations_Admin {
 	 */
 	public function page_options() {
 
-		include( plugin_dir_path( dirname( __FILE__ ) ) . 'views/view-page-settings.php' );
+		include( plugin_dir_path( dirname( __FILE__ ) ) . 'views/pages/page-settings.php' );
 
 	} // page_options()
 
@@ -396,14 +534,26 @@ class Eggz_Reservations_Admin {
 		// add_settings_field( $id, $title, $callback, $menu_slug, $section, $args );
 
 		add_settings_field(
-			'text-field',
-			apply_filters( $this->plugin_name . '-label-text-field', esc_html__( 'Text Field', 'eggz-reservations' ) ),
+			'days-for-reservations',
+			apply_filters( $this->plugin_name . '-label-text-field', esc_html__( 'Number of days for reservations', 'eggz-reservations' ) ),
 			array( $this, 'field_text' ),
 			$this->plugin_name,
 			$this->plugin_name . '-settingssection',
 			array(
-				'description' 	=> __( 'Text field description.', 'eggz-reservations' ),
-				'id' 			=> 'text-field',
+				'description' 	=> __( 'Number of days for upcoming reservations.', 'eggz-reservations' ),
+				'id' 			=> 'days-for-reservations',
+				'value' 		=> '',
+			)
+		);
+		add_settings_field(
+			'persons-for-reservations',
+			apply_filters( $this->plugin_name . '-label-text-field', esc_html__( 'Number of max persons per reservation', 'eggz-reservations' ) ),
+			array( $this, 'field_text' ),
+			$this->plugin_name,
+			$this->plugin_name . '-settingssection',
+			array(
+				'description' 	=> __( 'Number of days for upcoming reservations.', 'eggz-reservations' ),
+				'id' 			=> 'persons-for-reservations',
 				'value' 		=> '',
 			)
 		);
@@ -415,21 +565,77 @@ class Eggz_Reservations_Admin {
 			$this->plugin_name,
 			$this->plugin_name . '-settingssection',
 			array(
-				'description' 	=> __( 'Select description.', 'plugin-name' ),
+				'description' 	=> __( 'Select description.', 'eggz-reservations' ),
 				'id' 			=> 'select-field',
 				'selections'	=> array(
-					array( 'label' => esc_html__( 'Label', 'eggz-reservations' ), 'value' => 'value' ),
+					array( 'label' => esc_html__( 'Label', 'eggz-reservations' ), 'value' => '1' ),
+					array( 'label' => esc_html__( 'Label 2', 'eggz-reservations' ), 'value' => '2' ),
 				),
 				'value' 		=> ''
 			)
 		);
 
 		add_settings_field(
-			'editor-field',
+			'repeater-test',
+			apply_filters( $this->plugin_name . 'label-repeat-test', esc_html__( 'Open Hours', 'eggz-reservations' ) ),
+			array( $this, 'field_repeater' ),
+			$this->plugin_name,
+			$this->plugin_name . '-settingssection',
+			array(
+				'description' 	=> 'Instructions for applying (contact email, phone, fax, address, etc).',
+				'fields' 		=> array(
+					array(
+						'text' => array(
+							'class' 		=> '',
+							'description' 	=> '',
+							'id' 			=> 'day',
+							'label' 		=> '',
+							'name' 			=> $this->plugin_name . '-options[day]',
+							'placeholder' 	=> 'Monday',
+							'type' 			=> 'text',
+							'value' 		=> ''
+						),
+					),
+					array(
+						'text' => array(
+							'class' 		=> '',
+							'description' 	=> '',
+							'id' 			=> 'open_hours',
+							'label' 		=> '',
+							'name' 			=> $this->plugin_name . '-options[open_hours]',
+							'placeholder' 	=> '10: 00 AM',
+							'type' 			=> 'text',
+							'value' 		=> ''
+						),
+					),
+					array(
+						'text' => array(
+							'class' 		=> '',
+							'description' 	=> '',
+							'id' 			=> 'close_hours',
+							'label' 		=> '',
+							'name' 			=> $this->plugin_name . '-options[close_hours]',
+							'placeholder' 	=> '12: 00 PM',
+							'type' 			=> 'text',
+							'value' 		=> ''
+						),
+					),
+				),
+				'id' 			=> 'open-hours',
+				'label-add' 	=> 'Add Hours',
+				'label-edit' 	=> 'Edit Hours',
+				'label-header' 	=> 'Day',
+				'label-remove' 	=> 'Remove Hours',
+				'title-field' 	=> 'day'
+			)
+		);
+
+		add_settings_field(
+			'how-to-apply',
 			apply_filters( $this->plugin_name . 'label-editor-field', esc_html__( 'Editor Field', 'eggz-reservations' ) ),
 			array( $this, 'field_editor' ),
 			$this->plugin_name,
-			$this->plugin_name . '-messages',
+			$this->plugin_name . '-settingssection',
 			array(
 				'description' 	=> __( 'Editor field description.', 'eggz-reservations' ),
 				'id' 			=> 'howtoapply'
@@ -471,6 +677,23 @@ class Eggz_Reservations_Admin {
 
 	} // register_settings()
 
+
+	private function sanitizer( $type, $data ) {
+
+		if ( empty( $type ) ) { return; }
+		if ( empty( $data ) ) { return; }
+
+		$return 	= '';
+		$sanitizer 	= new Eggz_Reservations_Sanitize();
+
+		$return = $sanitizer->clean( $data , $type );
+
+		unset( $sanitizer );
+
+		return $return;
+
+	} // sanitizer()
+
 	/**
 	 * Displays a settings section
 	 *
@@ -482,7 +705,7 @@ class Eggz_Reservations_Admin {
 	 */
 	public function section_settingssection( $params ) {
 
-		include( plugin_dir_path( dirname( __FILE__ ) ) . 'views/view-section-settingssection.php' );
+		include( plugin_dir_path( dirname( __FILE__ ) ) . 'views/sections/section-settingssection.php' );
 
 	} // section_settingssection()
 
@@ -506,13 +729,54 @@ class Eggz_Reservations_Admin {
 	 */
 	public function validate_options( $input ) {
 
+		// wp_die( print_r( $input ) );
+		//
 		$valid 		= array();
 		$options 	= $this->get_options_list();
 
 		foreach ( $options as $option ) {
 
-			$sanitizer 			= new Eggz_Reservations_Sanitize();
-			$valid[$option[0]] 	= $sanitizer->clean( $input[$option[0]], $option[1] );
+			$name = $option[0];
+			$type = $option[1];
+
+			if ( 'repeater' === $type && is_array( $option[2] ) ) {
+
+				$clean = array();
+
+				foreach ( $option[2] as $field ) {
+
+					foreach ( $input[$field[0]] as $data ) {
+
+						if ( empty( $data ) ) { continue; }
+
+						$clean[$field[0]][] = $this->sanitizer( $field[1], $data );
+
+					} // foreach
+
+				} // foreach
+
+				$count = eggz_reservations_get_max( $clean );
+
+				for ( $i = 0; $i < $count; $i++ ) {
+
+					foreach ( $clean as $field_name => $field ) {
+
+						$valid[$option[0]][$i][$field_name] = $field[$i];
+
+					} // foreach $clean
+
+				} // for
+
+			} else {
+
+				$valid[$option[0]] = $this->sanitizer( $type, $input[$name] );
+
+			}
+			/*if ( ! isset( $input[$option[0]] ) ) { continue; }
+
+			$sanitizer = new Eggz_Reservations_Sanitize();
+
+			$valid[$option[0]] = $sanitizer->clean( $input[$option[0]], $option[1] );
 
 			if ( $valid[$option[0]] != $input[$option[0]] ) {
 
@@ -521,6 +785,7 @@ class Eggz_Reservations_Admin {
 			}
 
 			unset( $sanitizer );
+			*/
 
 		}
 

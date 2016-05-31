@@ -114,7 +114,7 @@ class Eggz_Reservations {
 		/**
 		 * The class responsible for sanitizing user input
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'classes/class-sanitize.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'classes/class-sanitizer.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
@@ -133,12 +133,12 @@ class Eggz_Reservations {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'classes/class-metaboxes.php';
 
 		/**
-		 * The class responsible for defining all actions relating to the posttypename custom post type.
+		 * The class responsible for defining all actions relating to the reservation custom post type.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'classes/class-cpt-reservation.php';
 
 		/**
-		 * The class responsible for defining all actions relating to the TaxonomyName taxonomy.
+		 * The class responsible for defining all actions relating to the Table taxonomy.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'classes/class-tax-table.php';
 
@@ -165,7 +165,7 @@ class Eggz_Reservations {
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the Plugin_Name_i18n class in order to set the domain and to register the hook
+	 * Uses the Eggz_Reservations_i18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
 	 * @since    1.0.0
@@ -210,7 +210,6 @@ class Eggz_Reservations {
 	private function define_cpt_and_tax_hooks() {
 
 		$plugin_cpt_reservation = new Eggz_Reservations_CPT_Reservation( $this->get_plugin_name(), $this->get_version() );
-
 		$this->loader->action( 'init', $plugin_cpt_reservation, 'new_cpt_reservation' );
 		$this->loader->filter( 'manage_reservation_posts_columns', $plugin_cpt_reservation, 'reservation_register_columns' );
 		$this->loader->action( 'manage_reservation_posts_custom_column', $plugin_cpt_reservation, 'reservation_column_content', 10, 2 );
@@ -256,8 +255,19 @@ class Eggz_Reservations {
 
 		$this->loader->action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		
+		$this->loader->action( 'wp_ajax_nopriv_eggz_add_reservation', $plugin_public, 'eggz_add_reservation' );
+		$this->loader->action( 'wp_ajax_eggz_add_reservation', $plugin_public, 'eggz_add_reservation' );
+
+		$this->loader->action( 'wp_ajax_nopriv_eggz_delete_reservation', $plugin_public, 'eggz_add_reservation' );
+		$this->loader->action( 'wp_ajax_eggz_delete_reservation', $plugin_public, 'eggz_add_reservation' );
+
+		$this->loader->action( 'wp_ajax_nopriv_eggz_reservation_details', $plugin_public, 'eggz_reservation_details' );
+		$this->loader->action( 'wp_ajax_eggz_reservation_details', $plugin_public, 'eggz_reservation_details' );
+
 		$this->loader->filter( 'single_template', $plugin_public, 'single_cpt_template', 11 );
-		$this->loader->shortcode( 'shortcodename', $plugin_public, 'shortcode_shortcodename' );
+		$this->loader->shortcode( 'eggz-reservations-form', $plugin_public, 'eggz_reservations_form_book_a_table' );
+		$this->loader->shortcode( 'eggz-reservations-list', $plugin_public, 'eggzreservations' );
 
 		/**
 		 * Action instead of template tag.
@@ -268,7 +278,11 @@ class Eggz_Reservations {
 		 *
 		 * @link 	http://nacin.com/2010/05/18/rethinking-template-tags-in-plugins/
 		 */
-		$this->loader->action( 'actionname', $plugin_public, 'shortcode_shortcodename' );
+		$this->loader->action( 'actionname', $plugin_public, 'eggzreservations' );
+
+		
+		// $this->loader->action( 'eggz-reservations-before-loop', $plugin_public, 'eggz_reservations_form_book_a_table' );
+		// $this->loader->action( 'eggz-reservations-before-loop', $plugin_public, 'eggz_reservations_form_reservation_details', 10, 3 );
 
 	} // define_public_hooks()
 
@@ -280,29 +294,32 @@ class Eggz_Reservations {
 	 */
 	private function define_template_hooks() {
 
-		$plugin_templates = new Eggz_Reservations_Templates();
+		$plugin_templates = new Eggz_Reservations_Templates( $this->get_plugin_name(), $this->get_version() );
 
 		// Loop
 		$this->loader->action( 'eggz-reservations-before-loop', 			$plugin_templates, 'loop_wrap_begin', 10, 1 );
+		$this->loader->action( 'eggz-reservations-before-loop', 			$plugin_templates, 'loop_content_filters', 20, 1 );
+		$this->loader->action( 'eggz-reservations-before-loop', 			$plugin_templates, 'loop_content_tools', 30, 1 );
 
 		$this->loader->action( 'eggz-reservations-before-loop-content', 	$plugin_templates, 'loop_content_wrap_begin', 10, 2 );
-		$this->loader->action( 'eggz-reservations-before-loop-content', 	$plugin_templates, 'loop_content_link_begin', 15, 2 );
 
-		$this->loader->action( 'eggz-reservations-loop-content', 			$plugin_templates, 'loop_content_image', 10, 2 );
-		$this->loader->action( 'eggz-reservations-loop-content', 			$plugin_templates, 'loop_content_title', 15, 2 );
-		$this->loader->action( 'eggz-reservations-loop-content', 			$plugin_templates, 'loop_content_subtitle', 20, 2 );
+		$this->loader->action( 'eggz-reservations-loop-content', 			$plugin_templates, 'loop_content_heading', 10, 2 );
+		$this->loader->action( 'eggz-reservations-loop-content', 			$plugin_templates, 'loop_content_details', 20, 2 );
 
-		$this->loader->action( 'eggz-reservations-loop-content', 			$plugin_templates, 'loop_content_link_end', 10, 2 );
-		$this->loader->action( 'eggz-reservations-loop-content', 			$plugin_templates, 'loop_content_wrap_end', 90, 2 );
+		$this->loader->action( 'eggz-reservations-after-loop-content', 		$plugin_templates, 'loop_content_wrap_end', 10, 2 );
 
 		$this->loader->action( 'eggz-reservations-after-loop', 				$plugin_templates, 'loop_wrap_end', 10, 1 );
 
 		// Single
-		$this->loader->action( 'eggz-reservations-single-content', 			$plugin_templates, 'single_reservation_thumbnail', 10 );
-		$this->loader->action( 'eggz-reservations-single-content', 			$plugin_templates, 'single_reservation_posttitle', 15 );
-		$this->loader->action( 'eggz-reservations-single-content', 			$plugin_templates, 'single_reservation_subtitle', 20, 1 );
-		$this->loader->action( 'eggz-reservations-single-content', 			$plugin_templates, 'single_reservation_content', 25 );
-		$this->loader->action( 'eggz-reservations-single-content', 			$plugin_templates, 'single_reservation_meta_field', 30, 1 );
+		// $this->loader->action( 'eggz-reservations-single-content', 			$plugin_templates, 'single_reservation_thumbnail', 10 );
+		$this->loader->action( 'eggz-reservations-single-content', 			$plugin_templates, 'single_reservation_posttitle', 10 );
+		// $this->loader->action( 'eggz-reservations-single-content', 			$plugin_templates, 'single_reservation_subtitle', 20, 1 );
+		$this->loader->action( 'eggz-reservations-single-content', 			$plugin_templates, 'single_reservation_content', 20 );
+		$this->loader->action( 'eggz-reservations-single-content', 			$plugin_templates, 'single_reservation_date', 30 );
+		$this->loader->action( 'eggz-reservations-single-content', 			$plugin_templates, 'single_reservation_time', 40 );
+		$this->loader->action( 'eggz-reservations-single-content', 			$plugin_templates, 'single_reservation_persons', 50 );
+		$this->loader->action( 'eggz-reservations-single-content', 			$plugin_templates, 'single_reservation_special_requests', 60 );
+		$this->loader->action( 'eggz-reservations-single-content', 			$plugin_templates, 'single_reservation_meta_field', 70, 1 );
 
 	} // define_template_hooks()
 

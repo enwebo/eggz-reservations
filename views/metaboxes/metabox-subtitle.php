@@ -28,10 +28,9 @@ if ( ! empty( $this->meta[$atts['id']][0] ) ) {
 
 }
 
-apply_filters( $this->plugin_name . '-field-subtitle', $atts );
+$atts = apply_filters( $this->plugin_name . '-field-subtitle', $atts );
 
 ?><p><?php
-
-include( plugin_dir_path( __FILE__ ) . 'view-field-text.php' );
+include( plugin_dir_path( dirname( __FILE__ ) ) . 'fields/field-text.php' );
 
 ?></p>

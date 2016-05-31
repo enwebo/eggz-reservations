@@ -184,4 +184,5 @@ class Eggz_Reservations_Sanitize {
 
 	} // sanitize_random()
 
+
 } // class

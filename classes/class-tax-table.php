@@ -43,7 +43,7 @@ class Eggz_Reservations_Tax_Table {
 	} // __construct()
 
 	/**
-	 * Creates a new taxonomy for a custom post type
+	 * Creates a new taxonomy for a reservation
 	 *
 	 * @since 	1.0.0
 	 * @access 	public
