@@ -40,7 +40,7 @@
             stepping: 15,
             format: 'MM/DD/YYYY',
             minDate: moment({hour: 10, minute: 0, seconds: 0}),
-        	maxDate: moment().add(dateDaysToShow, 'days').hour(24)
+        		maxDate: moment().add(dateDaysToShow, 'days').hour(24)
         });
 
     	$('#timepicker').datetimepicker({
@@ -117,7 +117,7 @@
 		        var name = $( '.add-reservation-name' ).val();
 		        var date = $( '#datepicker input' ).val();
 		        var time = $( '#timepicker input' ).val();
-		        var persons = $( '.personspicker' ).val();
+		        var persons = $( '.personspicker button' ).attr('title');
 		        var special_requests = $( '.add-reservation-special-requests' ).val();
 
 		        $.ajax({
@@ -193,13 +193,32 @@
 
 		});
 
-		$( '.reservation-box' ).on( 'click', function(e) {
-	        e.preventDefault();
-	        $( '.reservation-details' ).hide();
-	        $( this ).find( '.reservation-details' ).show();
-		});
-	});
+		var $reservation_box = $(".reservation-content");
 
+		$( '.eggz-reservation-trigger' ).on( 'click', function(e) {
+      e.preventDefault();
+      $( '.eggz-reservation-details' ).slideUp('fast');
+      $( '.reservation-content' ).removeClass('open');
+      $( this ).parents( '.reservation-content' ).find( '.eggz-reservation-details' ).slideToggle('fast', 'easeInCubic');
+      $( this ).parents( '.reservation-content' ).addClass('open');
+		});
+		
+		 $(window).on("click.Bst", function(event){		
+			if ( 
+        $reservation_box.has(event.target).length == 0 //checks if descendants of $reservation_box was clicked
+        &&
+        !$reservation_box.is(event.target) //checks if the $reservation_box itself was clicked
+      ){
+				$( '.eggz-reservation-details' ).fadeOut('fast');
+				$( '.reservation-content' ).removeClass('open');
+			} else {
+				return false;
+			}
+		});
+
+		$('.selectpicker').selectpicker();
+
+	});
 
 
 })( jQuery );

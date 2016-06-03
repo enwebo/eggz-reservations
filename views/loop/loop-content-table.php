@@ -14,7 +14,8 @@ if ( $terms ) {
 	$current_table_name = $terms[0]->{'name'};
 }
 
-?><div class="eggz-reservations-table">
+?>
+<!-- <div class="eggz-reservations-table">
 
 	<div class="dropdown">
 		<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -37,4 +38,4 @@ if ( $terms ) {
 		</ul>
 	</div>
 
-</div>
+</div> -->

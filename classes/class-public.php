@@ -106,14 +106,16 @@ class Eggz_Reservations_Public {
 		wp_enqueue_script( 'jquery-ui-datepicker' );
 		wp_enqueue_style( 'jquery-style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css');
 		
-		wp_enqueue_style( $this->plugin_name . '-tether', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/tether.min.css' );
 		wp_enqueue_style( $this->plugin_name . '-bootstrap', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/bootstrap.css' );
+		wp_enqueue_style( $this->plugin_name . '-tether', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/tether.min.css' );
 		wp_enqueue_style( $this->plugin_name . '-timepicker', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/bootstrap-datetimepicker.min.css' );
+		wp_enqueue_style( $this->plugin_name . '-select', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/bootstrap-select.min.css' );
 		
 		wp_enqueue_script( $this->plugin_name . '-tether', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/tether.min.js', array( 'jquery' ) );
 		wp_enqueue_script( $this->plugin_name . '-bootstrap', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/bootstrap.js', array( 'jquery' ) );
 		wp_enqueue_script( $this->plugin_name . '-moment', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/moment.js', array( 'jquery' ) );
 		wp_enqueue_script( $this->plugin_name . '-timepicker', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/bootstrap-datetimepicker.js', array( 'jquery' ) );
+		wp_enqueue_script( $this->plugin_name . '-select', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/bootstrap-select.js', array( 'jquery' ) );
 
 
 
@@ -177,7 +179,7 @@ class Eggz_Reservations_Public {
 			'request' => array(
 				'meta-field' => 'reservation_special_request',
 				'name' => __( "Special Request", "eggz-reservations" ),
-				'value' => '-'
+				'value' => '<a class="empty-field">-</a>'
 			)
 		);
 
@@ -410,9 +412,11 @@ class Eggz_Reservations_Public {
 							<div class='col-sm-4'>
 							    <div class="form-group">
 							        <div class='input-group date' id='datepicker'>
-							            <input type='text' class="form-control" />
+							            <input type='text' class="form-control" placeholder="MM/DD/YYYY" />
 							            <span class="input-group-addon">
-							                <span class="glyphicon glyphicon-calendar"></span>
+						                <span class="bs-caret">
+						                	<span class="caret"></span>
+						                </span>
 							            </span>
 							        </div>
 							    </div>
@@ -420,9 +424,11 @@ class Eggz_Reservations_Public {
 							<div class='col-sm-4'>
 							    <div class="form-group">
 							        <div class='input-group date' id='timepicker'>
-							            <input type='text' class="form-control" />
+							            <input type='text' class="form-control" placeholder="HH:MM" />
 							            <span class="input-group-addon">
-							                <span class="glyphicon glyphicon-calendar"></span>
+						                <span class="bs-caret">
+						                	<span class="caret"></span>
+						                </span>
 							            </span>
 							        </div>
 							    </div>
@@ -430,7 +436,7 @@ class Eggz_Reservations_Public {
 						  
 						  	<div class="col-sm-4">
 						  		<!-- Person Select -->
-						  		<select class="personspicker">
+						  		<select class="personspicker selectpicker">
 						  		<?php
 						  		$personsno = $this->get_reservation_persons_limit(12);
 
@@ -438,11 +444,11 @@ class Eggz_Reservations_Public {
 
 						  			if( $i == 0 ){
 
-						  				echo '<option data-tokens="#">' . ( $i+1 ) . ' ' . __("Person", "eggz-reservations") . '</option>';
+						  				echo '<option value="' . ( $i+1 ) . '">' . ( $i+1 ) . ' ' . __("Person", "eggz-reservations") . '</option>';
 
 						  			}else{
 
-						  				echo '<option data-tokens="#">' . ( $i+1 ) . ' ' . __("Persons", "eggz-reservations") . '</option>';
+						  				echo '<option value="' . ( $i+1 ) . '">' . ( $i+1 ) . ' ' . __("Persons", "eggz-reservations") . '</option>';
 
 						  			}
 
@@ -454,9 +460,11 @@ class Eggz_Reservations_Public {
 						  	</div>
 
 					  	</div>
+
 					  	<div class="bottom-btn-container align-center">
-							<a class="btn-link-2" id="book-a-table-trigger">Book a table</a>
-						</div>
+								<button type="button" class="btn-link-2" id="book-a-table-trigger">Book a table</button>
+							</div>
+
 				  	</div>
 				</div>
 			</form>
@@ -480,40 +488,35 @@ class Eggz_Reservations_Public {
 
 				<h2 class="reservation-details special-line"><?php _e( "Reservation details", "eggz-reservations" ); ?></h2>
 				<p>
-					<span class="reservation-date"><?php echo $_POST['date']; ?></span> - 
-					<span class="reservation-date"><?php echo $_POST['time']; ?></span> - 
-					<span class="reservation-date"><?php echo $_POST['persons']; ?></span>
+					<span class="reservation-date"><?php _e('Date', 'eggz-reservations' ); echo ': '; echo $_POST['date']; ?></span> - 
+					<span class="reservation-time"><?php _e('Time', 'eggz-reservations' ); echo ': '; echo $_POST['time']; ?></span> - 
+					<span class="reservation-persons"><?php _e('Persons', 'eggz-reservations' ); echo ': '; echo $_POST['persons']; ?></span> 
 				</p>
 
-				<div>
-					<label for="send-reservation-email">
-						<?php _e( 'Email', 'eggz-reservations' ); ?>
-					</label>
-					<input type="text" name="email" class="send-reservation-email datepicker" required aria-required="true">
+				<div class="row row-no-gutters">
+
+					<div class="col-sm-6">
+						<input type="text" name="email" class="send-reservation-email datepicker" required aria-required="true" placeholder="<?php _e( 'Email', 'eggz-reservations' ); ?>">
+					</div>
+
+					<div class="col-sm-6">
+						<input type="text" name="send-reservation-phone" class="send-reservation-phone timepicker" required aria-required="true" placeholder="<?php _e( 'Phone', 'eggz-reservations' ); ?>">
+					</div>
+
+					<div class="col-sm-12">
+						<input type="text" name="full-name" class="send-reservation-full-name" placeholder="<?php _e( 'Full Name', 'eggz-reservations' ); ?>">
+					</div>
+
+					<div class="col-sm-12">
+						<textarea name="send-reservation-special-request" class="send-reservation-special-request" placeholder="<?php _e( 'Special Requests', 'eggz-reservations' ); ?>"></textarea>
+					</div>
+
 				</div>
 
-				<div>
-					<label for="send-reservation-phone">
-						<?php _e( 'Phone', 'eggz-reservations' ); ?>
-					</label>
-					<input type="text" name="send-reservation-phone" class="send-reservation-phone timepicker" required aria-required="true">
+				<div class="bottom-btn-container align-center">
+					<button type="submit" class="btn-link-2 add-reservation"><?php esc_attr_e( 'Send', 'eggz-reservations'); ?></button
 				</div>
 
-				<div>
-					<label for="send-reservation-full-name">
-						<?php _e( 'Full Name', 'eggz-reservations' ); ?>
-					</label>
-					<input type="text" name="full-name" class="send-reservation-full-name">
-				</div>
-
-				<div>
-					<label for="send-reservation-special-request">
-						<?php _e( 'Special Requests', 'eggz-reservations' ); ?>
-					</label>
-					<input type="text" name="send-reservation-special-request" class="send-reservation-special-request">
-				</div>
-
-				<input type="submit" class="add-reservation" value="<?php esc_attr_e( 'Send', 'eggz-reservations'); ?>">
 			</form>
 
 			<?php
@@ -538,19 +541,21 @@ class Eggz_Reservations_Public {
 		ob_start(); ?>
 			
 		<h2 class="reservation-details special-line"><?php _e( "Reservation was successful :)", "eggz-reservations" ); ?></h2>
-		<?php 
-		foreach ($fields as $field) { ?>
-			<div class="details">
-				<div class="detail-row">
-					<div class="detail-label"><?php echo $field['name']; ?>:</div>
-					<div class="detail-value"><?php echo $field['value']; ?></div>
-				</div>
-			</div>
-
-		<?php } ?>
 		
+		<table class="details">
+			<?php
+			foreach ($fields as $field) { ?>
+				<tr class="detail-row">
+					<td class="detail-label"><?php echo $field['name']; ?>:</td>
+					<td class="detail-value"><?php echo $field['value']; ?></td>
+				</tr>
+			<?php } ?>
+		</table>
+
 		<div class="bottom-btn-container align-center">
-			<a class="btn-link-2" id="book-a-table-trigger">Book a table</a>
+			<form>
+				<button type="submit" class="btn-link-2" id="" formaction="<?php echo get_site_url(); ?>">Back</button>
+			</form>
 		</div>
 
 		<?php
@@ -610,7 +615,7 @@ class Eggz_Reservations_Public {
 	    		$post_id = -2;
 
 		} // end if
-		var_dump($_POST);
+		// var_dump($_POST);
 		echo $this->eggz_show_reservation_details( $this->fields );
 		exit;
 

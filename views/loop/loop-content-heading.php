@@ -12,7 +12,7 @@
 			$current_table_name = $terms[0]->{'name'};
 		} ?>
 
-<div class="reservation-heading-wrap">
+<!-- <div class="reservation-heading-wrap">
 
 	<div class="eggz-reservations-heading">
 		<h3 class="eggz-reservations-title" itemprop="name"><?php echo $item->post_title; ?></h3>
@@ -20,7 +20,6 @@
 		if ( !empty( $meta['reservation_date'][0] ) ) { 
 			?><p class="eggz-reservations-date"><?php echo esc_html( $meta['reservation_date'][0] ); ?></p><?php
 		} ?>
-
 	</div>
 
 	<div class="eggz-reservations-table">
@@ -50,4 +49,49 @@
 
 	</div>
 
-</div>
+</div> -->
+
+<!-- Split button -->
+<table class="reservation-heading-box">
+	<td class="eggz-reservations-heading">
+	  <button type="button" class="btn btn-default eggz-reservation-trigger">
+	  	<h3 class="eggz-reservations-title" itemprop="name"><?php echo $item->post_title; ?></h3>
+			<?php
+			if ( !empty( $meta['reservation_date'][0] ) ) { ?>
+				<p class="eggz-reservations-date"><?php echo esc_html( $meta['reservation_date'][0] ); ?></p>
+			<?php } ?>
+		</button>
+	</td>
+
+	<td class="eggz-reservations-table">
+	  <!-- <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	  	<?php 
+				if( isset( $current_table_name ) ) {
+					echo $current_table_name;
+				}else{
+					_e( 'XX', 'eggz-reservations' );
+				}
+			?>
+	  </button>
+	  <ul class="dropdown-menu pull-right">
+	    <?php
+				$class = '';
+
+				foreach ($all_terms as $term) {
+					if ( $current_table == $term->slug ) $class = ' current';
+					echo '<li><a class="' . $term->slug . $class . '" href="#">' . $term->name . '</a></li>';
+			} ?>
+	  </ul> -->
+
+	  <select class="selectpicker">
+	  	<option>XX</option>
+  		<?php
+				$class = '';
+
+				foreach ($all_terms as $term) {
+					if ( $current_table == $term->slug ) $class = ' current';
+					echo '<option class="' . $term->slug . $class . '">' . $term->name . '</option>';
+			} ?>
+		</select>
+	</td>
+</table>
