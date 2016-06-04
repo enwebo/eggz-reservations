@@ -3,30 +3,7 @@
 
 	/**
 	 * All of the code for your public-facing JavaScript source
-	 * should reside in this file.
-	 *
-	 * Note: It has been assumed you will write jQuery code here, so the
-	 * $ function reference has been prepared for usage within the scope
-	 * of this function.
-	 *
-	 * This enables you to define handlers, for when the DOM is ready:
-	 *
-	 * $(function() {
-	 *
-	 * });
-	 *
-	 * When the window is loaded:
-	 *
-	 * $( window ).load(function() {
-	 *
-	 * });
-	 *
-	 * ...and/or other possibilities.
-	 *
-	 * Ideally, it is not considered best practise to attach more than a
-	 * single DOM-ready or window-load handler for a particular page.
-	 * Although scripts in the WordPress core, Plugins and Themes may be
-	 * practising this, we should strive to set a better example in our own work.
+	 * 
 	 */
 
 	$(function() {
@@ -34,7 +11,7 @@
 		var dateDaysToShow = parseInt( POST_SUBMITTER.date_picker_days );
 		var	openHours = POST_SUBMITTER.open_hours;
 	
-
+		// Render datepicker and timepicker
  		$('#datepicker').datetimepicker({
             useCurrent: false, //Important! See issue #1075
             stepping: 15,
@@ -50,7 +27,7 @@
         });
 
     	// Make DateTimePicker to open on input field click
-        $("#datepicker input").on("click tap", function(e){ 
+        $("#datepicker input").on("click tap", function(e){
 	        $( '#datepicker' ).data( "DateTimePicker" ).show();
 	    });
         $("#timepicker input").on("click", function(e){ 
@@ -109,11 +86,13 @@
 
         	});
 
-	 
-	    $( '.add-reservation-form' ).validate();
+		// Book table form send
+
 	    $( '.add-reservation-form' ).on( 'click', '#book-a-table-trigger', function(e) {
-	        e.preventDefault();
-	        // if( $( '.add-reservation-form' ).valid() ){
+
+	        	e.preventDefault();
+
+	        if( $( '.add-reservation-form' ).valid() ){
 		        var name = $( '.add-reservation-name' ).val();
 		        var date = $( '#datepicker input' ).val();
 		        var time = $( '#timepicker input' ).val();
@@ -143,16 +122,18 @@
 
 		        });
 
-		    // } else {
-		    // 	alert('Please fill all required items');
-		    // }
+		    } else {
+		    	alert('Please fill all required items');
+		    }
 
 		});
 
-
+	    // Add reservation on database
 	    $( '.add-reservation-form' ).on( 'click', '.add-reservation', function(e) {
 	        e.preventDefault();
-	        // if( $( '.add-reservation-form' ).valid() ){
+
+	        // check for valid fields
+	        if( $( '.add-reservation-form' ).valid() ){
 		        var date 		= $( '.send-reservation-date' ).val();
 		        var time 		= $( '.send-reservation-time' ).val();
 		        var persons 	= $( '.send-reservation-persons' ).val();
@@ -187,17 +168,26 @@
 
 		        });
 
-		    // } else {
-		    // 	alert('Please fill all required items');
-		    // }
+		    } else {
+		    	alert('Please fill all required items');
+		    }
 
 		});
 
+
+	    // add expand details list for reservation box
 		$( '.reservation-box' ).on( 'click', function(e) {
 	        e.preventDefault();
 	        $( '.reservation-details' ).hide();
 	        $( this ).find( '.reservation-details' ).show();
 		});
+
+
+		// filter reservations
+		
+
+		// sort reservations
+
 	});
 
 
