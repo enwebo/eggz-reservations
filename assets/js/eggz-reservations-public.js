@@ -216,6 +216,7 @@
 			}
 		});
 
+		// SelectPicker
 		$('.selectpicker').selectpicker();
 
 	});

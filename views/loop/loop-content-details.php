@@ -59,8 +59,12 @@
 	</table>
 	<table>
 		<tr class="btn-eggz-reservations-controls-row">
-			<td><button type="button" class="btn-eggz-reservations-control edit-reservation"><?php _e( 'Edit', 'eggz-reservations' ); ?></button></td>
-			<td><button type="button" class="btn-eggz-reservations-control delete-reservation"><?php _e( 'Delete', 'eggz-reservations' ); ?></button></td>
+			<td>
+				<button type="button" class="btn-eggz-reservations-control edit-reservation"><?php _e( 'Edit', 'eggz-reservations' ); ?></button>
+			</td>
+			<td>
+				<button type="button" class="btn-eggz-reservations-control delete-reservation"><?php _e( 'Delete', 'eggz-reservations' ); ?></button>
+			</td>
 		</tr>
 	</table>
 </div>
