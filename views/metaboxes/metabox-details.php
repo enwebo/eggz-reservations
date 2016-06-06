@@ -13,13 +13,13 @@
 wp_nonce_field( $this->plugin_name, 'reservation_details_nonce' );
 
 $atts 					= array();
-$atts['class'] 			= 'widefat';
+$atts['class'] 			= 'widefat timepicker';
 $atts['description'] 	= '';
 $atts['id'] 			= 'reservation_date';
 $atts['label'] 			= 'Date';
 $atts['name'] 			= 'reservation-date';
 $atts['placeholder'] 	= '';
-$atts['type'] 			= 'text';
+$atts['type'] 			= 'time';
 $atts['value'] 			= '';
 
 if ( ! empty( $this->meta[$atts['id']][0] ) ) {

@@ -88,10 +88,12 @@ class Eggz_Reservations_Public {
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/eggz-reservations-public.css', array(), $this->version, 'all' );
 		wp_enqueue_style( 'jquery-style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css');
 		
+		wp_enqueue_style( $this->plugin_name . '-bootstrap', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/bootstrap.css' );
+		wp_enqueue_style( $this->plugin_name . '-font-awesome', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/fonts/font-awesome-4.6.3/css/font-awesome.min.css' );
 		wp_enqueue_style( $this->plugin_name . '-tether', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/tether.min.css' );
-		wp_enqueue_style( $this->plugin_name . '-bootstrap', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/bootstrap.min.css' );
 		wp_enqueue_style( $this->plugin_name . '-timepicker', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/bootstrap-datetimepicker.min.css' );
-
+		wp_enqueue_style( $this->plugin_name . '-select', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/bootstrap-select.min.css' );
+		
 	} // enqueue_styles()
 
 	/**
@@ -109,14 +111,6 @@ class Eggz_Reservations_Public {
 		wp_dequeue_script( 'jquery-ui-datepicker' );
 		wp_enqueue_script( 'jquery-ui-datepicker' );
 
-		wp_enqueue_style( 'jquery-style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css');
-		
-		wp_enqueue_style( $this->plugin_name . '-bootstrap', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/bootstrap.css' );
-		wp_enqueue_style( $this->plugin_name . '-font-awesome', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/fonts/font-awesome-4.6.3/css/font-awesome.min.css' );
-		wp_enqueue_style( $this->plugin_name . '-tether', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/tether.min.css' );
-		wp_enqueue_style( $this->plugin_name . '-timepicker', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/bootstrap-datetimepicker.min.css' );
-		wp_enqueue_style( $this->plugin_name . '-select', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/bootstrap-select.min.css' );
-		
 
 		wp_enqueue_script( $this->plugin_name . '-select', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/bootstrap-select.min.js', array( 'jquery' ) );
 		wp_enqueue_script( $this->plugin_name . '-tether', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/tether.min.js', array( 'jquery' ) );
@@ -124,8 +118,6 @@ class Eggz_Reservations_Public {
 		wp_enqueue_script( $this->plugin_name . '-moment', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/moment.js', array( 'jquery' ) );
 
 		wp_enqueue_script( $this->plugin_name . '-timepicker', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/bootstrap-datetimepicker.min.js', array( 'jquery' ) );
-
-
 
 
 
@@ -344,7 +336,7 @@ class Eggz_Reservations_Public {
 		$defaults['order'] 			= 'ASC';
 		$defaults['quantity'] 		= 100;
 		$defaults['show'] 			= '';
-		$args						= shortcode_atts( $defaults, $atts, 'shortcodename' );
+		$args						= shortcode_atts( $defaults, $atts, 'eggz-reservations-LIST' );
 		$shared 					= new Eggz_Reservations_Shared( $this->plugin_name, $this->version );
 		$items 						= $shared->query( $args );
 
@@ -365,6 +357,103 @@ class Eggz_Reservations_Public {
 		return $output;
 
 	} // shortcode_shortcodename()
+
+
+
+	/**
+	 * Processes shortcode shortcodename
+	 *
+	 * @param 	array 	$atts 		Shortcode attributes
+	 *
+	 * @return	mixed	$output		Output of the buffer
+	 */
+	public function eggz_reservations_hours_widget( $atts = array() ) {
+
+		ob_start();
+
+		$defaults['title'] 	= '';
+		$args				= shortcode_atts( $defaults, $atts, 'eggz-reservations-hours' );
+
+		if( $args['title'] != '' ) { ?>
+			<div class="eggz-box-text-container-wrapper">
+
+				<h3 class="special-line"><?php echo $args['title']; ?></h3>
+		<?php } ?>
+				<div class="working-hours-table-container">
+					<div class="working-hours-table">
+					
+					<?php
+					$items = $this->options['open-hours'];
+
+					if ( is_array( $items ) || is_object( $items ) ) {
+
+						foreach ( $items as $item ) { ?>
+
+							<div class="working-hours-table-row">
+								<div class="working-hours-table-cell">
+									<?php echo $item['day']; ?>
+								</div>
+								<div class="working-hours-table-cell">
+									<?php echo $item['open_hours']; ?>
+								</div>
+								<div class="working-hours-table-cell">
+									<span class="line-separator"></span>
+								</div>
+								<div class="working-hours-table-cell">
+									<?php echo $item['close_hours']; ?>
+								</div>
+							</div>
+
+						<?php }
+					
+					} else {
+
+						echo $items;
+
+					} ?>
+
+					</div>
+				</div>
+		<?php
+
+		if( $args['title'] != '' ) { ?>
+
+			</div>
+
+		<?php } 
+
+		$output = ob_get_contents();
+
+		ob_end_clean();
+
+		return $output;
+
+	} // shortcode_shortcodename()
+
+
+	function open_hours_integrateWithVC() {
+		vc_map(
+			array(
+				"name" => __( "Open Hours", "eggz-reservations" ),
+				"base" => "eggz-reservations-hours",
+				"class" => "",
+				"category" => __( "Content", "eggz-reservations"),
+				// 'admin_enqueue_js' => array( get_template_directory_uri() . '/vc_extend/bartag.js' ),
+				// 'admin_enqueue_css' => array( get_template_directory_uri() . '/vc_extend/bartag.css' ),
+				"params" => array(
+					array(
+						"type" => "textfield",
+						"holder" => "div",
+						"class" => "",
+						"heading" => __( "Text", "eggz-reservations" ),
+						"param_name" => "title",
+						"value" => __( "Default param value", "eggz-reservations" ),
+						"description" => __( "Description for foo param.", "eggz-reservations" )
+					)
+				)
+			)
+		);
+	}
 
 
 	// eggz_reservations_get_template()
