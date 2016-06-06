@@ -12,6 +12,9 @@
  * @subpackage Eggz_Reservations/classes/loop-views
  */
 
+?>
+<div class="eggz-reservations">
+<?php
 /**
  * eggz-reservations-before-loop hook
  *
@@ -64,3 +67,6 @@ foreach ( $items as $item ) {
  * @hooked 		loop_wrap_end 			10
  */
 do_action( 'eggz-reservations-after-loop', $args );
+?>
+</div>
+<?php
