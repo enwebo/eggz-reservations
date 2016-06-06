@@ -297,9 +297,9 @@ class Eggz_Reservations {
 		$plugin_templates = new Eggz_Reservations_Templates( $this->get_plugin_name(), $this->get_version() );
 
 		// Loop
-		$this->loader->action( 'eggz-reservations-before-loop', 			$plugin_templates, 'loop_wrap_begin', 10, 1 );
-		$this->loader->action( 'eggz-reservations-before-loop', 			$plugin_templates, 'loop_content_filters', 20, 1 );
-		$this->loader->action( 'eggz-reservations-before-loop', 			$plugin_templates, 'loop_content_tools', 30, 1 );
+		$this->loader->action( 'eggz-reservations-before-loop', 			$plugin_templates, 'loop_content_filters', 10, 1 );
+		$this->loader->action( 'eggz-reservations-before-loop', 			$plugin_templates, 'loop_content_tools', 20, 1 );
+		$this->loader->action( 'eggz-reservations-before-loop', 			$plugin_templates, 'loop_wrap_begin', 30, 1 );
 
 		$this->loader->action( 'eggz-reservations-before-loop-content', 	$plugin_templates, 'loop_content_wrap_begin', 10, 2 );
 

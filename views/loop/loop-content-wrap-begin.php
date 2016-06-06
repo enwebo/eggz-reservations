@@ -25,5 +25,5 @@ if ( !$terms ) {
 }
 
 ?>
-<li class="hentry reservation-box col-xs-6 all<?php echo $class; ?>">
+<li class="hentry reservation-box col-xs-12 col-sm-6 all<?php echo $class; ?>">
 	<div class="reservation-content">

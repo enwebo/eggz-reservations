@@ -15,7 +15,9 @@
 /**
  * eggz-reservations-before-loop hook
  *
- * @hooked 		loop_wrap_start 		15
+ * @hooked 		loop_filters 			10
+ * @hooked 		loop_tools 				20
+ * @hooked 		loop_wrap_start 		30
  */
 do_action( 'eggz-reservations-before-loop', $args );
 
