@@ -108,7 +108,7 @@ class Eggz_Reservations_Public {
 		wp_enqueue_script('jquery-ui-core');
 		wp_dequeue_script( 'jquery-ui-datepicker' );
 		wp_enqueue_script( 'jquery-ui-datepicker' );
-<<<<<<< HEAD
+
 		wp_enqueue_style( 'jquery-style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css');
 		
 		wp_enqueue_style( $this->plugin_name . '-bootstrap', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/bootstrap.css' );
@@ -117,18 +117,15 @@ class Eggz_Reservations_Public {
 		wp_enqueue_style( $this->plugin_name . '-timepicker', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/bootstrap-datetimepicker.min.css' );
 		wp_enqueue_style( $this->plugin_name . '-select', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/bootstrap-select.min.css' );
 		
-=======
 
->>>>>>> 23a81e67ca18ce64ba784ca992736012e066c9c9
 		wp_enqueue_script( $this->plugin_name . '-tether', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/tether.min.js', array( 'jquery' ) );
 		wp_enqueue_script( $this->plugin_name . '-bootstrap', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/bootstrap.min.js', array( 'jquery' ) );
 		wp_enqueue_script( $this->plugin_name . '-moment', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/moment.js', array( 'jquery' ) );
-<<<<<<< HEAD
-		wp_enqueue_script( $this->plugin_name . '-timepicker', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/bootstrap-datetimepicker.js', array( 'jquery' ) );
-		wp_enqueue_script( $this->plugin_name . '-select', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/bootstrap-select.js', array( 'jquery' ) );
-=======
+
 		wp_enqueue_script( $this->plugin_name . '-timepicker', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/bootstrap-datetimepicker.min.js', array( 'jquery' ) );
->>>>>>> 23a81e67ca18ce64ba784ca992736012e066c9c9
+		wp_enqueue_script( $this->plugin_name . '-select', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/bootstrap-select.min.js', array( 'jquery' ) );
+
+
 
 
 
@@ -386,11 +383,9 @@ class Eggz_Reservations_Public {
 							<div class='col-sm-4'>
 							    <div class="form-group">
 							        <div class='input-group date' id='datepicker'>
-<<<<<<< HEAD
-							            <input type='text' class="form-control" placeholder="MM/DD/YYYY" />
-=======
-							            <input type='text' required class="form-control" />
->>>>>>> 23a81e67ca18ce64ba784ca992736012e066c9c9
+
+							            <input type='text' required class="form-control" placeholder="MM/DD/YYYY" />
+
 							            <span class="input-group-addon">
 						                <span class="bs-caret">
 						                	<span class="caret"></span>
@@ -402,11 +397,9 @@ class Eggz_Reservations_Public {
 							<div class='col-sm-4'>
 							    <div class="form-group">
 							        <div class='input-group date' id='timepicker'>
-<<<<<<< HEAD
-							            <input type='text' class="form-control" placeholder="HH:MM" />
-=======
-							            <input type='text' required class="form-control" />
->>>>>>> 23a81e67ca18ce64ba784ca992736012e066c9c9
+
+							            <input type='text' required class="form-control" placeholder="HH:MM" />
+
 							            <span class="input-group-addon">
 						                <span class="bs-caret">
 						                	<span class="caret"></span>
@@ -418,11 +411,9 @@ class Eggz_Reservations_Public {
 						  
 						  	<div class="col-sm-4">
 						  		<!-- Person Select -->
-<<<<<<< HEAD
-						  		<select class="personspicker selectpicker">
-=======
-						  		<select class="personspicker" required >
->>>>>>> 23a81e67ca18ce64ba784ca992736012e066c9c9
+
+						  		<select class="personspicker required selectpicker">
+
 						  		<?php
 						  		$personsno = $this->get_reservation_persons_limit(12);
 
@@ -430,11 +421,7 @@ class Eggz_Reservations_Public {
 
 						  			if( $i == 0 ){
 
-<<<<<<< HEAD
 						  				echo '<option value="' . ( $i+1 ) . '">' . ( $i+1 ) . ' ' . __("Person", "eggz-reservations") . '</option>';
-=======
-						  				echo '<option data-tokens="#" value="' . ($i+1) . '">' . ( $i+1 ) . ' ' . __("Person", "eggz-reservations") . '</option>';
->>>>>>> 23a81e67ca18ce64ba784ca992736012e066c9c9
 
 						  			}else{
 
@@ -483,46 +470,25 @@ class Eggz_Reservations_Public {
 					<span class="reservation-persons"><?php _e('Persons', 'eggz-reservations' ); echo ': '; echo $_POST['persons']; ?></span> 
 				</p>
 
-<<<<<<< HEAD
+
 				<div class="row row-no-gutters">
 
 					<div class="col-sm-6">
-						<input type="text" name="email" class="send-reservation-email datepicker" required aria-required="true" placeholder="<?php _e( 'Email', 'eggz-reservations' ); ?>">
+						<input type="text" required name="email" class="send-reservation-email datepicker" required aria-required="true" placeholder="<?php _e( 'Email', 'eggz-reservations' ); ?>">
 					</div>
 
 					<div class="col-sm-6">
-						<input type="text" name="send-reservation-phone" class="send-reservation-phone timepicker" required aria-required="true" placeholder="<?php _e( 'Phone', 'eggz-reservations' ); ?>">
+						<input type="text" required name="send-reservation-phone" class="send-reservation-phone timepicker" required aria-required="true" placeholder="<?php _e( 'Phone', 'eggz-reservations' ); ?>">
 					</div>
 
 					<div class="col-sm-12">
-						<input type="text" name="full-name" class="send-reservation-full-name" placeholder="<?php _e( 'Full Name', 'eggz-reservations' ); ?>">
+						<input type="text" required name="full-name" class="send-reservation-full-name" placeholder="<?php _e( 'Full Name', 'eggz-reservations' ); ?>">
 					</div>
 
 					<div class="col-sm-12">
 						<textarea name="send-reservation-special-request" class="send-reservation-special-request" placeholder="<?php _e( 'Special Requests', 'eggz-reservations' ); ?>"></textarea>
 					</div>
 
-=======
-				<div>
-					<label for="send-reservation-email">
-						<?php _e( 'Email', 'eggz-reservations' ); ?>*
-					</label>
-					<input type="text" name="email" type="email" required class="send-reservation-email datepicker" required aria-required="true">
-				</div>
-
-				<div>
-					<label for="send-reservation-phone">
-						<?php _e( 'Phone', 'eggz-reservations' ); ?>*
-					</label>
-					<input type="text" name="send-reservation-phone" required class="send-reservation-phone timepicker" required aria-required="true">
-				</div>
-
-				<div>
-					<label for="send-reservation-full-name">
-						<?php _e( 'Full Name', 'eggz-reservations' ); ?>*
-					</label>
-					<input type="text" name="full-name" required class="send-reservation-full-name">
->>>>>>> 23a81e67ca18ce64ba784ca992736012e066c9c9
 				</div>
 
 				<div class="bottom-btn-container align-center">

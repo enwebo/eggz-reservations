@@ -169,46 +169,43 @@
 		        });
 
 		    } else {
+
 		    	alert('Please fill all required items');
+		    	
 		    }
 
 		});
 
-<<<<<<< HEAD
 		var $reservation_box = $(".reservation-content");
 
 		$( '.eggz-reservation-trigger' ).on( 'click', function(e) {
-      e.preventDefault();
-      $( '.eggz-reservation-details' ).slideUp('fast');
-      $( '.reservation-content' ).removeClass('open');
-      $( this ).parents( '.reservation-content' ).find( '.eggz-reservation-details' ).slideToggle('fast', 'easeInCubic');
-      $( this ).parents( '.reservation-content' ).addClass('open');
+
+			e.preventDefault();
+			$( '.eggz-reservation-details' ).slideUp('fast');
+			$( '.reservation-content' ).removeClass('open');
+
+			$( this ).parents( '.reservation-content' ).find( '.eggz-reservation-details' ).slideToggle('fast');
+			$( this ).parents( '.reservation-content' ).addClass('open');
+		
 		});
 		
-		 $(window).on("click.Bst", function(event){		
-			if ( 
-        $reservation_box.has(event.target).length == 0 //checks if descendants of $reservation_box was clicked
-        &&
-        !$reservation_box.is(event.target) //checks if the $reservation_box itself was clicked
-      ){
+		$(window).on("click.Bst", function(event){		
+
+			if ( $reservation_box.has(event.target).length == 0 && !$reservation_box.is(event.target) ){
+
 				$( '.eggz-reservation-details' ).fadeOut('fast');
 				$( '.reservation-content' ).removeClass('open');
+
 			} else {
+
 				return false;
+
 			}
+
 		});
 
 		// SelectPicker
 		$('.selectpicker').selectpicker();
-=======
-
-	    // add expand details list for reservation box
-		$( '.reservation-box' ).on( 'click', function(e) {
-	        e.preventDefault();
-	        $( '.reservation-details' ).hide();
-	        $( this ).find( '.reservation-details' ).show();
-		});
-
 
 		// filter reservations
 		$(".reservations-filters li").on("click tap", function(e) {
@@ -222,9 +219,5 @@
 		// sort reservations
 
 	});
->>>>>>> 23a81e67ca18ce64ba784ca992736012e066c9c9
-
-	});
-
 
 })( jQuery );
