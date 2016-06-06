@@ -3,14 +3,15 @@
  * The view for the filters for the loop
  */
 
+
 ?>
 <div class="clearfix eggz-reservations-filters">
 	
 	<div class="col-xs-6 eggz-reservations-reservation-filter">
 		
 		<ul class="reservations-filters">
-			<li><a href="a"><?php _e( 'All', 'eggz-reservations' ); ?></a></li>
-			<li><a href="a"><?php _e( 'Unassigned', 'eggz-reservations' ); ?></a></li>
+			<li data-type="all"><?php _e( 'All', 'eggz-reservations' ); ?></li>
+			<li data-type="unassigned"><?php _e( 'Unassigned', 'eggz-reservations' ); ?></li>
 		</ul>
 
 	</div>

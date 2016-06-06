@@ -184,7 +184,13 @@
 
 
 		// filter reservations
-		
+		$(".reservations-filters li").on("click tap", function(e) {
+	        e.preventDefault();
+	        $( '.reservation-box' ).hide();
+			$( '.' + $(this).data("type") ).show();
+			$(this).data("type");
+
+		});
 
 		// sort reservations
 
