@@ -6,10 +6,10 @@
 
 ?>
 <!-- Trigger the modal with a button -->
-<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#editReservationModal">Open Modal</button>
 
 <!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
+<div id="editReservationModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
@@ -28,6 +28,7 @@
 
   </div>
 </div>
+
 <div class="clearfix eggz-reservations-filters">
 		
 	<ul class="reservations-filters">

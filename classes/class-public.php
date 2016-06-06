@@ -372,7 +372,7 @@ class Eggz_Reservations_Public {
 
 		ob_start(); ?>
 
-			<div class="reservations-form">
+			<div class="eggz-reservations reservations-form">
 				<form class="add-reservation-form">
 					<?php wp_nonce_field( 'eggz_reservations' ); ?>
 					<!-- Fullwidth Banner -->
