@@ -133,7 +133,7 @@
 	        e.preventDefault();
 
 	        // check for valid fields
-	        if( $( '.add-reservation-form' ).valid() ){
+	        if( $( '.eggz-reservations-details' ).valid() ){
 		        var date 		= $( '.send-reservation-date' ).val();
 		        var time 		= $( '.send-reservation-time' ).val();
 		        var persons 	= $( '.send-reservation-persons' ).val();
@@ -171,7 +171,7 @@
 		    } else {
 
 		    	alert('Please fill all required items');
-		    	
+
 		    }
 
 		});
