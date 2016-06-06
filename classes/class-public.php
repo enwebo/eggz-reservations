@@ -118,12 +118,12 @@ class Eggz_Reservations_Public {
 		wp_enqueue_style( $this->plugin_name . '-select', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/bootstrap-select.min.css' );
 		
 
+		wp_enqueue_script( $this->plugin_name . '-select', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/bootstrap-select.min.js', array( 'jquery' ) );
 		wp_enqueue_script( $this->plugin_name . '-tether', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/tether.min.js', array( 'jquery' ) );
 		wp_enqueue_script( $this->plugin_name . '-bootstrap', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/bootstrap.min.js', array( 'jquery' ) );
 		wp_enqueue_script( $this->plugin_name . '-moment', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/moment.js', array( 'jquery' ) );
 
 		wp_enqueue_script( $this->plugin_name . '-timepicker', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/bootstrap-datetimepicker.min.js', array( 'jquery' ) );
-		wp_enqueue_script( $this->plugin_name . '-select', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/bootstrap-select.min.js', array( 'jquery' ) );
 
 
 
@@ -370,81 +370,82 @@ class Eggz_Reservations_Public {
 	// eggz_reservations_get_template()
 	function eggz_reservations_form_book_a_table() {
 
-		ob_start();
-		wp_nonce_field( 'eggz_reservations' );?>
-			
-			<form class="add-reservation-form">
+		ob_start(); ?>
 
-				<!-- Fullwidth Banner -->
-				<div class="book-a-table-container">
-					<div class="book-a-table-wrapper">
-					  	<div class="row selects-container">
-							
-							<div class='col-sm-4'>
-							    <div class="form-group">
-							        <div class='input-group date' id='datepicker'>
+			<div class="reservations-form">
+				<form class="add-reservation-form">
+					<?php wp_nonce_field( 'eggz_reservations' ); ?>
+					<!-- Fullwidth Banner -->
+					<div class="book-a-table-container">
+						<div class="book-a-table-wrapper">
+						  	<div class="row selects-container">
+								
+								<div class='col-sm-4'>
+								    <div class="form-group">
+								        <div class='input-group date' id='datepicker'>
 
-							            <input type='text' required class="form-control" placeholder="MM/DD/YYYY" />
+								            <input type='text' required class="form-control" placeholder="MM/DD/YYYY" />
 
-							            <span class="input-group-addon">
-						                <span class="bs-caret">
-						                	<span class="caret"></span>
-						                </span>
-							            </span>
-							        </div>
-							    </div>
-							</div>
-							<div class='col-sm-4'>
-							    <div class="form-group">
-							        <div class='input-group date' id='timepicker'>
+								            <span class="input-group-addon">
+							                <span class="bs-caret">
+							                	<span class="caret"></span>
+							                </span>
+								            </span>
+								        </div>
+								    </div>
+								</div>
+								<div class='col-sm-4'>
+								    <div class="form-group">
+								        <div class='input-group date' id='timepicker'>
 
-							            <input type='text' required class="form-control" placeholder="HH:MM" />
+								            <input type='text' required class="form-control" placeholder="HH:MM" />
 
-							            <span class="input-group-addon">
-						                <span class="bs-caret">
-						                	<span class="caret"></span>
-						                </span>
-							            </span>
-							        </div>
-							    </div>
-							</div>
-						  
-						  	<div class="col-sm-4">
-						  		<!-- Person Select -->
+								            <span class="input-group-addon">
+							                <span class="bs-caret">
+							                	<span class="caret"></span>
+							                </span>
+								            </span>
+								        </div>
+								    </div>
+								</div>
+							  
+							  	<div class="col-sm-4">
+							  		<!-- Person Select -->
 
-						  		<select class="personspicker required selectpicker">
+							  		<select class="personspicker required selectpicker">
 
-						  		<?php
-						  		$personsno = $this->get_reservation_persons_limit(12);
+							  		<?php
+							  		$personsno = $this->get_reservation_persons_limit(12);
 
-						  		for ($i=0; $i < $personsno; $i++) { 
+							  		for ($i=0; $i < $personsno; $i++) { 
 
-						  			if( $i == 0 ){
+							  			if( $i == 0 ){
 
-						  				echo '<option value="' . ( $i+1 ) . '">' . ( $i+1 ) . ' ' . __("Person", "eggz-reservations") . '</option>';
+							  				echo '<option value="' . ( $i+1 ) . '">' . ( $i+1 ) . ' ' . __("Person", "eggz-reservations") . '</option>';
 
-						  			}else{
+							  			}else{
 
-						  				echo '<option value="' . ( $i+1 ) . '">' . ( $i+1 ) . ' ' . __("Persons", "eggz-reservations") . '</option>';
+							  				echo '<option value="' . ( $i+1 ) . '">' . ( $i+1 ) . ' ' . __("Persons", "eggz-reservations") . '</option>';
 
-						  			}
+							  			}
 
-						  		}
+							  		}
 
-								?>
-								</select>
-								<!-- End Person Select -->
+									?>
+									</select>
+									<!-- End Person Select -->
+							  	</div>
+
 						  	</div>
 
+						  	<div class="bottom-btn-container align-center">
+									<button type="button" class="btn-link-2" id="book-a-table-trigger">Book a table</button>
+								</div>
+
 					  	</div>
-
-					  	<div class="bottom-btn-container align-center">
-								<button type="button" class="btn-link-2" id="book-a-table-trigger">Book a table</button>
-							</div>
-
-				  	</div>
-				</div>
-			</form>
+					</div>
+				</form>
+			</div>
 
 			<?php
 			$content = ob_get_clean();
@@ -455,10 +456,10 @@ class Eggz_Reservations_Public {
 
 	function eggz_reservation_details() {
 
-			ob_start();
-			wp_nonce_field( 'eggz_reservations' );?>
+			ob_start(); ?>
 			
 			<form class="eggz-reservations-details">
+				<?php wp_nonce_field( 'eggz_reservations' ); ?>
 				<input type="hidden" id="date" name="send-reservation-date" class="send-reservation-date" value="<?php echo $_POST['date']; ?>">
 				<input type="hidden" id="time" name="send-reservation-time" class="send-reservation-time" value="<?php echo $_POST['time']; ?>">
 				<input type="hidden" id="persons" name="send-reservation-persons" class="send-reservation-persons" value="<?php echo $_POST['persons']; ?>">
@@ -492,7 +493,7 @@ class Eggz_Reservations_Public {
 				</div>
 
 				<div class="bottom-btn-container align-center">
-					<button type="submit" class="btn-link-2 add-reservation"><?php esc_attr_e( 'Send', 'eggz-reservations'); ?></button
+					<button type="submit" class="btn-link-2 add-reservation" id="add-a-reservation-trigger"><?php esc_attr_e( 'Send', 'eggz-reservations'); ?></button
 				</div>
 
 			</form>
@@ -531,9 +532,7 @@ class Eggz_Reservations_Public {
 		</table>
 
 		<div class="bottom-btn-container align-center">
-			<form>
-				<button type="submit" class="btn-link-2" id="" formaction="<?php echo get_site_url(); ?>">Back</button>
-			</form>
+			<a href="<?php echo get_bloginfo('url');?>" class="btn-link-2">Back</a>
 		</div>
 
 		<?php

@@ -88,7 +88,7 @@
 
 		// Book table form send
 
-	    $( '.add-reservation-form' ).on( 'click', '#book-a-table-trigger', function(e) {
+	    $( '.reservations-form' ).on( 'click', '#book-a-table-trigger', function(e) {
 
 	        	e.preventDefault();
 
@@ -114,7 +114,8 @@
 			        },
 		            success : function( response ) {
 		                console.log( response );
-		                $( '.add-reservation-form' ).append( response );
+		                $( '.reservations-form' ).append( response );
+		                $( '.add-reservation-form' ).remove();
 		            },
 		            fail : function( response ) {
 		                console.log( response );
@@ -129,7 +130,8 @@
 		});
 
 	    // Add reservation on database
-	    $( '.add-reservation-form' ).on( 'click', '.add-reservation', function(e) {
+	    $( '.reservations-form' ).on( 'click', '#add-a-reservation-trigger', function(e) {
+
 	        e.preventDefault();
 
 	        // check for valid fields
@@ -160,7 +162,8 @@
 			        },
 		            success : function( response ) {
 		                console.log( response );
-		                $( '.add-reservation-form' ).append( response );
+		                $( '.reservations-form' ).append( response );
+		                $( '.eggz-reservations-details' ).remove();
 		            },
 		            fail : function( response ) {
 		                console.log( response );
@@ -175,6 +178,7 @@
 		    }
 
 		});
+
 
 		var $reservation_box = $(".reservation-content");
 
