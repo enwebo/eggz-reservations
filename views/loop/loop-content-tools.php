@@ -6,7 +6,7 @@
 ?>
 <div class="clearfix eggz-reservations-tools">
 	<div class="tools">
-		<a href=""><i class="fa fa-file-text-o" aria-hidden="true"></i></a>
-		<a href=""><i class="fa fa-trash" aria-hidden="true"></i></a>
+		<button type="button"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>
+		<button type="button"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
 	</div>
 </div>
