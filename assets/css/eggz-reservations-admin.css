@@ -153,3 +153,20 @@
     width: 32%;
   }
 }
+
+
+
+
+
+/* Fix for wp-admin issues caused by Bootstrap */
+body {
+    color: #444;
+    font-family: "Open Sans",sans-serif;
+    font-size: 13px;
+    line-height: 1.4em;
+    min-width: 600px;
+    background-color: transparent;
+}
+p.wrap-field {
+    position: relative;
+}

@@ -266,8 +266,13 @@ class Eggz_Reservations {
 		$this->loader->action( 'wp_ajax_eggz_reservation_details', $plugin_public, 'eggz_reservation_details' );
 
 		$this->loader->filter( 'single_template', $plugin_public, 'single_cpt_template', 11 );
+
 		$this->loader->shortcode( 'eggz-reservations-form', $plugin_public, 'eggz_reservations_form_book_a_table' );
 		$this->loader->shortcode( 'eggz-reservations-list', $plugin_public, 'eggzreservations' );
+		$this->loader->shortcode( 'eggz-reservations-hours', $plugin_public, 'eggz_reservations_hours_widget' );
+
+		$this->loader->action( 'vc_before_init', $plugin_public, 'open_hours_integrateWithVC' );
+
 
 		/**
 		 * Action instead of template tag.
@@ -297,18 +302,15 @@ class Eggz_Reservations {
 		$plugin_templates = new Eggz_Reservations_Templates( $this->get_plugin_name(), $this->get_version() );
 
 		// Loop
-		$this->loader->action( 'eggz-reservations-before-loop', 			$plugin_templates, 'loop_content_filters', 10, 1 );
-		$this->loader->action( 'eggz-reservations-before-loop', 			$plugin_templates, 'loop_content_tools', 20, 1 );
-		$this->loader->action( 'eggz-reservations-before-loop', 			$plugin_templates, 'loop_wrap_begin', 30, 1 );
-
+		$this->loader->action( 'eggz-reservations-before-loop', 			$plugin_templates, 'loop_wrap_begin', 10, 1 );
 		$this->loader->action( 'eggz-reservations-before-loop-content', 	$plugin_templates, 'loop_content_wrap_begin', 10, 2 );
 
 		$this->loader->action( 'eggz-reservations-loop-content', 			$plugin_templates, 'loop_content_heading', 10, 2 );
 		$this->loader->action( 'eggz-reservations-loop-content', 			$plugin_templates, 'loop_content_details', 20, 2 );
 
 		$this->loader->action( 'eggz-reservations-after-loop-content', 		$plugin_templates, 'loop_content_wrap_end', 10, 2 );
-
 		$this->loader->action( 'eggz-reservations-after-loop', 				$plugin_templates, 'loop_wrap_end', 10, 1 );
+
 
 		// Single
 		// $this->loader->action( 'eggz-reservations-single-content', 			$plugin_templates, 'single_reservation_thumbnail', 10 );

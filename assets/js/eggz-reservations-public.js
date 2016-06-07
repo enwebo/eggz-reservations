@@ -56,9 +56,11 @@
 				var openingHour = openHours[ ( moment( e.date ).day() ) ].open;
 		       	var closingHour = openHours[ ( moment( e.date ).day() ) ].close;
 
-		       	// set default openenig/closing hours for selected day in case they are not set on admin options
-		       	if( openingHour == undefined ){ openingHour = 10; }
-		       	if( closingHour == undefined ){ closingHour = 22; }
+		       	// set default openenig/closing hours for selected day in case they are not set on admin options,
+		       	// also format them if they are set on admin panel
+		       	
+		       	if( openingHour == undefined ){ openingHour = 10; }else{ openingHour = moment( openingHour, ["h:mm A"] ).format("H"); }
+		       	if( closingHour == undefined ){ closingHour = 22; }else{ closingHour = moment( closingHour, ["h:mm A"] ).format("H"); }
 
 	        	// check if current day is selected.
 	        	if( moment( e.date ).date() == moment( new Date() ).date() ){
