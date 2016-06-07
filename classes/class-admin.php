@@ -190,6 +190,7 @@ class Eggz_Reservations_Admin {
 
 
 		wp_enqueue_script( $this->plugin_name . '-select', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/bootstrap-select.min.js', array( 'jquery' ) );
+		wp_enqueue_script( $this->plugin_name . '-tether', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/tether.min.js', array( 'jquery' ) );
 		wp_enqueue_script( $this->plugin_name . '-bootstrap', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/bootstrap.min.js', array( 'jquery' ) );
 		wp_enqueue_script( $this->plugin_name . '-moment', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/moment.js', array( 'jquery' ) );
 		wp_enqueue_script( $this->plugin_name . '-timepicker', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/bootstrap-datetimepicker.min.js', array( 'jquery' ) );
