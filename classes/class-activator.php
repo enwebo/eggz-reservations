@@ -49,7 +49,13 @@ class Eggz_Reservations_Activator {
 
 		}
 
-		update_option( 'eggz-reservations-options', $opts );
+		// check if plugin has been activated in past
+		$tmp = get_option( 'eggz-reservations-options' );
+
+		if( !is_array( $tmp ) ) {
+
+			update_option( 'eggz-reservations-options', $opts );
+		}
 
 	} // activate()
 
