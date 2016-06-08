@@ -5,7 +5,7 @@
  * @package Eggz_Reservations
  */
 
-?><header class="entry-header"><?php
+?><header class="eggz-entry-header"><?php
 
 	the_title( '<h1 class="reservation-title">', '</h1>' );
 

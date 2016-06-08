@@ -49,7 +49,7 @@
 		<?php }
 
 		if ( !empty( $meta['reservation_special_request'][0] ) ) { ?>
-			<tr>
+			<tr class="eggz-reservations-reservation-special-request-row">
 				<td colspan="2">
 					<div class="eggz-reservations-reservation-special-request field-name"><?php _e( 'Special Request', 'eggz-reservations' ); ?>: </div>
 					<div class="eggz-reservations-reservation-special-request field-value"><?php echo esc_html( $meta['reservation_special_request'][0] ); ?></div>

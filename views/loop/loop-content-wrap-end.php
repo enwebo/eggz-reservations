@@ -5,4 +5,4 @@
 
 ?>
 	</div>
-</li><!-- .hentry -->
+</div><!-- .hentry -->

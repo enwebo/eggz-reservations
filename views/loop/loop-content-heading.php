@@ -12,11 +12,11 @@
 			$current_table_name = $terms[0]->{'name'};
 		} ?>
 
-
 <!-- Split button -->
 <table class="reservation-heading-box">
 
 	<td class="eggz-reservations-heading">
+
 	  <button type="button" class="btn btn-default eggz-reservation-trigger">
 	  	<h3 class="eggz-reservations-title" itemprop="name"><?php echo $item->post_title; ?></h3>
 			<?php
@@ -24,6 +24,7 @@
 				<p class="eggz-reservations-date"><?php echo esc_html( $meta['reservation_date'][0] ); ?></p>
 			<?php } ?>
 		</button>
+		
 	</td>
 
 	<td class="eggz-reservations-table">

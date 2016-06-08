@@ -25,5 +25,7 @@ if ( !$terms ) {
 }
 
 ?>
-<li class="hentry reservation-box col-xs-12 col-sm-6 all<?php echo $class; ?> " data-postid="<?php echo $item->ID; ?>">
+
+<div class="reservation-box col-xs-12 col-sm-6 all<?php echo $class; ?> " data-postid="<?php echo $item->ID; ?>">
+
 	<div class="reservation-content">
