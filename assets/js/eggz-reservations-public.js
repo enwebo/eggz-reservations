@@ -13,35 +13,31 @@
 	
 		// Render datepicker and timepicker
  		$('#datepicker').datetimepicker({
-            useCurrent: false, //Important! See issue #1075
+            useCurrent: true, //Important! See issue #1075
             stepping: 15,
             format: 'MM/DD/YYYY',
-            minDate: moment({hour: 10, minute: 0, seconds: 0}),
-        		maxDate: moment().add(dateDaysToShow, 'days').hour(24)
+		    allowInputToggle: true,
+            minDate: moment({ hour: 10, minute: 0, seconds: 0 }),
+        	maxDate: moment().add( dateDaysToShow, 'days' ).hour( 24 )
         });
 
     	$('#timepicker').datetimepicker({
             useCurrent: false, //Important! See issue #1075
             stepping: 15,
-            format: 'hh:mm a'
+            format: 'hh:mm a',
+		    allowInputToggle: true
         });
 
-    	// Make DateTimePicker to open on input field click
-        $("#datepicker input").on("click tap", function(e){
-	        $( '#datepicker' ).data( "DateTimePicker" ).show();
-	    });
-        $("#timepicker input").on("click", function(e){ 
-	        $( '#timepicker' ).data( "DateTimePicker" ).show();
-	    });
 
         $("#datepicker")
         	.on("dp.show", function (e) {
 	        	
 	        	// reinitialize timepicker
 	        	$( '#timepicker' ).data( "DateTimePicker" ).destroy();
-	        	$('#timepicker').datetimepicker({
+	        	$( '#timepicker' ).datetimepicker({
 		            useCurrent: false, //Important! See issue #1075
 		            stepping: 15,
+		            allowInputToggle: true,
 		            format: 'hh:mm a'
 		        });
 	        	$( '#timepicker' ).data( "DateTimePicker" ).hide();
@@ -51,7 +47,7 @@
 	        	$( '#timepicker' ).data( "DateTimePicker" ).show();
         	})
         	.on("dp.change", function (e) {
-        		
+        		console.log( moment( e.date ).day() );
         		// get openenig/closing hours for selected day.
 				var openingHour = openHours[ ( moment( e.date ).day() ) ].open;
 		       	var closingHour = openHours[ ( moment( e.date ).day() ) ].close;
@@ -64,7 +60,7 @@
 
 	        	// check if current day is selected.
 	        	if( moment( e.date ).date() == moment( new Date() ).date() ){
-
+console.log('da');
 	        		// check if current hour is over working hours.
 	        		if( moment( new Date() ).hour() >= closingHour ) {
 
@@ -92,7 +88,7 @@
 
 	    $( '.reservations-form' ).on( 'click', '#book-a-table-trigger', function(e) {
 
-	        	e.preventDefault();
+	        e.preventDefault();
 
 	        if( $( '.add-reservation-form' ).valid() ){
 		        var name = $( '.add-reservation-name' ).val();
@@ -134,7 +130,7 @@
 	    // Add reservation on database
 	    $( '.reservations-form' ).on( 'click', '#add-a-reservation-trigger', function(e) {
 
-	        e.preventDefault();
+	    	e.preventDefault();
 
 	        // check for valid fields
 	        if( $( '.eggz-reservations-details' ).valid() ){
@@ -214,7 +210,7 @@
 		$('.selectpicker').selectpicker();
 
 		// filter reservations
-		$(".reservations-filters li").on("click tap", function(e) {
+		$( ".reservations-filters li" ).on( "click tap", function(e) {
 	        e.preventDefault();
 	        $( '.reservation-box' ).hide();
 			$( '.' + $(this).data("type") ).show();
@@ -223,6 +219,34 @@
 		});
 
 		// sort reservations
+		
+		// set table for reservation
+		$('.eggz-reservations')
+			.on('change', 'select', function() {
+				var id = $(this).data( 'postid' );
+				var table = $(this).find('option:selected').val();
+
+		        $.ajax({
+		            url: POST_SUBMITTER.ajax_url,
+					type : "POST",
+		            data: {
+		            	action: 'eggz_set_reservation_table',
+		           		table: table,
+		           		id: id
+			        },
+		            success : function( response ) {
+		                console.log( response );
+		                $( '.eggz-reservations' ).append( response );
+		            },
+		            fail : function( response ) {
+		                console.log( response );
+		            }
+
+		        });
+
+			});
+
+
 
 	});
 

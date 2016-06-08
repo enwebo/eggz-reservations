@@ -701,12 +701,40 @@ class Eggz_Reservations_Public {
 	/**
 	 * Delete a reservation.
 	 *
+	 * @returns 		1 if the post was never created.
+	 */
+
+	public function eggz_set_reservation_table() {
+		
+		if ( is_admin() ) {
+
+			if ( !isset( $_POST['id'] ) && !empty( $_POST['id'] ) ) { echo '-1'; die(); }
+			if ( !isset( $_POST['table'] ) && !empty( $_POST['table'] ) ) { echo '-2'; die(); }
+
+			$taxonomy = 'table';
+			$post_id = $_POST['id'];
+			
+			$term = strtolower( $_POST['table'] );
+			$term_id = term_exists( $term, $taxonomy );
+
+			wp_set_post_terms( $post_id, $term_id['term_id'], $taxonomy, false );
+
+		}
+		die();
+
+	} // end eggz_set_reservation_table
+
+
+	/**
+	 * Delete a reservation.
+	 *
 	 * @returns 		1 if the post was never created, 
 	 *                  -2 if a post with the same title exists,
 	 *                  or the ID of the post if successful.
 	 */
 
 	public function eggz_delete_reservation() {
+
 
 		// Initialize the page ID to -1. This indicates no action has been taken.
 		$post_id = -1;

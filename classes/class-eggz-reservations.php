@@ -261,6 +261,9 @@ class Eggz_Reservations {
 
 		$this->loader->action( 'wp_ajax_nopriv_eggz_delete_reservation', $plugin_public, 'eggz_add_reservation' );
 		$this->loader->action( 'wp_ajax_eggz_delete_reservation', $plugin_public, 'eggz_add_reservation' );
+		
+		$this->loader->action( 'wp_ajax_nopriv_eggz_set_reservation_table', $plugin_public, 'eggz_set_reservation_table' );
+		$this->loader->action( 'wp_ajax_eggz_set_reservation_table', $plugin_public, 'eggz_set_reservation_table' );
 
 		$this->loader->action( 'wp_ajax_nopriv_eggz_reservation_details', $plugin_public, 'eggz_reservation_details' );
 		$this->loader->action( 'wp_ajax_eggz_reservation_details', $plugin_public, 'eggz_reservation_details' );

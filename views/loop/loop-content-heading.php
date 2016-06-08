@@ -28,7 +28,7 @@
 
 	<td class="eggz-reservations-table">
 
-	  <select class="selectpicker">
+	  <select class="selectpicker" data-postid="<?php echo $item->ID; ?>">
 	  	<option>XX</option>
   		<?php
 				$class = '';
