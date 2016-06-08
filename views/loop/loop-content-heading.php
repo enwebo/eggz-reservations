@@ -31,11 +31,13 @@
 	  <select class="selectpicker" data-postid="<?php echo $item->ID; ?>">
 	  	<option>XX</option>
   		<?php
-				$class = '';
 
-				foreach ($all_terms as $term) {
-					if ( isset( $current_table ) && $current_table == $term->slug ) $class = ' current';
-					echo '<option class="' . $term->slug . $class . '">' . $term->name . '</option>';
+			foreach ($all_terms as $term) {
+				$selected = "";
+				if ( isset( $current_table ) && !empty( $current_table ) && ( $current_table === $term->slug ) ) {
+					$selected = ' selected';
+				}
+				echo '<option class="' . $current_table . $term->slug . $class . '"' . $selected . '>' . $term->name . '</option>';
 			} ?>
 		</select>
 
