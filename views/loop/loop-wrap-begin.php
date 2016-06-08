@@ -3,10 +3,7 @@
  * The view for the list wrap start used in the loop
  */
 
-?><div class="eggz-reservations eggz-reservations-list-wrap row<?php echo $class; ?>">
-
-		<!-- Trigger the modal with a button -->
-		<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#editReservationModal">Open Modal</button>
+?><div class="eggz-reservations eggz-reservations-list-wrap<?php echo $class; ?>">
 
 		<!-- Modal -->
 		<div id="editReservationModal" class="modal fade" role="dialog">
@@ -38,15 +35,6 @@
 
 			<div class="eggz-reservations-sort-order">
 					<div class="name-field-sort"><?php _e( 'Sort by', 'eggz_reservations' ); ?></div>
-					
-					<!-- <button class="btn btn-default dropdown-toggle" type="button" id="reservationsOrder" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
-					  Latest
-					</button>
-					<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="reservationsOrder">
-						<li><a href="#"><?php _e( 'Oldest', 'eggz-reservations' ); ?></a></li>
-						<li><a href="#"><?php _e( 'Unassigned First', 'eggz-reservations' ); ?></a></li>
-						<li><a href="#"><?php _e( 'Unassigned Last', 'eggz-reservations' ); ?></a></li>
-					</ul> -->
 					<div class="select-sort">
 						<select class="selectpicker">
 					  	<option><?php _e( 'Latest', 'eggz-reservations' ); ?></option>
@@ -59,4 +47,11 @@
 
 		</div>
 
-		<ul class="eggz-reservations-list">
+		<div class="clearfix eggz-reservations-tools">
+			<div class="tools">
+				<button type="button"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>
+				<button type="button"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+			</div>
+		</div>
+
+		<div class="eggz-reservations-list row">

@@ -88,7 +88,7 @@ class Eggz_Reservations_Public {
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/eggz-reservations-public.css', array(), $this->version, 'all' );
 		wp_enqueue_style( 'jquery-style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css');
 		
-		wp_enqueue_style( $this->plugin_name . '-bootstrap', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/bootstrap.css' );
+		/*wp_enqueue_style( $this->plugin_name . '-bootstrap', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/bootstrap.css' );*/
 		wp_enqueue_style( $this->plugin_name . '-font-awesome', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/fonts/font-awesome-4.6.3/css/font-awesome.min.css' );
 		wp_enqueue_style( $this->plugin_name . '-tether', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/tether.min.css' );
 		wp_enqueue_style( $this->plugin_name . '-timepicker', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/bootstrap-datetimepicker.min.css' );
@@ -108,13 +108,12 @@ class Eggz_Reservations_Public {
 
 		wp_dequeue_script('jquery-ui-core');
 		wp_enqueue_script('jquery-ui-core');
-		wp_dequeue_script( 'jquery-ui-datepicker' );
-		wp_enqueue_script( 'jquery-ui-datepicker' );
-
 
 		wp_enqueue_script( $this->plugin_name . '-select', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/bootstrap-select.min.js', array( 'jquery' ) );
 		wp_enqueue_script( $this->plugin_name . '-tether', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/tether.min.js', array( 'jquery' ) );
-		wp_enqueue_script( $this->plugin_name . '-bootstrap', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/bootstrap.min.js', array( 'jquery' ) );
+		wp_dequeue_script( 'bootstrap' );
+
+		wp_enqueue_script( 'bootstrap', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/bootstrap.min.js', array( 'jquery' ) );
 		wp_enqueue_script( $this->plugin_name . '-moment', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/moment.js', array( 'jquery' ) );
 
 		wp_enqueue_script( $this->plugin_name . '-timepicker', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/bootstrap-datetimepicker.min.js', array( 'jquery' ) );
@@ -621,7 +620,7 @@ class Eggz_Reservations_Public {
 		</table>
 
 		<div class="bottom-btn-container align-center">
-			<a href="<?php echo get_bloginfo('url');?>" class="btn-link-2">Back</a>
+			<a href="<?php echo get_bloginfo('url');?>" class="btn btn-link-2">Back</a>
 		</div>
 
 		<?php
