@@ -19,7 +19,7 @@ $atts['id'] 			= 'reservation_date';
 $atts['label'] 			= 'Date';
 $atts['name'] 			= 'reservation-date';
 $atts['placeholder'] 	= '';
-$atts['type'] 			= 'time';
+$atts['type'] 			= 'text';
 $atts['value'] 			= '';
 
 if ( ! empty( $this->meta[$atts['id']][0] ) ) {
@@ -39,7 +39,7 @@ include( plugin_dir_path( dirname( __FILE__ ) ) . 'fields/field-text.php' );
 
 
 $atts 					= array();
-$atts['class'] 			= 'widefat';
+$atts['class'] 			= 'widefat timepicker';
 $atts['description'] 	= '';
 $atts['id'] 			= 'reservation_time';
 $atts['label'] 			= 'Time';
@@ -67,7 +67,7 @@ include( plugin_dir_path( dirname( __FILE__ ) ) . 'fields/field-text.php' );
 
 
 $atts 					= array();
-$atts['class'] 			= 'widefat';
+$atts['class'] 			= 'widefat selector';
 $atts['description'] 	= '';
 $atts['id'] 			= 'reservation_persons';
 $atts['label'] 			= 'Persons';

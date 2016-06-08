@@ -167,7 +167,7 @@ class Eggz_Reservations_Admin {
 	 */
 	public function enqueue_styles() {
 
-		wp_enqueue_style( $this->plugin_name . '-bootstrap', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/bootstrap.css' );
+		// wp_enqueue_style( $this->plugin_name . '-bootstrap', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/bootstrap.css' );
 		wp_enqueue_style( $this->plugin_name . '-timepicker', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/bootstrap-datetimepicker.min.css' );
 		wp_enqueue_style( $this->plugin_name . '-select', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/bootstrap-select.min.css' );
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/eggz-reservations-admin.css', array(), $this->version, 'all' );
@@ -464,8 +464,8 @@ class Eggz_Reservations_Admin {
 		$options[] = array( 'days-for-reservations', 'text', '' );
 		$options[] = array( 'persons-for-reservations', 'text', '' );
 		$options[] = array( 'select-field', 'select', '' );
+		$options[] = array( 'open-hours', 'repeater', array( array( 'day', 'text', 'Monday' ), array( 'open_hours', 'text', '12:00 AM' ), array( 'close_hours', 'text', '12:00 PM' ) ) );
 		$options[] = array( 'howtoapply', 'editor', '' );
-		$options[] = array( 'open-hours', 'repeater', array( array( 'day', 'text' ), array( 'open_hours', 'text' ), array( 'close_hours', 'text' ) ) );
 
 
 		return $options;
@@ -501,7 +501,7 @@ class Eggz_Reservations_Admin {
 	 */
 	public function link_row_meta( $links, $file ) {
 
-		if ( $file == PLUGIN_NAME_FILE ) {
+		if ( $file == EGGZ_RESERVATIONS_FILE ) {
 
 			$links[] = '<a href="http://twitter.com/enwebo">Enwebo</a>';
 
@@ -587,8 +587,8 @@ class Eggz_Reservations_Admin {
 		);
 
 		add_settings_field(
-			'repeater-test',
-			apply_filters( $this->plugin_name . 'label-repeat-test', esc_html__( 'Open Hours', 'eggz-reservations' ) ),
+			'open-hours',
+			apply_filters( $this->plugin_name . 'label-open-hours', esc_html__( 'Open Hours', 'eggz-reservations' ) ),
 			array( $this, 'field_repeater' ),
 			$this->plugin_name,
 			$this->plugin_name . '-settingssection',
@@ -783,7 +783,8 @@ class Eggz_Reservations_Admin {
 				$valid[$option[0]] = $this->sanitizer( $type, $input[$name] );
 
 			}
-			/*if ( ! isset( $input[$option[0]] ) ) { continue; }
+			
+			/* if ( ! isset( $input[$option[0]] ) ) { continue; }
 
 			$sanitizer = new Eggz_Reservations_Sanitize();
 
@@ -795,8 +796,8 @@ class Eggz_Reservations_Admin {
 
 			}
 
-			unset( $sanitizer );
-			*/
+			unset( $sanitizer ); */
+			
 
 		}
 

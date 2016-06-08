@@ -93,6 +93,8 @@ class Eggz_Reservations_Public {
 		wp_enqueue_style( $this->plugin_name . '-tether', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/tether.min.css' );
 		wp_enqueue_style( $this->plugin_name . '-timepicker', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/bootstrap-datetimepicker.min.css' );
 		wp_enqueue_style( $this->plugin_name . '-select', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/bootstrap-select.min.css' );
+		wp_dequeue_style( 'style' );
+		wp_enqueue_style( 'style' );
 		
 	} // enqueue_styles()
 
@@ -242,9 +244,9 @@ class Eggz_Reservations_Public {
 			$day_of_week = $i % 7;
 
 			if ( isset ( $open_hours[$day_of_week] ) ) {
-				
-				$all[$i]['open'] 	= $open_hours[$day_of_week]['open_hours'];
-				$all[$i]['close'] 	= $open_hours[$day_of_week]['close_hours'];
+ 
+				$all[$i]['open'] 	= isset( $open_hours[$day_of_week]['open_hours'] ) ? $open_hours[$day_of_week]['open_hours'] : '';
+				$all[$i]['close'] 	= isset( $open_hours[$day_of_week]['close_hours'] ) ? $open_hours[$day_of_week]['close_hours'] : '';
 
 			}
 			
@@ -384,7 +386,11 @@ class Eggz_Reservations_Public {
 					<?php
 					$items = $this->options['open-hours'];
 
-					if ( is_array( $items ) || is_object( $items ) ) {
+					if ( empty($items[0]['day']) ){
+
+						_e( 'Please add opening hours in Eggz Reservations Plugin.', 'eggz-reservations' );
+
+					} elseif ( is_array( $items ) || is_object( $items ) ) {
 
 						foreach ( $items as $item ) { ?>
 
@@ -415,11 +421,15 @@ class Eggz_Reservations_Public {
 				</div>
 		<?php
 
+
 		if( $args['title'] != '' ) { ?>
 
 			</div>
 
 		<?php } 
+
+		unset($items);
+		unset($args);
 
 		$output = ob_get_contents();
 

@@ -196,7 +196,7 @@ class Eggz_Reservations {
 		$this->loader->action( 'admin_init', $plugin_admin, 'register_sections' );
 		$this->loader->action( 'admin_init', $plugin_admin, 'register_settings' );
 		$this->loader->action( 'admin_menu', $plugin_admin, 'add_menu' );
-		$this->loader->action( 'plugin_action_links_' . PLUGIN_NAME_FILE, $plugin_admin, 'link_settings' );
+		$this->loader->action( 'plugin_action_links_' . EGGZ_RESERVATIONS_FILE, $plugin_admin, 'link_settings' );
 		$this->loader->action( 'plugin_row_meta', $plugin_admin, 'link_row_meta', 10, 2 );
 
 	} // define_admin_hooks()

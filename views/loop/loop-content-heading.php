@@ -14,7 +14,9 @@
 
 <!-- Split button -->
 <table class="reservation-heading-box">
+
 	<td class="eggz-reservations-heading">
+
 	  <button type="button" class="btn btn-default eggz-reservation-trigger">
 	  	<h3 class="eggz-reservations-title" itemprop="name"><?php echo $item->post_title; ?></h3>
 			<?php
@@ -22,18 +24,22 @@
 				<p class="eggz-reservations-date"><?php echo esc_html( $meta['reservation_date'][0] ); ?></p>
 			<?php } ?>
 		</button>
+		
 	</td>
 
 	<td class="eggz-reservations-table">
+
 	  <select class="selectpicker">
 	  	<option>XX</option>
   		<?php
 				$class = '';
 
 				foreach ($all_terms as $term) {
-					if ( $current_table == $term->slug ) $class = ' current';
+					if ( isset( $current_table ) && $current_table == $term->slug ) $class = ' current';
 					echo '<option class="' . $term->slug . $class . '">' . $term->name . '</option>';
 			} ?>
 		</select>
+
 	</td>
+
 </table>

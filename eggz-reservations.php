@@ -29,8 +29,8 @@
 if ( ! defined( 'WPINC' ) ) { die; }
 
 // Used for referring to the plugin file or basename
-if ( ! defined( 'PLUGIN_NAME_FILE' ) ) {
-	define( 'PLUGIN_NAME_FILE', plugin_basename( __FILE__ ) );
+if ( ! defined( 'EGGZ_RESERVATIONS_FILE' ) ) {
+	define( 'EGGZ_RESERVATIONS_FILE', plugin_basename( __FILE__ ) );
 }
 
 /**
