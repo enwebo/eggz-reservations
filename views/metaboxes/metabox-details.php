@@ -13,7 +13,7 @@
 wp_nonce_field( $this->plugin_name, 'reservation_details_nonce' );
 
 $atts 					= array();
-$atts['class'] 			= 'widefat timepicker';
+$atts['class'] 			= 'widefat datepicker';
 $atts['description'] 	= '';
 $atts['id'] 			= 'reservation_date';
 $atts['label'] 			= 'Date';
@@ -72,6 +72,58 @@ $atts['description'] 	= '';
 $atts['id'] 			= 'reservation_persons';
 $atts['label'] 			= 'Persons';
 $atts['name'] 			= 'reservation-persons';
+$atts['placeholder'] 	= '';
+$atts['type'] 			= 'text';
+$atts['value'] 			= '';
+
+if ( ! empty( $this->meta[$atts['id']][0] ) ) {
+
+	$atts['value'] = $this->meta[$atts['id']][0];
+
+}
+
+apply_filters( $this->plugin_name . '-field-' . $atts['id'], $atts );
+
+?><p><?php
+
+include( plugin_dir_path( dirname( __FILE__ ) ) . 'fields/field-text.php' );
+
+?></p><?php
+
+
+
+$atts 					= array();
+$atts['class'] 			= 'widefat';
+$atts['description'] 	= '';
+$atts['id'] 			= 'reservation_email';
+$atts['label'] 			= 'Email';
+$atts['name'] 			= 'reservation-email';
+$atts['placeholder'] 	= '';
+$atts['type'] 			= 'text';
+$atts['value'] 			= '';
+
+if ( ! empty( $this->meta[$atts['id']][0] ) ) {
+
+	$atts['value'] = $this->meta[$atts['id']][0];
+
+}
+
+apply_filters( $this->plugin_name . '-field-' . $atts['id'], $atts );
+
+?><p><?php
+
+include( plugin_dir_path( dirname( __FILE__ ) ) . 'fields/field-text.php' );
+
+?></p><?php
+
+
+
+$atts 					= array();
+$atts['class'] 			= 'widefat';
+$atts['description'] 	= '';
+$atts['id'] 			= 'reservation_phone';
+$atts['label'] 			= 'Phone';
+$atts['name'] 			= 'reservation-phone';
 $atts['placeholder'] 	= '';
 $atts['type'] 			= 'text';
 $atts['value'] 			= '';

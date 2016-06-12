@@ -105,20 +105,19 @@ class Eggz_Reservations_Public {
 	 */
 	public function enqueue_scripts() {
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/eggz-reservations-public.js', array( 'jquery' ), $this->version, true );
 		wp_enqueue_script( 'validation', 'http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js', array( 'jquery' ) );
 
 		wp_dequeue_script('jquery-ui-core');
 		wp_enqueue_script('jquery-ui-core');
 
-		wp_enqueue_script( $this->plugin_name . '-select', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/bootstrap-select.min.js', array( 'jquery' ) );
-		wp_enqueue_script( $this->plugin_name . '-tether', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/tether.min.js', array( 'jquery' ) );
 		wp_dequeue_script( 'bootstrap' );
-
-		wp_enqueue_script( 'bootstrap', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/bootstrap.min.js', array( 'jquery' ) );
+		// wp_enqueue_script( 'bootstrap', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/bootstrap.min.js', array( 'jquery' ) );
+		wp_enqueue_script( $this->plugin_name . '-tether', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/tether.min.js', array( 'jquery' ) );
 		wp_enqueue_script( $this->plugin_name . '-moment', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/moment.js', array( 'jquery' ) );
-
 		wp_enqueue_script( $this->plugin_name . '-timepicker', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/bootstrap-datetimepicker.min.js', array( 'jquery' ) );
+		wp_enqueue_script( $this->plugin_name . '-select', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/bootstrap-select.min.js', array( 'jquery' ) );
+
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/eggz-reservations-public.js', array( 'jquery' ), $this->version, true );
 
 
 
@@ -641,6 +640,26 @@ class Eggz_Reservations_Public {
 	}
 
 	/**
+	 * Update reservation custom fielfd.
+	 *
+	 */
+
+	public function eggz_update_reservation_meta( $post_id, $data ) {
+
+		foreach ($this->fields as $key => $field) {
+
+			if ( isset( $data[$key] ) && $data[$key] != '' ) {
+
+				update_post_meta( $post_id, $field['meta-field'], $data[$key] );
+				$this->fields[$key]['value'] = $data[$key];
+				
+			}
+
+		}
+
+	}
+
+	/**
 	 * Add reservation.
 	 *
 	 */
@@ -674,16 +693,7 @@ class Eggz_Reservations_Public {
 				)
 			);
 
-			foreach ($this->fields as $key => $field) {
-
-				if ( isset( $_POST[$key] ) && $_POST[$key] != '' ) {
-
-					update_post_meta( $post_id, $field['meta-field'], $_POST[$key] );
-					$this->fields[$key]['value'] = $_POST[$key];
-				
-				}
-
-			}
+			$this->eggz_update_reservation_meta( $post_id, $_POST );
 
 		} else {
 	    		// Arbitrarily use -2 to indicate that the page with the title already exists
@@ -698,17 +708,18 @@ class Eggz_Reservations_Public {
 
 
 	/**
-	 * Delete a reservation.
+	 * Set table for reservation.
 	 *
 	 * @returns 		1 if the post was never created.
 	 */
 
 	public function eggz_set_reservation_table() {
 		
-		if ( is_admin() ) {
+		// Check if user logged in and has staff area permisions to edit.
+		if ( is_user_logged_in () && is_admin() ) {
 
-			if ( !isset( $_POST['id'] ) && !empty( $_POST['id'] ) ) { echo '-1'; die(); }
-			if ( !isset( $_POST['table'] ) && !empty( $_POST['table'] ) ) { echo '-2'; die(); }
+			if ( !isset( $_POST['id'] ) && empty( $_POST['id'] ) ) { echo '-1'; die(); }
+			if ( !isset( $_POST['table'] ) && empty( $_POST['table'] ) ) { echo '-2'; die(); }
 
 			$taxonomy = 'table';
 			$post_id = $_POST['id'];
@@ -719,6 +730,7 @@ class Eggz_Reservations_Public {
 			wp_set_post_terms( $post_id, $term_id['term_id'], $taxonomy, false );
 
 		}
+
 		die();
 
 	} // end eggz_set_reservation_table
@@ -727,51 +739,75 @@ class Eggz_Reservations_Public {
 	/**
 	 * Delete a reservation.
 	 *
-	 * @returns 		1 if the post was never created, 
-	 *                  -2 if a post with the same title exists,
-	 *                  or the ID of the post if successful.
+	 * @returns 		1 if the post was never created.
 	 */
 
 	public function eggz_delete_reservation() {
-
-
-		// Initialize the page ID to -1. This indicates no action has been taken.
-		$post_id = -1;
-
-		// Setup the author, slug, and title for the post
-		$author_id = 1;
 		
-		if ( isset($_POST['title']) && $_POST['title'] != '' ) {
-			$title = $_POST['title'];
-			$slug = sanitize_title( $_POST['title'] );
+		// Check if user logged in and has staff area permisions to edit.
+		if ( is_user_logged_in () && is_admin() ) {
+
+			if ( isset( $_POST['deleteall'] ) && !empty( $_POST['deleteall'] && $_POST['deleteall'] ) ) { 
+				
+				// Check if user logged in and has staff area permisions to edit.
+				if ( is_user_logged_in () && is_admin() ) {
+					
+					$args = array(
+						'numberposts' => -1,
+						'post_type' =>'reservation'
+					);
+
+					$posts = get_posts( $args );
+
+					if (is_array($posts)) {
+
+					   foreach ($posts as $post) {
+
+					       wp_trash_post( $post->ID);
+					   
+					   }
+					
+					}
+
+				}
+
+			} elseif ( isset( $_POST['id'] ) && !empty( $_POST['id'] ) ) {
+
+				$post_id = $_POST['id'];
+				wp_trash_post( $post_id );
+
+			} else {
+				echo 'Nothing deleted';
+			}
+
 		}
 
-		// If the page doesn't already exist, then create it
-		if( check_ajax_referer( 'eggz_reservations', 'nonce' ) ) {
-
-			// Set the post ID so that we know the post was created successfully
-			$post_id = wp_insert_post(
-				array(
-					'comment_status'	=>	'closed',
-					'ping_status'		=>	'closed',
-					'post_author'		=>	$author_id,
-					'post_name'			=>	$slug,
-					'post_title'		=>	$title,
-					'post_status'		=>	'publish',
-					'post_type'			=>	'post'
-				)
-			);
-
-		// Otherwise, we'll stop
-		} else {
-
-	    		// Arbitrarily use -2 to indicate that the page with the title already exists
-	    		$post_id = -2;
-
-		} // end if
 		die();
 
 	} // end eggz_delete_reservation
+
+
+	/**
+	 * Update a reservation.
+	 *
+	 * @returns 		1 if the post was never created.
+	 */
+
+	public function eggz_update_reservation() {
+		
+		if ( !isset( $_POST['id'] ) && empty( $_POST['id'] ) ) { echo '-1'; die(); }
+
+		// Check if user logged in and has staff area permisions to edit.
+		if ( is_user_logged_in () && is_admin() ) {
+
+			$this->eggz_update_reservation_meta( $_POST['id'], $_POST );
+
+		}
+
+		die();
+
+	} // end eggz_delete_reservation
+
 
 
 

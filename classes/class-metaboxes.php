@@ -72,7 +72,7 @@ class Eggz_Reservations_Admin_Metaboxes {
 		// add_meta_box( $id, $title, $callback, $screen, $context, $priority, $callback_args );
 
 		add_meta_box(
-			'eggz_reservations_table',
+			'eggz_reservations_details',
 			apply_filters( $this->plugin_name . '-metabox-name-title', esc_html__( 'Reservation Details', 'eggz-reservations' ) ),
 			array( $this, 'metabox' ),
 			'reservation',
@@ -117,7 +117,7 @@ class Eggz_Reservations_Admin_Metaboxes {
 		$nonces 		= array();
 		$nonce_check 	= 0;
 
-		$nonces[] 	= 'nonce_eggz_reservations_table';
+		$nonces[] 	= 'reservation_details_nonce';
 
 		foreach ( $nonces as $nonce ) {
 
@@ -143,8 +143,13 @@ class Eggz_Reservations_Admin_Metaboxes {
 
 		$fields = array();
 
-		$fields[] 	= array( 'field-name', 'field-type', 'Field Label' );
-		$fields[] = array( 'repeat-test', 'repeater', array( array( 'test1', 'text' ), array( 'test2', 'text' ), array( 'test3', 'text' ) ) );
+		$fields[] 	= array( 'reservation_date', 'text', 'Date:' );
+		$fields[] 	= array( 'reservation_time', 'text', 'Time:' );
+		$fields[] 	= array( 'reservation_persons', 'text', 'Persons:' );
+		$fields[] 	= array( 'reservation_email', 'text', 'Email:' );
+		$fields[] 	= array( 'reservation_phone', 'text', 'Phone:' );
+		$fields[] 	= array( 'reservation_name', 'text', 'Name:' );
+		$fields[] 	= array( 'reservation_special_requests', 'text', 'Requests:' );
 
 		return $fields;
 
@@ -165,6 +170,7 @@ class Eggz_Reservations_Admin_Metaboxes {
 		include( plugin_dir_path( dirname( __FILE__ ) ) . 'views/metaboxes/metabox-' . $params['args']['file'] . '.php' );
 
 	} // metabox()
+
 
 	/**
 	 * Add subtitle field to post editor
@@ -193,6 +199,7 @@ class Eggz_Reservations_Admin_Metaboxes {
 	} // set_meta()
 
 
+
 	/**
 	 * Saves metabox data
 	 *
@@ -212,17 +219,18 @@ class Eggz_Reservations_Admin_Metaboxes {
 	public function validate_meta( $post_id, $object ) {
 
 		//wp_die( '<pre>' . print_r( $_POST ) . '</pre>' );
-		//
+
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) { return $post_id; }
 		if ( ! current_user_can( 'edit_post', $post_id ) ) { return $post_id; }
-		if ( 'job' !== $object->post_type ) { return $post_id; }
+		if ( 'reservation' !== $object->post_type ) { return $post_id; }
 
 		$nonce_check = $this->check_nonces( $_POST );
 
 		if ( 0 < $nonce_check ) { return $post_id; }
 
 		$metas = $this->get_metabox_fields();
-
+		$sanitizer 	= new Eggz_Reservations_Sanitize();
+		
 		foreach ( $metas as $meta ) {
 
 			$name = $meta[0];
@@ -238,7 +246,7 @@ class Eggz_Reservations_Admin_Metaboxes {
 
 						if ( empty( $data ) ) { continue; }
 
-						$clean[$field[0]][] = $this->sanitizer( $field[1], $data );
+						$clean[$field[0]][] = $sanitizer->clean( $data, $field[1]);
 
 					} // foreach
 
@@ -259,14 +267,22 @@ class Eggz_Reservations_Admin_Metaboxes {
 
 			} else {
 
-				$new_value = $this->sanitizer( $type, $_POST[$name] );
+				$fieldname = str_replace( '_', '-', $name );
+				$new_value = '';
+
+				if( isset( $_POST[$fieldname] ) ) {
+
+					$new_value = $sanitizer->clean( $_POST[$fieldname], $type );
+
+				}
 
 			}
-
+			
 			update_post_meta( $post_id, $name, $new_value );
 
 		} // foreach
 
 	} // validate_meta()
+
 
 } // class

@@ -3,14 +3,7 @@
  * The view for the content wrap start used in the loop
  */
 
-
-		$all_terms = get_terms( array( 'taxonomy' => 'table', 'hide_empty' => false ) );
-		$terms = get_the_terms( $item->ID , 'table' );
-
-		if ( $terms ) {
-			$current_table = $terms[0]->{'slug'};
-			$current_table_name = $terms[0]->{'name'};
-		} ?>
+?>
 
 <!-- Split button -->
 <table class="reservation-heading-box">
@@ -29,17 +22,31 @@
 
 	<td class="eggz-reservations-table">
 
-	  <select class="selectpicker" data-postid="<?php echo $item->ID; ?>">
-	  	<option>XX</option>
-  		<?php
+	  	<?php
 
-			foreach ($all_terms as $term) {
-				$selected = "";
-				if ( isset( $current_table ) && !empty( $current_table ) && ( $current_table === $term->slug ) ) {
+	  		$tax_terms = get_terms( array( 'taxonomy' => 'table', 'hide_empty' => false ) );
+			$reservation_terms = get_the_terms( $item->ID , 'table' );
+		
+		?>
+
+		<select class="selectpicker" data-postid="<?php echo $item->ID; ?>" data-table="<?php if( isset( $reservation_terms[0]->{'slug'} ) ) echo $reservation_terms[0]->{'slug'}; ?>">
+			
+			<option>XX</option>
+
+	  		<?php
+
+			foreach ($tax_terms as $term) {
+
+				$selected = '';
+
+				if ( isset( $reservation_terms[0]->{'slug'} ) &&  $reservation_terms[0]->{'slug'} == $term->slug ) {
 					$selected = ' selected';
 				}
-				echo '<option class="' . $current_table . $term->slug . $class . '"' . $selected . '>' . $term->name . '</option>';
+				
+				echo '<option class="' . $term->slug . '"' . $selected . '>' . $term->name . '</option>';
+			
 			} ?>
+
 		</select>
 
 	</td>

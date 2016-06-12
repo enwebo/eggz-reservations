@@ -55,7 +55,7 @@ class Eggz_Reservations_Sanitize {
 		/**
 		 * Add additional santization before the default sanitization
 		 */
-		do_action( 'plugin_name_pre_sanitize', $sanitized );
+		do_action( 'eggz_reservations_pre_sanitize', $sanitized );
 
 		switch ( $type ) {
 

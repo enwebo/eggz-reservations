@@ -238,7 +238,7 @@ class Eggz_Reservations {
 		$this->loader->action( 'save_post_reservation', $plugin_metaboxes, 'validate_meta', 10, 2 );
 		//$this->loader->action( 'edit_form_after_title', $plugin_metaboxes, 'metabox_subtitle', 10, 2 );
 		$this->loader->action( 'add_meta_boxes_reservation', $plugin_metaboxes, 'set_meta' );
-		$this->loader->filter( 'post_type_labels_reservation', $plugin_metaboxes, 'change_featured_image_labels', 10, 1 );
+		// $this->loader->filter( 'post_type_labels_reservation', $plugin_metaboxes, 'change_featured_image_labels', 10, 1 );
 
 	} // define_metabox_hooks()
 
@@ -255,18 +255,21 @@ class Eggz_Reservations {
 
 		$this->loader->action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+
+		$this->loader->action( 'wp_ajax_nopriv_eggz_reservation_details', $plugin_public, 'eggz_reservation_details' );
+		$this->loader->action( 'wp_ajax_eggz_reservation_details', $plugin_public, 'eggz_reservation_details' );
 		
 		$this->loader->action( 'wp_ajax_nopriv_eggz_add_reservation', $plugin_public, 'eggz_add_reservation' );
 		$this->loader->action( 'wp_ajax_eggz_add_reservation', $plugin_public, 'eggz_add_reservation' );
-
-		$this->loader->action( 'wp_ajax_nopriv_eggz_delete_reservation', $plugin_public, 'eggz_add_reservation' );
-		$this->loader->action( 'wp_ajax_eggz_delete_reservation', $plugin_public, 'eggz_add_reservation' );
 		
 		$this->loader->action( 'wp_ajax_nopriv_eggz_set_reservation_table', $plugin_public, 'eggz_set_reservation_table' );
 		$this->loader->action( 'wp_ajax_eggz_set_reservation_table', $plugin_public, 'eggz_set_reservation_table' );
 
-		$this->loader->action( 'wp_ajax_nopriv_eggz_reservation_details', $plugin_public, 'eggz_reservation_details' );
-		$this->loader->action( 'wp_ajax_eggz_reservation_details', $plugin_public, 'eggz_reservation_details' );
+		$this->loader->action( 'wp_ajax_nopriv_eggz_delete_reservation', $plugin_public, 'eggz_delete_reservation' );
+		$this->loader->action( 'wp_ajax_eggz_delete_reservation', $plugin_public, 'eggz_delete_reservation' );
+
+		$this->loader->action( 'wp_ajax_nopriv_eggz_update_reservation', $plugin_public, 'eggz_update_reservation' );
+		$this->loader->action( 'wp_ajax_eggz_update_reservation', $plugin_public, 'eggz_update_reservation' );
 
 		$this->loader->filter( 'single_template', $plugin_public, 'single_cpt_template', 11 );
 

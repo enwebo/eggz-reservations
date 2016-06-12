@@ -4547,6 +4547,58 @@
   border-width: 2px !important;
 }
 
+.eggz-reservations .delete-modal-image,
+.eggz-reservations .delete-modal-content {
+  height: 100%;
+  width: 50%;
+}
+
+.eggz-reservations .delete-modal-image {
+  background: url('../images/delete-reservation-bg.jpg');
+  background-size:cover;
+  float: left;
+  position: absolute;
+}
+
+.eggz-reservations .delete-modal-content {
+  float:right;
+  padding: 50px;
+  text-align: center;
+}
+
+#deleteReservationModal .modal-dialog {
+  max-width: 740px;
+}
+
+#deleteReservationModal input {
+  float:left;
+}
+
+#editReservationModal form {
+    padding: 20px;
+}
+
+#editReservationModal .modal-body h4 {
+  margin-top: 0;
+}
+
+#editReservationModal .modal-content {
+  background-image: url('../images/edit-reservation-bg.png');
+  background-size: contain;
+  background-position: bottom right;
+  background-repeat: no-repeat;
+}
+
+#editReservationModal .modal-content:before {
+  content:"";
+  background:rgba(255,255,255, .5);
+  position: absolute;
+  top:0;
+  right:0;
+  bottom: 0;
+  left:0;
+}
+
 @media (max-width: 991px) {
   .eggz-reservations .eggz-reservations-filters .reservations-filters,
   .eggz-reservations .eggz-reservations-filters .eggz-reservations-sort-order {

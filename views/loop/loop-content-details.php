@@ -60,12 +60,24 @@
 	<table>
 		<tr class="btn-eggz-reservations-controls-row">
 			<td>
-				<button type="button" class="btn-eggz-reservations-control edit-reservation" data-toggle="modal" data-target="#editReservationModal">
+				<button 
+					type="button" 
+					class="btn-eggz-reservations-control edit-reservation" 
+					data-toggle="modal" 
+					data-target="#editReservationModal" 
+					data-id="<?php echo $item->ID; ?>" 
+					data-date="<?php if ( !empty( $meta['reservation_date'][0] ) ) echo esc_html( $meta['reservation_date'][0] ); ?>" 
+					data-time="<?php if ( !empty( $meta['reservation_time'][0] ) ) echo esc_html( $meta['reservation_time'][0] ); ?>" 
+					data-persons="<?php if ( !empty( $meta['reservation_persons'][0] ) ) echo esc_html( $meta['reservation_persons'][0] ); ?>" 
+					data-email="<?php if ( !empty( $meta['reservation_email'][0] ) ) echo esc_html( $meta['reservation_email'][0] ); ?>" 
+					data-phone="<?php if ( !empty( $meta['reservation_phone'][0] ) ) echo esc_html( $meta['reservation_phone'][0] ); ?>" 
+					data-name="<?php if ( !empty( $meta['reservation_name'][0] ) ) echo esc_html( $meta['reservation_name'][0] ); ?>" 
+					data-specialrequest="<?php if ( !empty( $meta['reservation_special_request'][0] ) ) echo esc_html( $meta['reservation_special_request'][0] ); ?>" >
 					<?php _e( 'Edit', 'eggz-reservations' ); ?>
 				</button>
 			</td>
 			<td>
-				<button type="button" class="btn-eggz-reservations-control delete-reservation"  data-toggle="modal" data-target="#deleteReservationModal">
+				<button type="button" class="btn-eggz-reservations-control delete-reservation" data-toggle="modal" data-target="#deleteReservationModal" data-id="<?php echo $item->ID; ?>">
 					<?php _e( 'Delete', 'eggz-reservations' ); ?>
 				</button>
 			</td>

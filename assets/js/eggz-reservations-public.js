@@ -111,12 +111,11 @@ console.log('da');
 			            nonce: POST_SUBMITTER.nonce
 			        },
 		            success : function( response ) {
-		                console.log( response );
 		                $( '.reservations-form' ).append( response );
 		                $( '.add-reservation-form' ).remove();
 		            },
 		            fail : function( response ) {
-		                console.log( response );
+		                // console.log( response );
 		            }
 
 		        });
@@ -219,34 +218,171 @@ console.log('da');
 		});
 
 		// sort reservations
+
+
 		
 		// set table for reservation
-		$('.eggz-reservations')
-			.on('change', 'select', function() {
-				var id = $(this).data( 'postid' );
-				var table = $(this).find('option:selected').val();
+		$( '.eggz-reservations' ).on( 'change', 'select', function() {
 
-		        $.ajax({
-		            url: POST_SUBMITTER.ajax_url,
-					type : "POST",
-		            data: {
-		            	action: 'eggz_set_reservation_table',
-		           		table: table,
-		           		id: id
-			        },
-		            success : function( response ) {
-		                console.log( response );
-		                $( '.eggz-reservations' ).append( response );
-		            },
-		            fail : function( response ) {
-		                console.log( response );
-		            }
+			var id = $(this).data( 'postid' ),
+				currentTable = $(this).data( 'table' ),
+				table = $(this).find( 'option:selected' ).val();
 
-		        });
+	    	$.ajax({
+	            method: "POST",
+	            url: POST_SUBMITTER.ajax_url,
+	            data: {
+	            	action: 'eggz_set_reservation_table',
+	           		id: id,
+	           		table: table
+		        },
+	            success : function( response ) {
+	                $( '.eggz-reservations-list' ).find( '[data-postid="' + id + '"]' ).removeClass( 'unassigned' ).removeClass( currentTable ).addClass( table ).data( 'table', table );
+	            }
+
+	        });
+
+		});
+
+		
+		// edit reservation
+		$('#editReservationModal').on('show.bs.modal', function (e) {
+
+			var button = $( e.relatedTarget ); // Button that triggered the modal
+			var modal = $( this );
+
+			// Set modal form values
+			modal.find( '.date' ).text( button.data( 'date' ) );
+			modal.find( '.modal-body input#reservation-id' ).val( button.data( 'id' ) );
+			modal.find( '.modal-body input#date' ).val( button.data( 'date' ) );
+			modal.find( '.modal-body input#time' ).val( button.data( 'time' ) );
+			modal.find( '.modal-body input#persons' ).val( button.data( 'persons' ) );
+			modal.find( '.modal-body input#email' ).val( button.data( 'email' ) );
+			modal.find( '.modal-body input#phone' ).val( button.data( 'phone' ) );
+			modal.find( '.modal-body input#name' ).val( button.data( 'name' ) );
+			modal.find( '.modal-body textarea#specialrequest' ).val( button.data( 'specialrequests' ) );
+
+			// Initialize Date Picker
+			modal.find( '.modal-body input#date' ).datetimepicker({
+	            useCurrent: true, //Important! See issue #1075
+	            stepping: 15,
+	            format: 'MM/DD/YYYY',
+			    allowInputToggle: true,
+	            // minDate: moment({ hour: 10, minute: 0, seconds: 0 }),
+	        	// maxDate: moment().add( dateDaysToShow, 'days' ).hour( 24 )
+	        });
+
+			// Initialize Time Picker
+	        modal.find( '.modal-body input#time' ).datetimepicker({
+	            useCurrent: false, //Important! See issue #1075
+	            stepping: 15,
+	            format: 'hh:mm a',
+			    allowInputToggle: true
+	        });
+
+			// Update Reservation
+	    	modal.find( '.edit-reservation-modal-save' ).on( 'click tap', function(e) {
+
+	        	e.preventDefault();
+
+	        	if ( modal.find( 'form' ).valid() ){
+					
+					modal.find( '.eggz-abs-loader' ).show();
+					modal.find( 'form' ).css('opacity', ".5");
+
+					$.ajax({
+					    url: POST_SUBMITTER.ajax_url,
+						method : "POST",
+					    data: {
+					    	action: 'eggz_update_reservation',
+					   		id: modal.find( '.modal-body input#reservation-id' ).val(),
+					   		date: modal.find( '.modal-body input#date' ).val(),
+					   		time: modal.find( '.modal-body input#time' ).val(),
+					   		persons: modal.find( '.modal-body input#persons' ).val(),
+					   		email: modal.find( '.modal-body input#email' ).val(),
+					   		phone: modal.find( '.modal-body input#phone' ).val(),
+					   		name: modal.find( '.modal-body input#name' ).val(),
+					   		request: modal.find( '.modal-body input#specialrequests' ).val()
+					    },
+					    success : function( response ) {
+					    	modal.find( '.eggz-abs-loader' ).hide();
+					    	modal.find( 'form' ).css('opacity', "1");
+					        console.log( response + ' - ok' );
+
+
+
+					        // $( '#editReservationModal' ).
+					    },
+					    fail : function( response ) {
+					    	modal.find( '.eggz-abs-loader' ).hide();
+					    	modal.find( 'form' ).css('opacity', "1");
+					        console.log( response );
+					    }
+					});
+
+	        	}
+
+	        });
+
+	        // modal.find( '.modal-body input#persons' ).selectpicker();
+
+		});
+
+		
+		// delete reservation
+		
+		
+		$('#deleteReservationModal')
+			.on('show.bs.modal', function (e) {
+
+				var button = $( e.relatedTarget ); // Button that triggered the modal
+				var modal = $( this );
+				modal.find( '.reservation-id' ).val( button.data( 'id' ) );
+				modal.find( '.delete-all-reservations' ).val( button.data( 'delete-all' ) );
+
+				// set messageto be shown om modal
+				if ( button.data( 'delete-all' ) ) {
+					modal.find( 'p' ).hide();
+					modal.find( 'p.delete-all-reservations-message' ).show();
+				} else {
+					modal.find( 'p' ).hide();
+					modal.find( 'p.delete-single-reservation-message' ).show();
+				}
+
+			})
+			.on( 'click tap', '.yes', function(e) {
+				
+				e.preventDefault();
+				var deleteAll = false;
+				var id = $(this).parent().find( '.reservation-id' ).val();
+
+				if ( $(this).parent().find( '.delete-all-reservations' ).val() ){
+					deleteAll = true;
+				}
+
+				$.ajax({
+				    url: POST_SUBMITTER.ajax_url,
+					method : "POST",
+				    data: {
+				    	action: 'eggz_delete_reservation',
+				    	deleteall: deleteAll,
+				    	id: id
+				    },
+				    success : function( response ) {
+				        console.log( response );
+				        if ( deleteAll ) {
+				        	$( '.eggz-reservations-list' ).empty();
+				        }else{
+		                	$( '.eggz-reservations-list' ).find( '[data-postid="' + id + '"]' ).remove();
+				        }
+						$( '#deleteReservationModal' ).modal('hide');
+				    },
+				    fail : function( response ) {
+				        console.log( response );
+				    }
+				});
 
 			});
-
-
 
 	});
 
