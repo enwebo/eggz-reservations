@@ -235,6 +235,8 @@ class Eggz_Reservations_Public {
 
 	public function get_open_hours() {
 
+		if ( !isset( $this->options['open-hours'] ) ) { return false; }
+
 		$days_number = $this->get_reservations_days(14);
 		$open_hours = $this->options['open-hours'];
 
@@ -243,7 +245,7 @@ class Eggz_Reservations_Public {
 			$day_of_week = $i % 7;
 
 			if ( isset ( $open_hours[$day_of_week] ) ) {
- 
+		
 				$all[$i]['open'] 	= isset( $open_hours[$day_of_week]['open_hours'] ) ? $open_hours[$day_of_week]['open_hours'] : '';
 				$all[$i]['close'] 	= isset( $open_hours[$day_of_week]['close_hours'] ) ? $open_hours[$day_of_week]['close_hours'] : '';
 
@@ -258,6 +260,7 @@ class Eggz_Reservations_Public {
 		unset($open_hours);
 
 		return $all;
+
 	}
 
 	public function get_hours_by_day($day) {
@@ -371,65 +374,70 @@ class Eggz_Reservations_Public {
 
 		ob_start();
 
-		$defaults['title'] 	= '';
-		$args				= shortcode_atts( $defaults, $atts, 'eggz-reservations-hours' );
+		if ( !isset( $this->options['open-hours'] ) ) { ?>
 
-		if( $args['title'] != '' ) { ?>
 			<div class="eggz-box-text-container-wrapper">
-
-				<h3 class="special-line"><?php echo $args['title']; ?></h3>
-		<?php } ?>
-				<div class="working-hours-table-container">
-					<div class="working-hours-table">
-					
-					<?php
-					$items = $this->options['open-hours'];
-
-					if ( empty($items[0]['day']) ){
-
-						_e( 'Please add opening hours in Eggz Reservations Plugin.', 'eggz-reservations' );
-
-					} elseif ( is_array( $items ) || is_object( $items ) ) {
-
-						foreach ( $items as $item ) { ?>
-
-							<div class="working-hours-table-row">
-								<div class="working-hours-table-cell">
-									<?php echo $item['day']; ?>
-								</div>
-								<div class="working-hours-table-cell">
-									<?php echo $item['open_hours']; ?>
-								</div>
-								<div class="working-hours-table-cell">
-									<span class="line-separator"></span>
-								</div>
-								<div class="working-hours-table-cell">
-									<?php echo $item['close_hours']; ?>
-								</div>
-							</div>
-
-						<?php }
-					
-					} else {
-
-						echo $items;
-
-					} ?>
-
-					</div>
-				</div>
-		<?php
-
-
-		if( $args['title'] != '' ) { ?>
-
+				<p><?php _e( 'Please add opening hours in plugin settings.', 'eggz-reservations' ); ?></p>
 			</div>
 
-		<?php } 
+		<?php } else {
 
-		unset($items);
-		unset($args);
+			$defaults['title'] 	= '';
+			$args				= shortcode_atts( $defaults, $atts, 'eggz-reservations-hours' );
 
+			if( $args['title'] != '' ) { ?>
+				<div class="eggz-box-text-container-wrapper">
+
+					<h3 class="special-line"><?php echo $args['title']; ?></h3>
+			<?php } ?>
+					<div class="working-hours-table-container">
+						<div class="working-hours-table">
+						
+						<?php
+						$items = $this->options['open-hours'];
+
+						if ( empty($items[0]['day']) ){
+
+							_e( 'Please add opening hours in Eggz Reservations Plugin.', 'eggz-reservations' );
+
+						} elseif ( is_array( $items ) || is_object( $items ) ) {
+
+							foreach ( $items as $item ) { ?>
+
+								<div class="working-hours-table-row">
+									<div class="working-hours-table-cell">
+										<?php echo $item['day']; ?>
+									</div>
+									<div class="working-hours-table-cell">
+										<?php echo $item['open_hours']; ?>
+									</div>
+									<div class="working-hours-table-cell">
+										<span class="line-separator"></span>
+									</div>
+									<div class="working-hours-table-cell">
+										<?php echo $item['close_hours']; ?>
+									</div>
+								</div>
+
+							<?php }
+						
+						} else {
+
+							echo $items;
+
+						} ?>
+
+						</div>
+					</div>
+			<?php
+
+			if( $args['title'] != '' ) { ?> </div> <?php } 
+
+			unset($items);
+			unset($args);
+
+		}
+		
 		$output = ob_get_contents();
 
 		ob_end_clean();
