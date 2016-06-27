@@ -496,9 +496,11 @@ class Eggz_Reservations_Public {
 							                	<span class="caret"></span>
 							                </span>
 								            </span>
+
 								        </div>
 								    </div>
 								</div>
+								
 								<div class='col-sm-4'>
 								    <div class="form-group">
 								        <div class='input-group date' id='timepicker'>
@@ -510,6 +512,7 @@ class Eggz_Reservations_Public {
 							                	<span class="caret"></span>
 							                </span>
 								            </span>
+
 								        </div>
 								    </div>
 								</div>
@@ -517,7 +520,7 @@ class Eggz_Reservations_Public {
 							  	<div class="col-sm-4">
 							  		<!-- Person Select -->
 
-							  		<select class="personspicker required selectpicker">
+							  		<select class="personspicker required selectpicker show-menu-arrow">
 
 							  		<?php
 							  		$personsno = $this->get_reservation_persons_limit(12);
@@ -544,8 +547,10 @@ class Eggz_Reservations_Public {
 						  	</div>
 
 						  	<div class="bottom-btn-container align-center">
-									<button type="button" class="btn-link-2" id="book-a-table-trigger">Book a table</button>
-								</div>
+
+								<button type="button" class="eggz-btn-line" id="book-a-table-trigger">Book a table</button>
+								
+							</div>
 
 					  	</div>
 					</div>
@@ -598,7 +603,7 @@ class Eggz_Reservations_Public {
 				</div>
 
 				<div class="bottom-btn-container align-center">
-					<button type="submit" class="btn-link-2 add-reservation" id="add-a-reservation-trigger"><?php esc_attr_e( 'Send', 'eggz-reservations'); ?></button
+					<button type="submit" class="eggz-btn-line add-reservation" id="add-a-reservation-trigger"><?php esc_attr_e( 'Send', 'eggz-reservations'); ?></button
 				</div>
 
 			</form>
@@ -637,7 +642,7 @@ class Eggz_Reservations_Public {
 		</table>
 
 		<div class="bottom-btn-container align-center">
-			<a href="<?php echo get_bloginfo('url');?>" class="btn btn-link-2">Back</a>
+			<a href="<?php echo get_bloginfo('url');?>" class="eggz-btn-line">Back</a>
 		</div>
 
 		<?php

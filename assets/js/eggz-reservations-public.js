@@ -18,14 +18,16 @@
             format: 'MM/DD/YYYY',
 		    allowInputToggle: true,
             minDate: moment({ hour: 10, minute: 0, seconds: 0 }),
-        	maxDate: moment().add( dateDaysToShow, 'days' ).hour( 24 )
+        	maxDate: moment().add( dateDaysToShow, 'days' ).hour( 24 ),
+        	// debug: true
         });
 
     	$('#timepicker').datetimepicker({
             useCurrent: false, //Important! See issue #1075
             stepping: 15,
             format: 'hh:mm a',
-		    allowInputToggle: true
+		    allowInputToggle: true,
+        	// debug: true
         });
 
 
@@ -38,7 +40,8 @@
 		            useCurrent: false, //Important! See issue #1075
 		            stepping: 15,
 		            allowInputToggle: true,
-		            format: 'hh:mm a'
+		            format: 'hh:mm a',
+        			// debug: true
 		        });
 	        	$( '#timepicker' ).data( "DateTimePicker" ).hide();
 
@@ -190,7 +193,7 @@ console.log('da');
 		
 		});
 		
-		$(window).on("click.Bst", function(event){		
+		$(window).on("click.Bst, show.bs.modal", function(event){		
 
 			if ( $reservation_box.has(event.target).length == 0 && !$reservation_box.is(event.target) ){
 
@@ -206,7 +209,9 @@ console.log('da');
 		});
 
 		// SelectPicker
-		$('.selectpicker').selectpicker();
+
+		$(".selectpicker").selectpicker({
+		});
 
 		// filter reservations
 		$( ".reservations-filters li" ).on( "click tap", function(e) {
@@ -260,6 +265,7 @@ console.log('da');
 			modal.find( '.modal-body input#email' ).val( button.data( 'email' ) );
 			modal.find( '.modal-body input#phone' ).val( button.data( 'phone' ) );
 			modal.find( '.modal-body input#name' ).val( button.data( 'name' ) );
+			modal.find( '.modal-header .eggz-reservations-title' ).text( button.data( 'name' ) );
 			modal.find( '.modal-body textarea#specialrequest' ).val( button.data( 'specialrequests' ) );
 
 			// Initialize Date Picker
@@ -268,6 +274,7 @@ console.log('da');
 	            stepping: 15,
 	            format: 'MM/DD/YYYY',
 			    allowInputToggle: true,
+        		// debug: true
 	            // minDate: moment({ hour: 10, minute: 0, seconds: 0 }),
 	        	// maxDate: moment().add( dateDaysToShow, 'days' ).hour( 24 )
 	        });
@@ -277,7 +284,8 @@ console.log('da');
 	            useCurrent: false, //Important! See issue #1075
 	            stepping: 15,
 	            format: 'hh:mm a',
-			    allowInputToggle: true
+			    allowInputToggle: true,
+        		// debug: true
 	        });
 
 			// Update Reservation

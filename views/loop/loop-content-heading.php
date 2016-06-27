@@ -10,7 +10,7 @@
 
 	<td class="eggz-reservations-heading">
 
-	  <button type="button" class="btn btn-default eggz-reservation-trigger">
+	  <button type="button" class="eggz-btn eggz-btn-secondary-outline eggz-reservation-trigger">
 	  	<h3 class="eggz-reservations-title" itemprop="name"><?php echo $item->post_title; ?></h3>
 			<?php
 			if ( !empty( $meta['reservation_date'][0] ) ) { ?>
@@ -29,7 +29,7 @@
 		
 		?>
 
-		<select class="selectpicker" data-postid="<?php echo $item->ID; ?>" data-table="<?php if( isset( $reservation_terms[0]->{'slug'} ) ) echo $reservation_terms[0]->{'slug'}; ?>">
+		<select class="selectpicker show-menu-arrow" data-postid="<?php echo $item->ID; ?>" data-table="<?php if( isset( $reservation_terms[0]->{'slug'} ) ) echo $reservation_terms[0]->{'slug'}; ?>">
 			
 			<option>XX</option>
 
