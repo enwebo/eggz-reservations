@@ -760,28 +760,23 @@ class Eggz_Reservations_Public {
 		// Check if user logged in and has staff area permisions to edit.
 		if ( is_user_logged_in () && is_admin() ) {
 
-			if ( isset( $_POST['deleteall'] ) && !empty( $_POST['deleteall'] && $_POST['deleteall'] ) ) { 
+			if ( isset( $_POST['deleteall'] ) && !empty( $_POST['deleteall'] && $_POST['deleteall'] == 'true' ) ) { 
+	
+				$args = array(
+					'numberposts' => -1,
+					'post_type' =>'reservation'
+				);
+
+				$posts = get_posts( $args );
+
+				if ( is_array($posts) ) {
+
+				   foreach ( $posts as $post ) {
+
+				       wp_trash_post( $post->ID );
+				   
+				   }
 				
-				// Check if user logged in and has staff area permisions to edit.
-				if ( is_user_logged_in () && is_admin() ) {
-					
-					$args = array(
-						'numberposts' => -1,
-						'post_type' =>'reservation'
-					);
-
-					$posts = get_posts( $args );
-
-					if (is_array($posts)) {
-
-					   foreach ($posts as $post) {
-
-					       wp_trash_post( $post->ID);
-					   
-					   }
-					
-					}
-
 				}
 
 			} elseif ( isset( $_POST['id'] ) && !empty( $_POST['id'] ) ) {
@@ -792,7 +787,7 @@ class Eggz_Reservations_Public {
 			} else {
 				echo 'Nothing deleted';
 			}
-
+			
 		}
 
 		die();

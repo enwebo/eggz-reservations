@@ -340,6 +340,7 @@ console.log('da');
 		// delete reservation
 		
 		
+		var deleteAll = false;
 		$('#deleteReservationModal')
 			.on('show.bs.modal', function (e) {
 
@@ -350,6 +351,7 @@ console.log('da');
 
 				// set messageto be shown om modal
 				if ( button.data( 'delete-all' ) ) {
+					deleteAll = true;
 					modal.find( 'p' ).hide();
 					modal.find( 'p.delete-all-reservations-message' ).show();
 				} else {
@@ -361,12 +363,8 @@ console.log('da');
 			.on( 'click tap', '.yes', function(e) {
 				
 				e.preventDefault();
-				var deleteAll = false;
+				console.log(deleteAll);
 				var id = $(this).parent().find( '.reservation-id' ).val();
-
-				if ( $(this).parent().find( '.delete-all-reservations' ).val() ){
-					deleteAll = true;
-				}
 
 				$.ajax({
 				    url: POST_SUBMITTER.ajax_url,
