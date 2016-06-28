@@ -4363,24 +4363,40 @@
 }
 
 /* Table Reservations */
-.eggz-reservations table.details,
-.eggz-reservations table.reservation-heading-box {
+.eggz-reservations table.details {
   table-layout: fixed;
   width: auto;
   border: none;
   margin-bottom: 0;
 }
-.eggz-reservations table.reservation-heading-box {
+
+.eggz-reservations .reservation-heading-box {
+  display: table;
   width: 100%;
+  table-layout: fixed;
+  box-shadow: inset 0 0 0 1px #e7e7e7;
+  -moz-box-shadow: inset 0 0 0 1px #e7e7e7;
+  -webkit-box-shadow: inset 0 0 0 1px #e7e7e7;
 }
 
-.eggz-reservations table.reservation-heading-box tr {
-  border: 1px solid;
-  border-color: #e7e7e7;
+.eggz-reservations .reservation-content:after {
+  content: '';
+  display: inline-block;
+  width: 100%;
+  height: 1px;
+  background-color: #e7e7e7;
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
 
-.eggz-reservations table.details tr td,
-.eggz-reservations table.reservation-heading-box td {
+.eggz-reservations .reservation-heading-box > div {
+  display: table-cell;
+  position: relative;
+  margin-bottom: -1px;
+}
+
+.eggz-reservations table.details tr td {
   border: none;
   vertical-align: top;
   padding-left: 15px;
@@ -4397,11 +4413,8 @@
   text-decoration: none !important;
 }
 
-.eggz-reservations table.reservation-heading-box td {
-  position: relative;
-  padding: 0;
-}
-.eggz-reservations table.reservation-heading-box button {
+
+.eggz-reservations .reservation-heading-box button {
   position: relative;
   border: none;
   border-radius: 0;
@@ -4417,13 +4430,13 @@
   text-align: left;
   min-height: 40px;
 }
-.eggz-reservations table.reservation-heading-box td.eggz-reservations-heading .btn {
+.eggz-reservations .reservation-heading-box .eggz-reservations-heading .btn {
   text-align: left;
 }
-.eggz-reservations table.reservation-heading-box td.eggz-reservations-table {
+.eggz-reservations .reservation-heading-box .eggz-reservations-table {
   width: 90px;
 }
-.eggz-reservations table.reservation-heading-box td.eggz-reservations-table .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+.eggz-reservations .reservation-heading-box .eggz-reservations-table .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
   position: absolute;
   top: 0;
   right: 0;
@@ -4431,7 +4444,7 @@
   height: 100%;
 }
 
-.eggz-reservations table.reservation-heading-box td.eggz-reservations-table button {
+.eggz-reservations .reservation-heading-box .eggz-reservations-table button {
   position: absolute;
   top: 0;
   right: 0;
@@ -4446,7 +4459,7 @@
   border-right: none !important;
   border-left: 1px solid #e7e7e7 !important;
 }
-.eggz-reservations table.reservation-heading-box td.eggz-reservations-table .bootstrap-select.btn-group .dropdown-toggle .filter-option {
+.eggz-reservations .reservation-heading-box .eggz-reservations-table .bootstrap-select.btn-group .dropdown-toggle .filter-option {
   text-align: center;
 }
 
@@ -4463,6 +4476,12 @@
 .eggz-reservations .reservation-box .reservation-content.open .reservation-heading-box,
 .eggz-reservations .reservation-box .reservation-content.open .eggz-reservation-details {
   box-shadow: 0 5px 20px rgba(0,0,0,0.10);
+  -moz-box-shadow: 0 5px 20px rgba(0,0,0,0.10);
+  -webkit-box-shadow: 0 5px 20px rgba(0,0,0,0.10);
+}
+
+.eggz-reservations .reservation-box .reservation-content.open .reservation-heading-box {
+  border-color: #e7e7e7;
 }
 
 .eggz-reservations .eggz-reservations-title {
@@ -4475,10 +4494,6 @@
 
 .eggz-reservations .eggz-reservation-details {
   position: absolute;
-  border-left: 1px solid;
-  border-right: 1px solid;
-  border-bottom: 1px solid;
-  border-color: #e7e7e7;
   margin-bottom: 30px;
   width: 100%;
   left: 0;

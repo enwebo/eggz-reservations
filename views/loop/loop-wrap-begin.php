@@ -186,8 +186,8 @@
 	<div class="clearfix eggz-reservations-filters">
 			
 		<ul class="reservations-filters">
-			<li data-type="all"><button type="button" class="eggz-btn eggz-btn-secondary-outline reservations-filter"><?php _e( 'All', 'eggz-reservations' ); ?></button></li>
-			<li data-type="unassigned"><button type="button" class="eggz-btn eggz-btn-secondary-outline reservations-filter"><?php _e( 'Unassigned', 'eggz-reservations' ); ?></button></li>
+			<li data-type="all"><button type="button" class="reservations-filter"><?php _e( 'All', 'eggz-reservations' ); ?></button></li>
+			<li data-type="unassigned"><button type="button" class="reservations-filter"><?php _e( 'Unassigned', 'eggz-reservations' ); ?></button></li>
 		</ul>
 
 		<div class="eggz-reservations-sort-order">

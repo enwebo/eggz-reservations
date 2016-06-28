@@ -6,11 +6,11 @@
 ?>
 
 <!-- Split button -->
-<table class="reservation-heading-box">
+<div class="reservation-heading-box">
 
-	<td class="eggz-reservations-heading">
+	<div class="eggz-reservations-heading">
 
-	  <button type="button" class="eggz-btn eggz-btn-secondary-outline eggz-reservation-trigger">
+	  <button type="button" class="eggz-reservation-trigger">
 	  	<h3 class="eggz-reservations-title" itemprop="name"><?php echo $item->post_title; ?></h3>
 			<?php
 			if ( !empty( $meta['reservation_date'][0] ) ) { ?>
@@ -18,9 +18,9 @@
 			<?php } ?>
 		</button>
 		
-	</td>
+	</div>
 
-	<td class="eggz-reservations-table">
+	<div class="eggz-reservations-table">
 
 	  	<?php
 
@@ -49,6 +49,6 @@
 
 		</select>
 
-	</td>
+	</div>
 
-</table>
+</div>
