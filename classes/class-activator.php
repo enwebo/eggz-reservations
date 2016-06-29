@@ -3,11 +3,11 @@
 /**
  * Fired during plugin activation
  *
- * @link 		http://example.com
+ * @link 		http://enwebo.com
  * @since 		1.0.0
  *
- * @package 	Plugin_Name
- * @subpackage 	Plugin_Name/classes
+ * @package 	Eggz_Reservations
+ * @subpackage 	Eggz_Reservations/classes
  */
 
 /**
@@ -18,7 +18,7 @@
  * @since 		1.0.0
  * @package 	Eggz_Reservations
  * @subpackage 	Eggz_Reservations/classes
- * @author 		Your Name <email@example.com>
+ * @author 		Enwebo <contact@enwebo.com>
  */
 class Eggz_Reservations_Activator {
 

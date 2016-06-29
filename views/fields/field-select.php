@@ -3,11 +3,11 @@
 /**
  * Provides the markup for a select field
  *
- * @link       http://example.com
+ * @link       http://enwebo.com
  * @since      1.0.0
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/classes/views
+ * @package    Eggz_Reservations
+ * @subpackage Eggz_Reservations/classes/views
  */
 
 if ( ! empty( $atts['label'] ) ) {

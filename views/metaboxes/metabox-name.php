@@ -3,11 +3,11 @@
 /**
  * Displays a metabox
  *
- * @link       http://example.com
+ * @link       http://enwebo.com
  * @since      1.0.0
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/classes/views
+ * @package    Eggz_Reservations
+ * @subpackage Eggz_Reservations/classes/views
  */
 
 wp_nonce_field( $this->plugin_name, 'nonce_plugin_name_metabox_name' );

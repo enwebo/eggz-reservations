@@ -3,7 +3,7 @@
 /**
  * The public-facing functionality of the plugin.
  *
- * @link 		http://example.com
+ * @link 		http://enwebo.com
  * @since 		1.0.0
  *
  * @package 	Eggz_Reservations
@@ -18,7 +18,7 @@
  *
  * @package 	Eggz_Reservations
  * @subpackage 	Eggz_Reservations/classes
- * @author 		Your Name <email@example.com>
+ * @author 		Enwebo <contact@enwebo.com>
  */
 class Eggz_Reservations_Public {
 
@@ -87,7 +87,7 @@ class Eggz_Reservations_Public {
 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/eggz-reservations-public.css', array(), $this->version, 'all' );
 		wp_enqueue_style( 'jquery-style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css');
-		
+
 		/*wp_enqueue_style( $this->plugin_name . '-bootstrap', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/bootstrap.css' );*/
 		wp_enqueue_style( $this->plugin_name . '-font-awesome', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/fonts/font-awesome-4.6.3/css/font-awesome.min.css' );
 		wp_enqueue_style( $this->plugin_name . '-tether', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/tether.min.css' );
@@ -95,7 +95,7 @@ class Eggz_Reservations_Public {
 		wp_enqueue_style( $this->plugin_name . '-select', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/bootstrap-select.min.css' );
 		wp_dequeue_style( 'style' );
 		wp_enqueue_style( 'style' );
-		
+
 	} // enqueue_styles()
 
 	/**
@@ -141,10 +141,10 @@ class Eggz_Reservations_Public {
 	 * Get numper of days for reservation.
 	 *
 	 * @param   $daysno 	set default number of days
-	 * @return  int 		number of days for booking, 
+	 * @return  int 		number of days for booking,
 	 *                      $daysno if plugin option is not set.
 	 */
-	
+
 	public function set_fields() {
 
 		$this->fields = array(
@@ -191,17 +191,17 @@ class Eggz_Reservations_Public {
 	 * Get numper of days for reservation.
 	 *
 	 * @param   $daysno 	set default number of days
-	 * @return  int 		number of days for booking, 
+	 * @return  int 		number of days for booking,
 	 *                      $daysno if plugin option is not set.
 	 */
-	
+
 	public function get_reservations_days( $daysno ) {
 
 		if ( isset( $this->options['days-for-reservations'] ) && $this->options['days-for-reservations'] != '' ) {
 
 			$daysno = $this->options['days-for-reservations'];
 
-		} 
+		}
 
 		return $daysno;
 
@@ -211,7 +211,7 @@ class Eggz_Reservations_Public {
 	 * Get numper of persons for reservation.
 	 *
 	 * @param   $personsno 	set default number of persons
-	 * @return  int 		number of persons for booking, 
+	 * @return  int 		number of persons for booking,
 	 *                      $personsno if plugin option is not set.
 	 */
 
@@ -221,9 +221,43 @@ class Eggz_Reservations_Public {
 
 			$personsno = $this->options['persons-for-reservations'];
 
-		} 
+		}
 
 		return $personsno;
+
+	}
+
+	/**
+	 * Get reservation details background.
+	 * @return  string 		image url for reservation details
+	 */
+
+	public function get_reservation_details_background( $details_background ) {
+
+		if ( isset( $this->options['reservation-details-background'] ) && $this->options['reservation-details-background'] != '' ) {
+
+			$details_background = $this->options['reservation-details-background'];
+
+		}
+
+		return $details_background;
+
+	}
+
+	/**
+	 * Get reservation successful background.
+	 * @return  string 		image url for reservation successful
+	 */
+
+	public function get_reservation_successful_background( $successful_background ) {
+
+		if ( isset( $this->options['reservation-successful-background'] ) && $this->options['reservation-successful-background'] != '' ) {
+
+			$successful_background = $this->options['reservation-successful-background'];
+
+		}
+
+		return $successful_background;
 
 	}
 
@@ -245,12 +279,12 @@ class Eggz_Reservations_Public {
 			$day_of_week = $i % 7;
 
 			if ( isset ( $open_hours[$day_of_week] ) ) {
-		
+
 				$all[$i]['open'] 	= isset( $open_hours[$day_of_week]['open_hours'] ) ? $open_hours[$day_of_week]['open_hours'] : '';
 				$all[$i]['close'] 	= isset( $open_hours[$day_of_week]['close_hours'] ) ? $open_hours[$day_of_week]['close_hours'] : '';
 
 			}
-			
+
 			$all[$i]['day'] 	= date( "l", time() + 86400 * $i );
 			$all[$i]['dayno'] 	= date( "d", time() + 86400 * $i );
 			$all[$i]['wday'] 	= $day_of_week;
@@ -392,7 +426,7 @@ class Eggz_Reservations_Public {
 			<?php } ?>
 					<div class="working-hours-table-container">
 						<div class="working-hours-table">
-						
+
 						<?php
 						$items = $this->options['open-hours'];
 
@@ -420,7 +454,7 @@ class Eggz_Reservations_Public {
 								</div>
 
 							<?php }
-						
+
 						} else {
 
 							echo $items;
@@ -431,13 +465,13 @@ class Eggz_Reservations_Public {
 					</div>
 			<?php
 
-			if( $args['title'] != '' ) { ?> </div> <?php } 
+			if( $args['title'] != '' ) { ?> </div> <?php }
 
 			unset($items);
 			unset($args);
 
 		}
-		
+
 		$output = ob_get_contents();
 
 		ob_end_clean();
@@ -484,7 +518,7 @@ class Eggz_Reservations_Public {
 					<div class="book-a-table-container">
 						<div class="book-a-table-wrapper">
 						  	<div class="row selects-container">
-								
+
 								<div class='col-sm-4'>
 								    <div class="form-group">
 								        <div class='input-group date' id='datepicker'>
@@ -513,7 +547,7 @@ class Eggz_Reservations_Public {
 								        </div>
 								    </div>
 								</div>
-							  
+
 							  	<div class="col-sm-4">
 							  		<!-- Person Select -->
 
@@ -522,7 +556,7 @@ class Eggz_Reservations_Public {
 							  		<?php
 							  		$personsno = $this->get_reservation_persons_limit(12);
 
-							  		for ($i=0; $i < $personsno; $i++) { 
+							  		for ($i=0; $i < $personsno; $i++) {
 
 							  			if( $i == 0 ){
 
@@ -554,7 +588,7 @@ class Eggz_Reservations_Public {
 
 			<?php
 			$content = ob_get_clean();
-		
+
 		echo $content;
 	}
 
@@ -562,7 +596,7 @@ class Eggz_Reservations_Public {
 	function eggz_reservation_details() {
 
 			ob_start(); ?>
-			
+			<div class="reservation-details-background" style="background-image: url('<?php echo $this->get_reservation_details_background(); ?>');"></div>
 			<form class="eggz-reservations-details">
 				<?php wp_nonce_field( 'eggz_reservations' ); ?>
 				<input type="hidden" id="date" name="send-reservation-date" class="send-reservation-date" value="<?php echo $_POST['date']; ?>">
@@ -571,9 +605,9 @@ class Eggz_Reservations_Public {
 
 				<h2 class="reservation-details special-line"><?php _e( "Reservation details", "eggz-reservations" ); ?></h2>
 				<p>
-					<span class="reservation-date"><?php _e('Date', 'eggz-reservations' ); echo ': '; echo $_POST['date']; ?></span> - 
-					<span class="reservation-time"><?php _e('Time', 'eggz-reservations' ); echo ': '; echo $_POST['time']; ?></span> - 
-					<span class="reservation-persons"><?php _e('Persons', 'eggz-reservations' ); echo ': '; echo $_POST['persons']; ?></span> 
+					<span class="reservation-date"><?php _e('Date', 'eggz-reservations' ); echo ': '; echo $_POST['date']; ?></span> -
+					<span class="reservation-time"><?php _e('Time', 'eggz-reservations' ); echo ': '; echo $_POST['time']; ?></span> -
+					<span class="reservation-persons"><?php _e('Persons', 'eggz-reservations' ); echo ': '; echo $_POST['persons']; ?></span>
 				</p>
 
 
@@ -605,7 +639,7 @@ class Eggz_Reservations_Public {
 
 			<?php
 			$content = ob_get_clean();
-		
+
 		echo $content;
 		exit;
 	}
@@ -615,7 +649,7 @@ class Eggz_Reservations_Public {
 	/**
 	 * Add reservation.
 	 *
-	 * @returns 		1 if the post was never created, 
+	 * @returns 		1 if the post was never created,
 	 *                  -2 if a post with the same title exists,
 	 *                  or the ID of the post if successful.
 	 */
@@ -623,26 +657,29 @@ class Eggz_Reservations_Public {
 	public function eggz_show_reservation_details( $fields ) {
 
 		ob_start(); ?>
-			
-		<h2 class="reservation-details special-line"><?php _e( "Reservation was successful :)", "eggz-reservations" ); ?></h2>
-		
-		<table class="details">
-			<?php
-			foreach ($fields as $field) { ?>
-				<tr class="detail-row">
-					<td class="detail-label"><?php echo $field['name']; ?>:</td>
-					<td class="detail-value"><?php echo $field['value']; ?></td>
-				</tr>
-			<?php } ?>
-		</table>
 
-		<div class="bottom-btn-container align-center">
-			<a href="<?php echo get_bloginfo('url');?>" class="btn btn-link-2">Back</a>
+		<div class="reservation-details-background" style="background-image: url('<?php echo $this->get_reservation_successful_background(); ?>');"></div>
+		<div class="reservation-details">
+			<h2 class="reservation-details special-line"><?php _e( "Reservation was successful :)", "eggz-reservations" ); ?></h2>
+
+			<table class="details">
+				<?php
+				foreach ( $fields as $field ) { ?>
+					<tr class="detail-row">
+						<td class="detail-label"><?php echo $field['name']; ?>:</td>
+						<td class="detail-value"><?php echo $field['value']; ?></td>
+					</tr>
+				<?php } ?>
+			</table>
+
+			<div class="bottom-btn-container align-center">
+				<a href="<?php echo get_bloginfo('url');?>" class="btn btn-link-2">Back</a>
+			</div>
 		</div>
 
 		<?php
 		$content = ob_get_clean();
-		
+
 		return $content;
 
 	}
@@ -660,7 +697,7 @@ class Eggz_Reservations_Public {
 
 				update_post_meta( $post_id, $field['meta-field'], $data[$key] );
 				$this->fields[$key]['value'] = $data[$key];
-				
+
 			}
 
 		}
@@ -679,7 +716,7 @@ class Eggz_Reservations_Public {
 
 		// Setup the author, slug, and title for the post
 		$author_id = 1;
-		
+
 		if ( isset($_POST['title']) && $_POST['title'] != '' ) {
 			$title = $_POST['title'];
 			$slug = sanitize_title( $_POST['title'] );
@@ -722,7 +759,7 @@ class Eggz_Reservations_Public {
 	 */
 
 	public function eggz_set_reservation_table() {
-		
+
 		// Check if user logged in and has staff area permisions to edit.
 		if ( is_user_logged_in () && is_admin() ) {
 
@@ -731,7 +768,7 @@ class Eggz_Reservations_Public {
 
 			$taxonomy = 'table';
 			$post_id = $_POST['id'];
-			
+
 			$term = strtolower( $_POST['table'] );
 			$term_id = term_exists( $term, $taxonomy );
 
@@ -751,12 +788,12 @@ class Eggz_Reservations_Public {
 	 */
 
 	public function eggz_delete_reservation() {
-		
+
 		// Check if user logged in and has staff area permisions to edit.
 		if ( is_user_logged_in () && is_admin() ) {
 
-			if ( isset( $_POST['deleteall'] ) && !empty( $_POST['deleteall'] && $_POST['deleteall'] == 'true' ) ) { 
-	
+			if ( isset( $_POST['deleteall'] ) && !empty( $_POST['deleteall'] && $_POST['deleteall'] == 'true' ) ) {
+
 				$args = array(
 					'numberposts' => -1,
 					'post_type' =>'reservation'
@@ -769,9 +806,9 @@ class Eggz_Reservations_Public {
 				   foreach ( $posts as $post ) {
 
 				       wp_trash_post( $post->ID );
-				   
+
 				   }
-				
+
 				}
 
 			} elseif ( isset( $_POST['id'] ) && !empty( $_POST['id'] ) ) {
@@ -782,7 +819,7 @@ class Eggz_Reservations_Public {
 			} else {
 				echo 'Nothing deleted';
 			}
-			
+
 		}
 
 		die();
@@ -797,7 +834,7 @@ class Eggz_Reservations_Public {
 	 */
 
 	public function eggz_update_reservation() {
-		
+
 		if ( !isset( $_POST['id'] ) && empty( $_POST['id'] ) ) { echo '-1'; die(); }
 
 		// Check if user logged in and has staff area permisions to edit.

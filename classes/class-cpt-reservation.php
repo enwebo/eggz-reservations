@@ -5,11 +5,11 @@
  *
  * Defines a custom post type and other related functionality.
  *
- * @link 		http://example.com
+ * @link 		http://enwebo.com
  * @since 		1.0.0
  *
- * @package 	Plugin_Name
- * @subpackage 	Plugin_Name/classes
+ * @package 	Eggz_Reservations
+ * @subpackage 	Eggz_Reservations/classes
  * @author 		Slushman <chris@slushman.com>
  */
 class Eggz_Reservations_CPT_Reservation {

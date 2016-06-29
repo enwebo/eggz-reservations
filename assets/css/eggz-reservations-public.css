@@ -4599,6 +4599,25 @@
   left:0;
 }
 
+.reservation-details-background {
+    width: 50%;
+    height: 100%;
+    position: absolute;
+}
+
+form.eggz-reservations-details {
+    width: 50%;
+    float: right;
+    background: #fff;
+    padding: 100px 50px;
+    display: block;
+    margin: 120px;
+    margin-left: -120px;
+    margin-right: 120px;
+    z-index: 99999;
+    position: relative;
+}
+
 @media (max-width: 991px) {
   .eggz-reservations .eggz-reservations-filters .reservations-filters,
   .eggz-reservations .eggz-reservations-filters .eggz-reservations-sort-order {
