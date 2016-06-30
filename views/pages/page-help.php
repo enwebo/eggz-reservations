@@ -3,34 +3,34 @@
 /**
  * The view for the help page
  *
- * @link       http://example.com
+ * @link       http://enwebo.com
  * @since      1.0.0
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/classes/views
+ * @package    Eggz_Reservations
+ * @subpackage Eggz_Reservations/classes/views
  */
 
 ?><h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 <h2>Shortcode</h2>
-<p>To display a list of Plugin_Name on a page, use the following shortcode. The simplest version of the shortcode is:</p>
+<p>To display a list of Eggz_Reservations on a page, use the following shortcode. The simplest version of the shortcode is:</p>
 <pre><code>[employeelist]</code></pre>
-<p>Enter that in the Editor on any page or post to display a list of Plugin_Name.</p>
+<p>Enter that in the Editor on any page or post to display a list of Eggz_Reservations.</p>
 <p>Here are the custom attributes accepted by the shortcode:</p>
 
 <h3>department</h3>
-<p>The department attribute limits the employee list to display only Plugin_Name from the chosen department. The value needs to be the slug of the department.
+<p>The department attribute limits the employee list to display only Eggz_Reservations from the chosen department. The value needs to be the slug of the department.
 <p>Examples:</p>
 <ul>
 	<li>department="sales"</li>
 	<li>department="creditors-rights"</li>
 </ul>
-<p>The department attribute also accepts comma-separated lists of departments slugs to display Plugin_Name from more than one department.
+<p>The department attribute also accepts comma-separated lists of departments slugs to display Eggz_Reservations from more than one department.
 <p>Example:</p>
 <ul>
 	<li>department="sales,creditors-rights"</li>
 </ul>
 <h2>Building a Layout in the Shortcode</h2>
-<p>Plugin_Name comes with a simple layout for the shortcode. While developers should be able change the layout using action hooks, a site admin can use the shortcode to create a layout of their choosing. By default, the employee list layout is image, name, and job title.</p>
+<p>Eggz_Reservations comes with a simple layout for the shortcode. While developers should be able change the layout using action hooks, a site admin can use the shortcode to create a layout of their choosing. By default, the employee list layout is image, name, and job title.</p>
 <p>To use the shortcode to build a layout, use the "show" attribute like follows:</p>
 <pre><code>[employeelist show="image,name,job_title"]</code></pre>
 <p>Enter each part of the layout as a comma-separated list. The example above generates the default layout.</p>

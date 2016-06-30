@@ -25,7 +25,7 @@
  * @since 		1.0.0
  * @package 	Eggz_Reservations
  * @subpackage 	Eggz_Reservations/classes
- * @author 		Your Name <contact@enwebo.com>
+ * @author 		Enwebo <contact@enwebo.com>
  */
 class Eggz_Reservations {
 
@@ -35,7 +35,7 @@ class Eggz_Reservations {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      Plugin_Name_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      Eggz_Reservations_Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -361,7 +361,7 @@ class Eggz_Reservations {
 	 *
 	 * @since     1.0.0
 	 *
-	 * @return    Plugin_Name_Loader    Orchestrates the hooks of the plugin.
+	 * @return    Eggz_Reservations_Loader    Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader() {
 

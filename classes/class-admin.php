@@ -18,7 +18,7 @@
  *
  * @package 	Eggz_Reservations
  * @subpackage 	Eggz_Reservations/classes
- * @author 		Your Name <contact@enwebo.com>
+ * @author 		Enwebo <contact@enwebo.com>
  */
 class Eggz_Reservations_Admin {
 
@@ -72,12 +72,12 @@ class Eggz_Reservations_Admin {
      * This method is called on plugin activation, so its needs to be static.
      */
     public static function add_admin_notices() {
-    	
+
     	$notices 	= get_option( 'eggz_reservations_deferred_admin_notices', array() );
-  		
+
   		$notices[] 	= array( 'class' => 'updated', 'notice' => esc_html__( 'Eggz Reservations: Custom Activation Message', 'eggz-reservations' ) );
   		$notices[] 	= array( 'class' => 'error', 'notice' => esc_html__( 'Eggz Reservations: Problem Activation Message', 'eggz-reservations' ) );
-  		
+
   		apply_filters( 'eggz_reservations_admin_notices', $notices );
   		update_option( 'eggz_reservations_deferred_admin_notices', $notices );
 
@@ -167,7 +167,7 @@ class Eggz_Reservations_Admin {
 	 */
 	public function enqueue_styles() {
 
-		// wp_enqueue_style( $this->plugin_name . '-bootstrap', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/bootstrap.css' );
+		wp_enqueue_style( $this->plugin_name . '-bootstrap', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/bootstrap.css' );
 		wp_enqueue_style( $this->plugin_name . '-timepicker', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/bootstrap-datetimepicker.min.css' );
 		wp_enqueue_style( $this->plugin_name . '-select', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/bootstrap-select.min.css' );
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/eggz-reservations-admin.css', array(), $this->version, 'all' );
@@ -182,10 +182,11 @@ class Eggz_Reservations_Admin {
 	public function enqueue_scripts() {
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/eggz-reservations-admin.js', array( 'jquery' ), $this->version, true );
+		wp_enqueue_script( $this->plugin_name .'-file-uploader', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/eggz-reservations-file-uploader.js', array( 'jquery' ), $this->version, true );
 		wp_enqueue_script( $this->plugin_name .'-repeater', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/eggz-reservations-repeater.min.js', array( 'jquery' ), $this->version, true );
-		
+
 		$localize['repeatertitle'] = __( 'File Name', 'eggz-reservations' );
-		
+
 		wp_localize_script( 'eggz-reservations', 'erdata', $localize );
 
 
@@ -241,11 +242,11 @@ class Eggz_Reservations_Admin {
 	 * @return 	string 						The HTML field
 	 */
 	public function field_editor( $args ) {
-		
+
 		$defaults['description'] 	= '';
 		$defaults['settings'] 		= array( 'textarea_name' => $this->plugin_name . '-options[' . $args['id'] . ']' );
 		$defaults['value'] 			= '';
-		
+
 		$defaults = apply_filters( $this->plugin_name . '-field-editor-options-defaults', $defaults );
 		$atts = wp_parse_args( $args, $defaults );
 		if ( ! empty( $this->options[$atts['id']] ) ) {
@@ -416,6 +417,50 @@ class Eggz_Reservations_Admin {
 
 	} // field_text()
 
+
+
+	/**
+	 * Creates a file upload field
+	 *
+	 * @param 	array 		$args 			The arguments for the field
+	 *
+	 * @return 	string 						The HTML field
+	 */
+	public function field_file_upload( $args ) {
+
+		$defaults['class'] 			= 'widefat url-file';
+		$defaults['description'] 	= '';
+		$defaults['id'] 			= 'url-file';
+		$defaults['label'] 			= 'File';
+		$defaults['label-remove'] 	= 'Remove File';
+		$defaults['label-upload'] 	= 'Choose/Upload File';
+		$defaults['name'] 			= $this->plugin_name . '-options[' . $args['id'] . ']';
+		$defaults['placeholder'] 	= '';
+		$defaults['type'] 			= 'url';
+		$defaults['value'] 			= '';
+
+
+		/**
+		 * eggz-reservations-field-file-upload-options-defaults filter
+		 *
+		 * @param 	array 	$defaults 		The default settings for the field
+		 */
+		$defaults 	= apply_filters( $this->plugin_name . '-field-file-upload-options-defaults', $defaults );
+		$atts 		= wp_parse_args( $args, $defaults );
+
+		if ( ! empty( $this->options[$atts['id']] ) ) {
+
+			$atts['value'] = $this->options[$atts['id']];
+
+		}
+
+		include( plugin_dir_path( dirname( __FILE__ ) ) . 'views/fields/field-file-upload.php' );
+
+	} // field_file_upload()
+
+
+
+
 	/**
 	 * Creates a textarea field
 	 *
@@ -463,6 +508,8 @@ class Eggz_Reservations_Admin {
 
 		$options[] = array( 'days-for-reservations', 'text', '' );
 		$options[] = array( 'persons-for-reservations', 'text', '' );
+		$options[] = array( 'reservation-details-background', 'text', '' );
+		$options[] = array( 'reservation-successful-background', 'text', '' );
 		$options[] = array( 'select-field', 'select', '' );
 		$options[] = array( 'open-hours', 'repeater', array( array( 'day', 'text', 'Monday' ), array( 'open_hours', 'text', '12:00 AM' ), array( 'close_hours', 'text', '12:00 PM' ) ) );
 		$options[] = array( 'howtoapply', 'editor', '' );
@@ -556,6 +603,7 @@ class Eggz_Reservations_Admin {
 				'value' 		=> '',
 			)
 		);
+
 		add_settings_field(
 			'persons-for-reservations',
 			apply_filters( $this->plugin_name . '-label-text-field', esc_html__( 'Number of max persons per reservation', 'eggz-reservations' ) ),
@@ -565,6 +613,32 @@ class Eggz_Reservations_Admin {
 			array(
 				'description' 	=> __( 'Number of days for upcoming reservations.', 'eggz-reservations' ),
 				'id' 			=> 'persons-for-reservations',
+				'value' 		=> '',
+			)
+		);
+
+		add_settings_field(
+			'reservation-details-background',
+			apply_filters( $this->plugin_name . '-label-file-upload-field', esc_html__( 'Reservation details background image', 'eggz-reservations' ) ),
+			array( $this, 'field_file_upload' ),
+			$this->plugin_name,
+			$this->plugin_name . '-settingssection',
+			array(
+				'description' 	=> __( 'Background image for reservation details section.', 'eggz-reservations' ),
+				'id' 			=> 'reservation-details-background',
+				'value' 		=> '',
+			)
+		);
+
+		add_settings_field(
+			'reservation-successful-background',
+			apply_filters( $this->plugin_name . '-label-file-upload-field', esc_html__( 'Reservation successful background image', 'eggz-reservations' ) ),
+			array( $this, 'field_file_upload' ),
+			$this->plugin_name,
+			$this->plugin_name . '-settingssection',
+			array(
+				'description' 	=> __( 'Background image for reservation successful section.', 'eggz-reservations' ),
+				'id' 			=> 'reservation-successful-background',
 				'value' 		=> '',
 			)
 		);
@@ -664,7 +738,7 @@ class Eggz_Reservations_Admin {
 
 		add_settings_section(
 			$this->plugin_name . '-settingssection',
-			apply_filters( $this->plugin_name . '-section-settingssection-title', esc_html__( 'Settings Section', 'eggz-reservations' ) ),
+			apply_filters( $this->plugin_name . '-section-settingssection-title', esc_html__( '', 'eggz-reservations' ) ),
 			array( $this, 'section_settingssection' ),
 			$this->plugin_name
 		);
@@ -783,7 +857,7 @@ class Eggz_Reservations_Admin {
 				$valid[$option[0]] = $this->sanitizer( $type, $input[$name] );
 
 			}
-			
+
 			/* if ( ! isset( $input[$option[0]] ) ) { continue; }
 
 			$sanitizer = new Eggz_Reservations_Sanitize();
@@ -797,7 +871,7 @@ class Eggz_Reservations_Admin {
 			}
 
 			unset( $sanitizer ); */
-			
+
 
 		}
 

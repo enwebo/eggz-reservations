@@ -9,7 +9,7 @@
  * @since 		1.0.0
  * @package 	Eggz_Reservations
  * @subpackage 	Eggz_Reservations/classes
- * @author 		Your Name <contact@enwebo.com>
+ * @author 		Enwebo <contact@enwebo.com>
  */
 class Eggz_Reservations_i18n {
 

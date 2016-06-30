@@ -15,11 +15,11 @@
  *  wrap-tag 		Optional tag name to wrap each radio in, ie: 'p', 'span', 'li', etc
  *
  *
- * @link       http://example.com
+ * @link       http://enwebo.com
  * @since      1.0.0
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/classes/views
+ * @package    Eggz_Reservations
+ * @subpackage Eggz_Reservations/classes/views
  */
 
 ?><fieldset role="radiogroup" class="wrap-radios"><?php

@@ -5,8 +5,8 @@
  *
  * @since 		1.0.0
  *
- * @package 	Plugin_Name
- * @subpackage 	Plugin_Name/classes
+ * @package 	Eggz_Reservations
+ * @subpackage 	Eggz_Reservations/classes
  */
 
 class Eggz_Reservations_Sanitize {

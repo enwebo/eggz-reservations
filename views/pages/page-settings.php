@@ -5,11 +5,11 @@
  *
  * This file is used to markup the admin-facing aspects of the plugin.
  *
- * @link       http://example.com
+ * @link       http://enwebo.com
  * @since      1.0.0
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/classes/views
+ * @package    Eggz_Reservations
+ * @subpackage Eggz_Reservations/classes/views
  */
 
 ?><h1><?php echo esc_html( get_admin_page_title() ); ?></h1>

@@ -3,11 +3,11 @@
 /**
  * Provides the markup for any WP Editor field
  *
- * @link       http://example.com
+ * @link       http://enwebo.com
  * @since      1.0.0
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/classes/views
+ * @package    Eggz_Reservations
+ * @subpackage Eggz_Reservations/classes/views
  */
 
 // wp_editor( $content, $editor_id, $settings = array() );

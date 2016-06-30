@@ -3,11 +3,11 @@
 /**
  * Provides the markup for an upload field
  *
- * @link       http://example.com
+ * @link       http://enwebo.com
  * @since      1.0.0
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/classes/views
+ * @package    Eggz_Reservations
+ * @subpackage Eggz_Reservations/classes/views
  */
 
 if ( ! empty( $atts['label'] ) ) {
@@ -23,5 +23,5 @@ if ( ! empty( $atts['label'] ) ) {
 	name="<?php echo esc_attr( $atts['name'] ); ?>"
 	type="<?php echo esc_attr( $atts['type'] ); ?>"
 	value="<?php echo esc_attr( $atts['value'] ); ?>" />
-<a href="#" class="" id="upload-file"><?php echo wp_kses( $atts['label-upload'], array( 'code' => array() ) ); ?></a>
-<a href="#" class="hide" id="remove-file"><?php echo wp_kses( $atts['label-remove'], array( 'code' => array() ) ); ?></a>
+<a href="#" class="upload-file" id=""><?php echo wp_kses( $atts['label-upload'], array( 'code' => array() ) ); ?></a>
+<a href="#" class="remove-file hide" id=""><?php echo wp_kses( $atts['label-remove'], array( 'code' => array() ) ); ?></a>
