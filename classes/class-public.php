@@ -601,46 +601,58 @@ class Eggz_Reservations_Public {
 	function eggz_reservation_details() {
 
 			ob_start(); ?>
-			<div class="reservation-details-background" style="background-image: url('<?php echo $this->get_reservation_details_background(); ?>');"></div>
-			<form class="eggz-reservations-details">
-				<?php wp_nonce_field( 'eggz_reservations' ); ?>
-				<input type="hidden" id="date" name="send-reservation-date" class="send-reservation-date" value="<?php echo $_POST['date']; ?>">
-				<input type="hidden" id="time" name="send-reservation-time" class="send-reservation-time" value="<?php echo $_POST['time']; ?>">
-				<input type="hidden" id="persons" name="send-reservation-persons" class="send-reservation-persons" value="<?php echo $_POST['persons']; ?>">
-
-				<h2 class="reservation-details special-line"><?php _e( "Reservation details", "eggz-reservations" ); ?></h2>
-				<p>
-					<span class="reservation-date"><?php _e('Date', 'eggz-reservations' ); echo ': '; echo $_POST['date']; ?></span> -
-					<span class="reservation-time"><?php _e('Time', 'eggz-reservations' ); echo ': '; echo $_POST['time']; ?></span> -
-					<span class="reservation-persons"><?php _e('Persons', 'eggz-reservations' ); echo ': '; echo $_POST['persons']; ?></span>
-				</p>
-
-
-				<div class="row row-no-gutters">
-
-					<div class="col-sm-6">
-						<input type="text" required name="email" class="send-reservation-email datepicker" required aria-required="true" placeholder="<?php _e( 'Email', 'eggz-reservations' ); ?>">
+			<div class="eggz-reservation-row">
+				<div class="eggz-reservation-form-poster eggz-overlay eggz-overlay-opacity-60 parallax" style="background-image: url('<?php echo $this->get_reservation_details_background(); ?>');">
+					<div class="eggz-reservation-form-poster-container">
+						<div class="eggz-reservation-form-poster-wrapper">
+							<h1 class="special-heading vertical-lines"><?php _e( 'Details', 'eggz-reservations' ); ?></h1>
+						</div>
 					</div>
-
-					<div class="col-sm-6">
-						<input type="text" required name="send-reservation-phone" class="send-reservation-phone timepicker" required aria-required="true" placeholder="<?php _e( 'Phone', 'eggz-reservations' ); ?>">
-					</div>
-
-					<div class="col-sm-12">
-						<input type="text" required name="full-name" class="send-reservation-full-name" placeholder="<?php _e( 'Full Name', 'eggz-reservations' ); ?>">
-					</div>
-
-					<div class="col-sm-12">
-						<textarea name="send-reservation-special-request" class="send-reservation-special-request" placeholder="<?php _e( 'Special Requests', 'eggz-reservations' ); ?>"></textarea>
-					</div>
-
 				</div>
+				<div class="eggz-reservation-box-text-container">
+					<div class="eggz-reservation-box-text-wrapper">
+						<form class="eggz-reservations-details">
+							<?php wp_nonce_field( 'eggz_reservations' ); ?>
+							<input type="hidden" id="date" name="send-reservation-date" class="send-reservation-date" value="<?php echo $_POST['date']; ?>">
+							<input type="hidden" id="time" name="send-reservation-time" class="send-reservation-time" value="<?php echo $_POST['time']; ?>">
+							<input type="hidden" id="persons" name="send-reservation-persons" class="send-reservation-persons" value="<?php echo $_POST['persons']; ?>">
 
-				<div class="bottom-btn-container align-center">
-					<button type="submit" class="eggz-btn-line add-reservation" id="add-a-reservation-trigger"><?php esc_attr_e( 'Send', 'eggz-reservations'); ?></button
+							<h2 class="reservation-details special-line"><?php _e( "Reservation details", "eggz-reservations" ); ?></h2>
+							<p>
+								<span class="reservation-date"><?php _e('Date', 'eggz-reservations' ); echo ': '; echo $_POST['date']; ?></span> -
+								<span class="reservation-time"><?php _e('Time', 'eggz-reservations' ); echo ': '; echo $_POST['time']; ?></span> -
+								<span class="reservation-persons"><?php _e('Persons', 'eggz-reservations' ); echo ': '; echo $_POST['persons']; ?></span>
+							</p>
+
+
+							<div class="row row-no-gutters">
+
+								<div class="col-sm-6">
+									<input type="text" required name="email" class="send-reservation-email datepicker" required aria-required="true" placeholder="<?php _e( 'Email', 'eggz-reservations' ); ?>">
+								</div>
+
+								<div class="col-sm-6">
+									<input type="text" required name="send-reservation-phone" class="send-reservation-phone timepicker" required aria-required="true" placeholder="<?php _e( 'Phone', 'eggz-reservations' ); ?>">
+								</div>
+
+								<div class="col-sm-12">
+									<input type="text" required name="full-name" class="send-reservation-full-name" placeholder="<?php _e( 'Full Name', 'eggz-reservations' ); ?>">
+								</div>
+
+								<div class="col-sm-12">
+									<textarea name="send-reservation-special-request" class="send-reservation-special-request" placeholder="<?php _e( 'Special Requests', 'eggz-reservations' ); ?>"></textarea>
+								</div>
+
+							</div>
+
+							<div class="bottom-btn-container align-center">
+								<button type="submit" class="eggz-btn-line add-reservation" id="add-a-reservation-trigger"><?php esc_attr_e( 'Send', 'eggz-reservations'); ?></button>
+							</div>
+
+						</form>
+					</div>
 				</div>
-
-			</form>
+			</div>
 
 			<?php
 			$content = ob_get_clean();
@@ -662,23 +674,32 @@ class Eggz_Reservations_Public {
 	public function eggz_show_reservation_details( $fields ) {
 
 		ob_start(); ?>
+		<div class="eggz-reservation-row reverse-order">
+			<div class="eggz-reservation-form-poster eggz-overlay eggz-overlay-opacity-60 parallax" style="background-image: url('<?php echo $this->get_reservation_successful_background(); ?>');">
+				<div class="eggz-reservation-form-poster-container">
+					<div class="eggz-reservation-form-poster-wrapper">
+						<h1 class="special-heading vertical-lines"><?php _e( 'Thank You', 'eggz-reservations' ); ?></h1>
+					</div>
+				</div>
+			</div>
+			<div class="eggz-reservation-box-text-container">
+				<div class="eggz-reservation-box-text-wrapper">
+					<h2 class="reservation-details special-line"><?php _e( "Reservation was successful :)", "eggz-reservations" ); ?></h2>
 
-		<div class="reservation-details-background" style="background-image: url('<?php echo $this->get_reservation_successful_background(); ?>');"></div>
-		<div class="reservation-details">
-			<h2 class="reservation-details special-line"><?php _e( "Reservation was successful :)", "eggz-reservations" ); ?></h2>
+					<table class="details">
+						<?php
+						foreach ( $fields as $field ) { ?>
+							<tr class="detail-row">
+								<td class="detail-label"><?php echo $field['name']; ?>:</td>
+								<td class="detail-value"><?php echo $field['value']; ?></td>
+							</tr>
+						<?php } ?>
+					</table>
 
-			<table class="details">
-				<?php
-				foreach ( $fields as $field ) { ?>
-					<tr class="detail-row">
-						<td class="detail-label"><?php echo $field['name']; ?>:</td>
-						<td class="detail-value"><?php echo $field['value']; ?></td>
-					</tr>
-				<?php } ?>
-			</table>
-
-			<div class="bottom-btn-container align-center">
-				<a href="<?php echo get_bloginfo('url');?>" class="eggz-btn-line">Back</a>
+					<div class="bottom-btn-container align-right">
+						<a class="eggz-btn-line line-right" href="<?php echo get_bloginfo('url'); ?>">Back</a>
+					</div>
+				</div>
 			</div>
 		</div>
 
