@@ -166,7 +166,14 @@ class Eggz_Reservations_Admin {
 	 * @since    1.0.0
 	 */
 	public function enqueue_styles() {
+		
+		$screen = get_current_screen();
 
+		if ( !in_array( $screen->id, array( 'reservation', 'edit-table', 'reservation_page_eggz-reservations-settings' ) ) || !$screen->post_type == 'reservation' ) {
+
+			return;
+
+		}
 		wp_enqueue_style( $this->plugin_name . '-bootstrap', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/bootstrap.css' );
 		wp_enqueue_style( $this->plugin_name . '-timepicker', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/bootstrap-datetimepicker.min.css' );
 		wp_enqueue_style( $this->plugin_name . '-select', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/css/bootstrap-select.min.css' );
@@ -181,21 +188,27 @@ class Eggz_Reservations_Admin {
 	 */
 	public function enqueue_scripts() {
 
+		$screen = get_current_screen();
+
+		if ( !in_array( $screen->id, array( 'reservation', 'edit-table', 'reservation_page_eggz-reservations-settings' ) ) || !$screen->post_type == 'reservation' ) {
+
+			return;
+
+		}
+
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/eggz-reservations-admin.js', array( 'jquery' ), $this->version, true );
 		wp_enqueue_script( $this->plugin_name .'-file-uploader', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/eggz-reservations-file-uploader.js', array( 'jquery' ), $this->version, true );
 		wp_enqueue_script( $this->plugin_name .'-repeater', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/eggz-reservations-repeater.min.js', array( 'jquery' ), $this->version, true );
 
-		$localize['repeatertitle'] = __( 'File Name', 'eggz-reservations' );
+		$localize['repeatertitle'] = __( 'Day Name', 'eggz-reservations' );
 
 		wp_localize_script( 'eggz-reservations', 'erdata', $localize );
-
 
 		wp_enqueue_script( $this->plugin_name . '-select', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/bootstrap-select.min.js', array( 'jquery' ) );
 		wp_enqueue_script( $this->plugin_name . '-tether', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/tether.min.js', array( 'jquery' ) );
 		wp_enqueue_script( $this->plugin_name . '-bootstrap', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/bootstrap.min.js', array( 'jquery' ) );
 		wp_enqueue_script( $this->plugin_name . '-moment', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/moment.js', array( 'jquery' ) );
 		wp_enqueue_script( $this->plugin_name . '-timepicker', plugin_dir_url( dirname( __FILE__ ) ) . 'assets/js/bootstrap-datetimepicker.min.js', array( 'jquery' ) );
-
 
 
 	} // enqueue_scripts()
