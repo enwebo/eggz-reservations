@@ -62,7 +62,7 @@
 			<td>
 				<button 
 					type="button" 
-					class="btn-eggz-reservations-control edit-reservation" 
+					class="eggz-btn eggz-btn-brand-primary text-uppercase btn-eggz-reservations-control edit-reservation" 
 					data-toggle="modal" 
 					data-target="#editReservationModal" 
 					data-id="<?php echo $item->ID; ?>" 
@@ -77,7 +77,7 @@
 				</button>
 			</td>
 			<td>
-				<button type="button" class="btn-eggz-reservations-control delete-reservation" data-toggle="modal" data-target="#deleteReservationModal" data-id="<?php echo $item->ID; ?>">
+				<button type="button" class="eggz-btn eggz-btn-brand-primary text-uppercase btn-eggz-reservations-control delete-reservation" data-toggle="modal" data-target="#deleteReservationModal" data-id="<?php echo $item->ID; ?>">
 					<?php _e( 'Delete', 'eggz-reservations' ); ?>
 				</button>
 			</td>

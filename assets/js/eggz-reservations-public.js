@@ -205,7 +205,9 @@
 		});
 
 		// SelectPicker
-		$('.selectpicker').selectpicker();
+
+		$(".selectpicker").selectpicker({
+		});
 
 		// filter reservations
 		$( ".reservations-filters li" ).on( "click tap", function(e) {
@@ -217,8 +219,6 @@
 		});
 
 		// sort reservations
-
-
 
 		// set table for reservation
 		$( '.eggz-reservations' ).on( 'change', 'select', function() {
@@ -259,6 +259,7 @@
 			modal.find( '.modal-body input#email' ).val( button.data( 'email' ) );
 			modal.find( '.modal-body input#phone' ).val( button.data( 'phone' ) );
 			modal.find( '.modal-body input#name' ).val( button.data( 'name' ) );
+			modal.find( '.modal-header .eggz-reservations-title' ).text( button.data( 'name' ) );
 			modal.find( '.modal-body textarea#specialrequest' ).val( button.data( 'specialrequests' ) );
 
 			// Initialize Date Picker
