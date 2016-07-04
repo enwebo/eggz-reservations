@@ -158,7 +158,6 @@
 						nonce: POST_SUBMITTER.nonce
 					},
 					success : function( response ) {
-						console.log( response );
 						$( '.reservations-form' ).append( response );
 						$( '.eggz-reservations-details' ).remove();
 					},
