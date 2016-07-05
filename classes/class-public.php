@@ -232,7 +232,7 @@ class Eggz_Reservations_Public {
 	 * @return  string 		image url for reservation details
 	 */
 
-	public function get_reservation_details_background( $details_background ) {
+	public function get_reservation_details_background( $details_background = '' ) {
 
 		if ( isset( $this->options['reservation-details-background'] ) && $this->options['reservation-details-background'] != '' ) {
 
@@ -249,7 +249,7 @@ class Eggz_Reservations_Public {
 	 * @return  string 		image url for reservation successful
 	 */
 
-	public function get_reservation_successful_background( $successful_background ) {
+	public function get_reservation_successful_background( $successful_background = '' ) {
 
 		if ( isset( $this->options['reservation-successful-background'] ) && $this->options['reservation-successful-background'] != '' ) {
 
@@ -481,6 +481,9 @@ class Eggz_Reservations_Public {
 	} // shortcode_shortcodename()
 
 
+	/**
+	 * Register reservations hours with Visual Composer.
+	 */
 	function open_hours_integrateWithVC() {
 		vc_map(
 			array(
@@ -506,6 +509,11 @@ class Eggz_Reservations_Public {
 	}
 
 
+	/**
+	 * Get reservation form.
+	 *
+	 * @returns 		Reservation form
+	 */
 	// eggz_reservations_get_template()
 	function eggz_reservations_form_book_a_table() {
 
@@ -534,7 +542,7 @@ class Eggz_Reservations_Public {
 								        </div>
 								    </div>
 								</div>
-								
+
 								<div class='col-sm-4'>
 								    <div class="form-group">
 								        <div class='input-group date' id='timepicker'>
@@ -583,7 +591,7 @@ class Eggz_Reservations_Public {
 						  	<div class="bottom-btn-container align-center">
 
 								<button type="button" class="eggz-btn-line" id="book-a-table-trigger">Book a table</button>
-								
+
 							</div>
 
 					  	</div>
@@ -597,11 +605,15 @@ class Eggz_Reservations_Public {
 		echo $content;
 	}
 
-
+	/**
+	 * Prepare to add a reservation.
+	 *
+	 * @returns 		Reservation details
+	 */
 	function eggz_reservation_details() {
 
 			ob_start(); ?>
-			<div class="eggz-reservation-row">
+			<div class="eggz-reservation-details-wrap eggz-reservation-row">
 				<div class="eggz-reservation-form-poster eggz-overlay eggz-overlay-opacity-60 parallax" style="background-image: url('<?php echo $this->get_reservation_details_background(); ?>');">
 					<div class="eggz-reservation-form-poster-container">
 						<div class="eggz-reservation-form-poster-wrapper">
@@ -666,15 +678,13 @@ class Eggz_Reservations_Public {
 	/**
 	 * Add reservation.
 	 *
-	 * @returns 		1 if the post was never created,
-	 *                  -2 if a post with the same title exists,
-	 *                  or the ID of the post if successful.
+	 * @returns 		Reservation details
 	 */
 
 	public function eggz_show_reservation_details( $fields ) {
 
 		ob_start(); ?>
-		<div class="eggz-reservation-row reverse-order">
+		<div class="eggz-show-reservation-details-wrap eggz-reservation-row reverse-order">
 			<div class="eggz-reservation-form-poster eggz-overlay eggz-overlay-opacity-60 parallax" style="background-image: url('<?php echo $this->get_reservation_successful_background(); ?>');">
 				<div class="eggz-reservation-form-poster-container">
 					<div class="eggz-reservation-form-poster-wrapper">
