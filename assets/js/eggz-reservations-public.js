@@ -113,6 +113,12 @@
 					success : function( response ) {
 						$( '.reservations-form' ).append( response );
 						$( '.add-reservation-form' ).remove();
+						if( typeof jarallax === "function" ){
+							$('.parallax').jarallax({
+								speed: 0.5,
+								zIndex: 0
+							});
+						}
 					},
 					fail : function( response ) {
 						// console.log( response );
@@ -158,9 +164,14 @@
 						nonce: POST_SUBMITTER.nonce
 					},
 					success : function( response ) {
-						console.log( response );
 						$( '.reservations-form' ).append( response );
-						$( '.eggz-reservations-details' ).remove();
+						$( '.eggz-reservation-details-wrap' ).remove();
+						if( typeof jarallax === "function" ){
+							$('.parallax').jarallax({
+								speed: 0.5,
+								zIndex: 0
+							});
+						}
 					},
 					fail : function( response ) {
 						console.log( response );

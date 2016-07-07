@@ -523,9 +523,9 @@ class Eggz_Reservations_Admin {
 		$options[] = array( 'persons-for-reservations', 'text', '' );
 		$options[] = array( 'reservation-details-background', 'text', '' );
 		$options[] = array( 'reservation-successful-background', 'text', '' );
-		$options[] = array( 'select-field', 'select', '' );
+		$options[] = array( 'on-holiday', 'select', '' );
 		$options[] = array( 'open-hours', 'repeater', array( array( 'day', 'text', 'Monday' ), array( 'open_hours', 'text', '12:00 AM' ), array( 'close_hours', 'text', '12:00 PM' ) ) );
-		$options[] = array( 'howtoapply', 'editor', '' );
+		$options[] = array( 'reservations-description', 'editor', '' );
 
 
 		return $options;
@@ -657,17 +657,17 @@ class Eggz_Reservations_Admin {
 		);
 
 		add_settings_field(
-			'select-field',
-			apply_filters( $this->plugin_name . '-label-select-field', esc_html__( 'Select Field', 'eggz-reservations' ) ),
+			'on-holiday',
+			apply_filters( $this->plugin_name . '-label-on-holiday', esc_html__( 'Select Field', 'eggz-reservations' ) ),
 			array( $this, 'field_select' ),
 			$this->plugin_name,
 			$this->plugin_name . '-settingssection',
 			array(
-				'description' 	=> __( 'Select description.', 'eggz-reservations' ),
-				'id' 			=> 'select-field',
+				'description' 	=> __( 'Check if on holiday.', 'eggz-reservations' ),
+				'id' 			=> 'on-holiday',
 				'selections'	=> array(
-					array( 'label' => esc_html__( 'Label', 'eggz-reservations' ), 'value' => '1' ),
-					array( 'label' => esc_html__( 'Label 2', 'eggz-reservations' ), 'value' => '2' ),
+					array( 'label' => esc_html__( 'Yes', 'eggz-reservations' ), 'value' => '1' ),
+					array( 'label' => esc_html__( 'No', 'eggz-reservations' ), 'value' => '2' ),
 				),
 				'value' 		=> ''
 			)
@@ -729,14 +729,14 @@ class Eggz_Reservations_Admin {
 		);
 
 		add_settings_field(
-			'how-to-apply',
-			apply_filters( $this->plugin_name . 'label-editor-field', esc_html__( 'Editor Field', 'eggz-reservations' ) ),
+			'reservations-description',
+			apply_filters( $this->plugin_name . 'label-editor-field', esc_html__( 'Description of reservation form', 'eggz-reservations' ) ),
 			array( $this, 'field_editor' ),
 			$this->plugin_name,
 			$this->plugin_name . '-settingssection',
 			array(
-				'description' 	=> __( 'Editor field description.', 'eggz-reservations' ),
-				'id' 			=> 'howtoapply'
+				'description' 	=> __( 'Reservations form description.', 'eggz-reservations' ),
+				'id' 			=> 'reservations-description'
 			)
 		);
 
