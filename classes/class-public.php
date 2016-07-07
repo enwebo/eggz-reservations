@@ -422,7 +422,7 @@ class Eggz_Reservations_Public {
 			if( $args['title'] != '' ) { ?>
 				<div class="eggz-box-text-container-wrapper">
 
-					<h3 class="special-line"><?php echo $args['title']; ?></h3>
+					<h3><?php echo $args['title']; ?></h3>
 			<?php } ?>
 					<div class="working-hours-table-container">
 						<div class="working-hours-table">
@@ -617,7 +617,7 @@ class Eggz_Reservations_Public {
 							<input type="hidden" id="time" name="send-reservation-time" class="send-reservation-time" value="<?php echo $_POST['time']; ?>">
 							<input type="hidden" id="persons" name="send-reservation-persons" class="send-reservation-persons" value="<?php echo $_POST['persons']; ?>">
 
-							<h2 class="reservation-details special-line"><?php _e( "Reservation details", "eggz-reservations" ); ?></h2>
+							<h2 class="reservation-details"><?php _e( "Reservation details", "eggz-reservations" ); ?></h2>
 							<p>
 								<span class="reservation-date"><?php _e('Date', 'eggz-reservations' ); echo ': '; echo $_POST['date']; ?></span> -
 								<span class="reservation-time"><?php _e('Time', 'eggz-reservations' ); echo ': '; echo $_POST['time']; ?></span> -
@@ -684,7 +684,7 @@ class Eggz_Reservations_Public {
 			</div>
 			<div class="eggz-reservation-box-text-container">
 				<div class="eggz-reservation-box-text-wrapper">
-					<h2 class="reservation-details special-line"><?php _e( "Reservation was successful :)", "eggz-reservations" ); ?></h2>
+					<h2 class="reservation-details"><?php _e( "Reservation was successful :)", "eggz-reservations" ); ?></h2>
 
 					<table class="details">
 						<?php

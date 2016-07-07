@@ -11,7 +11,7 @@
 	<div class="eggz-reservations-heading">
 
 	  <button type="button" class="eggz-reservation-trigger">
-	  	<h3 class="eggz-reservations-title" itemprop="name"><?php echo $item->post_title; ?></h3>
+	  	<h3 class="eggz-reservations-title line-disabled" itemprop="name"><?php echo $item->post_title; ?></h3>
 			<?php
 			if ( !empty( $meta['reservation_date'][0] ) ) { ?>
 				<p class="eggz-reservations-date"><?php echo esc_html( $meta['reservation_date'][0] ); ?></p>

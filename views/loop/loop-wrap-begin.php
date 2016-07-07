@@ -33,7 +33,7 @@
 						<div class="delete-modal-content">
 							<input class="reservation-id" type="hidden" value=""/>
 							<input class="delete-all-reservations" type="hidden" value="false"/>
-							<h3><?php _e( 'Please Confirm', 'eggz-reservations' ); ?></h3>
+							<h3 class="line-disabled"><?php _e( 'Please Confirm', 'eggz-reservations' ); ?></h3>
 							<p class="delete-single-reservation-message"><?php _e( 'You want to delete this reservation?', 'eggz-reservations' ); ?></p>
 							<p class="delete-all-reservations-message"><?php _e( 'You want to delete all reservations?', 'eggz-reservations' ); ?></p>
 							<p><?php _e( 'You want to delete all reservations?', 'eggz-reservations' ); ?></p>
@@ -66,7 +66,7 @@
 				</div>
 
 				<div class="modal-header">
-					<h4 class="eggz-reservations-title"><?php _e( 'Reservation Name', 'eggz-reservations' ); ?></h4>
+					<h4 class="eggz-reservations-title line-disabled"><?php _e( 'Reservation Name', 'eggz-reservations' ); ?></h4>
 					<p class="date"></p>
 				</div>
 
