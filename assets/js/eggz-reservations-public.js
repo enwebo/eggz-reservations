@@ -226,11 +226,32 @@
 			e.preventDefault();
 			$( '.reservation-box' ).hide();
 			$( '.' + $(this).data("type") ).show();
-			$(this).data("type");
+			$(this).siblings().removeClass('active').addClass('active');
 
 		});
 
 		// sort reservations
+		$( '.eggz-reservations-sort-order select' ).on( 'change', function(){
+			console.log($(this).val());
+			switch ($(this).val()) {
+				case 'latest':
+					console.log('latest first');
+					$( ".reservation-box" ).sort( function (a, b) {return ( parseInt( $(b).data('time') ) < parseInt( $(a).data('time') ) ) ? 1 : -1; } ).appendTo( '.eggz-reservations-list' );
+					break;
+				case 'oldest':
+					$( ".reservation-box" ).sort( function (a, b) {return ( parseInt( $(b).data('time') ) > parseInt( $(a).data('time') ) ) ? 1 : -1; } ).appendTo( '.eggz-reservations-list' );
+					break;
+				case 'ulast':
+					$( ".reservation-box" ).sort( function (a, b) {return ( $(b).data('table').toUpperCase() > $(a).data('table').toUpperCase() ) ? 1 : -1; } ).appendTo( '.eggz-reservations-list' );
+					break;
+					break;
+				case 'ufirst':
+					$( ".reservation-box" ).sort( function (a, b) {return ( $(b).data('table').toUpperCase() < $(a).data('table').toUpperCase() ) ? 1 : -1; } ).appendTo( '.eggz-reservations-list' );
+					break;
+				default:
+
+			}
+		});
 
 		// set table for reservation
 		$( '.eggz-reservations' ).on( 'change', 'select', function() {
@@ -338,8 +359,9 @@
 							$('[data-postid="' + id + '"] .eggz-reservations-reservation-phone.field-value').text(modal.find( '.modal-body input#phone' ).val());
 							$('[data-postid="' + id + '"] .eggz-reservations-reservation-name.field-value').text(modal.find( '.modal-body input#name' ).val());
 							$('[data-postid="' + id + '"] .eggz-reservations-reservation-specialrequest.field-value').text(modal.find( '.modal-body input#specialrequest' ).val());
-
+							$( '#editReservationModal' ).modal('hide');
 							// $( '#editReservationModal' ).
+
 						},
 						fail : function( response ) {
 							modal.find( '.eggz-abs-loader' ).hide();
@@ -383,8 +405,7 @@
 		.on( 'click tap', '.yes', function(e) {
 
 			e.preventDefault();
-			console.log(deleteAll);
-			var id = $(this).parent().find( '.reservation-id' ).val();
+			var id = $(this).parent().parent().find( '.reservation-id' ).val();
 
 			$.ajax({
 				url: POST_SUBMITTER.ajax_url,

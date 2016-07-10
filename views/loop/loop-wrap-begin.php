@@ -7,7 +7,7 @@
 
 <div class="eggz-reservations eggz-reservations-list-wrap<?php echo $class; ?>">
 
-	<!-- Modal for delete Reservations -->	
+	<!-- Modal for delete Reservations -->
 	<div id="deleteReservationModal" class="modal modal-eggz modal-outside-close-btn fade">
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
@@ -172,9 +172,9 @@
 
 						</div>
 					</form>
-					
+
 				</div>
-					
+
 				<div class="modal-footer">
 					<button type="button" class="eggz-btn eggz-btn-brand-primary edit-reservation-modal-save text-uppercase"><?php _e( 'Save', 'eggz-reservations' ); ?></button>
 				</div>
@@ -184,7 +184,7 @@
 	</div>
 
 	<div class="clearfix eggz-reservations-filters">
-			
+
 		<ul class="reservations-filters">
 			<li data-type="all"><button type="button" class="reservations-filter"><?php _e( 'All', 'eggz-reservations' ); ?></button></li>
 			<li data-type="unassigned"><button type="button" class="reservations-filter"><?php _e( 'Unassigned', 'eggz-reservations' ); ?></button></li>
@@ -194,10 +194,10 @@
 			<div class="name-field-sort"><?php _e( 'Sort by', 'eggz_reservations' ); ?></div>
 			<div class="select-sort">
 				<select class="selectpicker show-menu-arrow">
-				  	<option><?php _e( 'Latest', 'eggz-reservations' ); ?></option>
-				  	<option><?php _e( 'Oldest', 'eggz-reservations' ); ?></option>
-				  	<option><?php _e( 'Unassigned First', 'eggz-reservations' ); ?></option>
-				  	<option><?php _e( 'Unassigned Last', 'eggz-reservations' ); ?></option>
+				  	<option value="latest"><?php _e( 'Latest', 'eggz-reservations' ); ?></option>
+				  	<option value="oldest"><?php _e( 'Oldest', 'eggz-reservations' ); ?></option>
+				  	<option value="ufirst"><?php _e( 'Unassigned First', 'eggz-reservations' ); ?></option>
+				  	<option value="ulast"><?php _e( 'Unassigned Last', 'eggz-reservations' ); ?></option>
 				</select>
 			</div>
 		</div>
