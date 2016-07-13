@@ -4925,10 +4925,10 @@
 }
 
 /* Overlay */
-.eggz-overlay {
+.eggz-reservation .eggz-overlay {
 	position: relative;
 }
-.eggz-overlay:before {
+.eggz-reservation .eggz-overlay:before {
 	content: '';
 	background: black;
 	position: absolute;
@@ -4939,64 +4939,64 @@
 	z-index: 2;
 	transition: ease .3s;
 }
-.eggz-overlay.eggz-overlay-opacity-5:before {
+.eggz-reservation .eggz-overlay.eggz-overlay-opacity-5:before {
 	opacity: .05;
 }
-.eggz-overlay.eggz-overlay-opacity-10:before {
+.eggz-reservation .eggz-overlay.eggz-overlay-opacity-10:before {
 	opacity: .10;
 }
-.eggz-overlay.eggz-overlay-opacity-15:before {
+.eggz-reservation .eggz-overlay.eggz-overlay-opacity-15:before {
 	opacity: .15;
 }
-.eggz-overlay.eggz-overlay-opacity-20:before {
+.eggz-reservation .eggz-overlay.eggz-overlay-opacity-20:before {
 	opacity: .20;
 }
-.eggz-overlay.eggz-overlay-opacity-25:before {
+.eggz-reservation .eggz-overlay.eggz-overlay-opacity-25:before {
 	opacity: .25;
 }
-.eggz-overlay.eggz-overlay-opacity-30:before {
+.eggz-reservation .eggz-overlay.eggz-overlay-opacity-30:before {
 	opacity: .30;
 }
-.eggz-overlay.eggz-overlay-opacity-35:before {
+.eggz-reservation .eggz-overlay.eggz-overlay-opacity-35:before {
 	opacity: .35;
 }
-.eggz-overlay.eggz-overlay-opacity-40:before {
+.eggz-reservation .eggz-overlay.eggz-overlay-opacity-40:before {
 	opacity: .40;
 }
-.eggz-overlay.eggz-overlay-opacity-45:before {
+.eggz-reservation .eggz-overlay.eggz-overlay-opacity-45:before {
 	opacity: .45;
 }
-.eggz-overlay.eggz-overlay-opacity-50:before {
+.eggz-reservation .eggz-overlay.eggz-overlay-opacity-50:before {
 	opacity: .50;
 }
-.eggz-overlay.eggz-overlay-opacity-55:before {
+.eggz-reservation .eggz-overlay.eggz-overlay-opacity-55:before {
 	opacity: .55;
 }
-.eggz-overlay.eggz-overlay-opacity-60:before {
+.eggz-reservation .eggz-overlay.eggz-overlay-opacity-60:before {
 	opacity: .60;
 }
-.eggz-overlay.eggz-overlay-opacity-65:before {
+.eggz-reservation .eggz-overlay.eggz-overlay-opacity-65:before {
 	opacity: .65;
 }
-.eggz-overlay.eggz-overlay-opacity-70:before {
+.eggz-reservation .eggz-overlay.eggz-overlay-opacity-70:before {
 	opacity: .70;
 }
-.eggz-overlay.eggz-overlay-opacity-75:before {
+.eggz-reservation .eggz-overlay.eggz-overlay-opacity-75:before {
 	opacity: .75;
 }
-.eggz-overlay.eggz-overlay-opacity-80:before {
+.eggz-reservation .eggz-overlay.eggz-overlay-opacity-80:before {
 	opacity: .80;
 }
-.eggz-overlay.eggz-overlay-opacity-85:before {
+.eggz-reservation .eggz-overlay.eggz-overlay-opacity-85:before {
 	opacity: .85;
 }
-.eggz-overlay.eggz-overlay-opacity-90:before {
+.eggz-reservation .eggz-overlay.eggz-overlay-opacity-90:before {
 	opacity: .90;
 }
-.eggz-overlay.eggz-overlay-opacity-95:before {
+.eggz-reservation .eggz-overlay.eggz-overlay-opacity-95:before {
 	opacity: .95;
 }
-.eggz-overlay.eggz-overlay-opacity-100:before {
+.eggz-reservation .eggz-overlay.eggz-overlay-opacity-100:before {
 	opacity: 1;
 }
 
