@@ -652,7 +652,7 @@ class Eggz_Reservations_Public {
 								</div>
 
 								<div class="col-sm-12">
-									<textarea name="send-reservation-special-request" class="send-reservation-special-request" placeholder="<?php _e( 'Special Requests', 'eggz-reservations' ); ?>"></textarea>
+									<textarea name="send-reservation-special-request" class="send-reservation-special-request" placeholder="<?php _e( 'Any Special Requests?', 'eggz-reservations' ); ?>"></textarea>
 								</div>
 
 							</div>
