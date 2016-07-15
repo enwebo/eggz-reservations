@@ -4047,11 +4047,11 @@
 
 
 /* Layout */
-.row.row-no-gutters {
+.eggz-reservations .row.row-no-gutters {
 	margin-left: 0 !important;
 	margin-right: 0 !important;
 }
-.row.row-no-gutters > [class^="col-"] {
+.eggz-reservations .row.row-no-gutters > [class^="col-"] {
 	padding-left: 0 !important;
 	padding-right: 0 !important;
 }
@@ -4829,6 +4829,7 @@
 	transform:translate3d(0,0,0);
 	-moz-transform:translate3d(0,0,0);
 	-webkit-transform:translate3d(0,0,0);
+	z-index: 9;
 }
 
 .eggz-reservation-row {
