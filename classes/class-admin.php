@@ -166,7 +166,7 @@ class Eggz_Reservations_Admin {
 	 * @since    1.0.0
 	 */
 	public function enqueue_styles() {
-		
+
 		$screen = get_current_screen();
 
 		if ( !in_array( $screen->id, array( 'reservation', 'edit-table', 'reservation_page_eggz-reservations-settings' ) ) || !$screen->post_type == 'reservation' ) {

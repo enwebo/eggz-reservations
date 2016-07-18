@@ -84,13 +84,28 @@
 
 		});
 
-		// Book table form send
+		// Validate book table form
+		$( '.add-reservation-form').validate({
+			rules: {
+				datepicker: {
+					required: true
+				},
+				timepicker: {
+					required: true
+				},
+				personspicker: {
+					required: true
+				}
+			}
+		});
 
+		// Book table form send
 		$( '.reservations-form' ).on( 'click', '#book-a-table-trigger', function(e) {
 
 			e.preventDefault();
 
 			if( $( '.add-reservation-form' ).valid() ){
+				console.log($( '.add-reservation-form' ).valid());
 				var name = $( '.add-reservation-name' ).val();
 				var date = $( '#datepicker input' ).val();
 				var time = $( '#timepicker input' ).val();
@@ -119,74 +134,96 @@
 								zIndex: 0
 							});
 						}
+						// Add reservation on database
+						saveReservation();
+
 					},
 					fail : function( response ) {
-						// console.log( response );
+						alert('Reservation was not created. :()');
 					}
 
 				});
 
-			} else {
-				alert('Please fill all required items');
 			}
 
 		});
 
-		// Add reservation on database
-		$( '.reservations-form' ).on( 'click', '#add-a-reservation-trigger', function(e) {
 
-			e.preventDefault();
-
-			// check for valid fields
-			if( $( '.eggz-reservations-details' ).valid() ){
-				var date 		= $( '.send-reservation-date' ).val();
-				var time 		= $( '.send-reservation-time' ).val();
-				var persons 	= $( '.send-reservation-persons' ).val();
-				var phone 		= $( '.send-reservation-phone' ).val();
-				var name 		= $( '.send-reservation-full-name' ).val();
-				var email 		= $( '.send-reservation-email' ).val();
-				var request 	= $( '.send-reservation-special-request' ).val();
-
-				$.ajax({
-					method: "POST",
-					url: POST_SUBMITTER.ajax_url,
-					type : "post",
-					data: {
-						action: 'eggz_add_reservation',
-						title: name,
-						name: name,
-						date: date,
-						time: time,
-						persons: persons,
-						phone: phone,
-						email: email,
-						request: request,
-						nonce: POST_SUBMITTER.nonce
+		function saveReservation(){
+			// Validate reservation details form
+			$( '.eggz-reservations-details' ).validate({
+				rules: {
+					send_reservation_date: {
+						required: true
 					},
-					success : function( response ) {
-						$( '.reservations-form' ).append( response );
-						$( '.eggz-reservation-details-wrap' ).remove();
-						if( typeof jarallax === "function" ){
-							$('.parallax').jarallax({
-								speed: 0.5,
-								zIndex: 0
-							});
+					send_reservation_time: {
+						required: true
+					},
+					send_reservation_persons: {
+						required: true
+					},
+					send_reservation_name: {
+						required: true
+					},
+					send_reservation_email: {
+						required: true
+					},
+					send_reservation_phone: {
+						required: true
+					}
+				}
+			});
+
+			$( '.eggz-reservations-details' ).on( 'click', '#add-a-reservation-trigger', function(e) {
+
+				e.preventDefault();
+
+				// check for valid fields
+				if( $( '.eggz-reservations-details' ).valid() ){
+					var date 		= $( '.send-reservation-date' ).val();
+					var time 		= $( '.send-reservation-time' ).val();
+					var persons 	= $( '.send-reservation-persons' ).val();
+					var phone 		= $( '.send-reservation-phone' ).val();
+					var name 		= $( '.send-reservation-full-name' ).val();
+					var email 		= $( '.send-reservation-email' ).val();
+					var request 	= $( '.send-reservation-special-request' ).val();
+
+					$.ajax({
+						method: "POST",
+						url: POST_SUBMITTER.ajax_url,
+						type : "post",
+						data: {
+							action: 'eggz_add_reservation',
+							title: name,
+							name: name,
+							date: date,
+							time: time,
+							persons: persons,
+							phone: phone,
+							email: email,
+							request: request,
+							nonce: POST_SUBMITTER.nonce
+						},
+						success : function( response ) {
+							$( '.reservations-form' ).append( response );
+							$( '.eggz-reservation-details-wrap' ).remove();
+							if( typeof jarallax === "function" ){
+								$('.parallax').jarallax({
+									speed: 0.5,
+									zIndex: 0
+								});
+							}
+						},
+						fail : function( response ) {
+							console.log( response );
 						}
-					},
-					fail : function( response ) {
-						console.log( response );
-					}
 
-				});
+					});
 
-			} else {
+				}
 
-				alert('Please fill all required items');
-
-			}
-
-		});
-
+			});
+		}
 
 		var $reservation_box = $(".reservation-content");
 

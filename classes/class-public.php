@@ -105,7 +105,7 @@ class Eggz_Reservations_Public {
 	 */
 	public function enqueue_scripts() {
 
-		wp_enqueue_script( 'validation', 'http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js', array( 'jquery' ) );
+		wp_enqueue_script( 'validation', '//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js', array( 'jquery' ) );
 
 		wp_dequeue_script('jquery-ui-core');
 		wp_enqueue_script('jquery-ui-core');
@@ -530,9 +530,7 @@ class Eggz_Reservations_Public {
 								<div class='col-sm-4'>
 								    <div class="form-group">
 								        <div class='input-group date' id='datepicker'>
-
-								            <input type='text' required class="form-control" placeholder="MM/DD/YYYY" />
-
+								            <input type='text' class="form-control" name="datepicker" placeholder="MM/DD/YYYY" />
 								            <span class="input-group-addon">
 							                <span class="bs-caret">
 							                	<span class="caret"></span>
@@ -546,15 +544,12 @@ class Eggz_Reservations_Public {
 								<div class='col-sm-4'>
 								    <div class="form-group">
 								        <div class='input-group date' id='timepicker'>
-
-								            <input type='text' required class="form-control" placeholder="HH:MM" />
-
+								            <input type='text' class="form-control" name="timepicker" placeholder="HH:MM" />
 								            <span class="input-group-addon">
 							                <span class="bs-caret">
 							                	<span class="caret"></span>
 							                </span>
 								            </span>
-
 								        </div>
 								    </div>
 								</div>
@@ -562,7 +557,7 @@ class Eggz_Reservations_Public {
 							  	<div class="col-sm-4">
 							  		<!-- Person Select -->
 
-							  		<select class="personspicker required selectpicker show-menu-arrow">
+							  		<select required class="personspicker required selectpicker show-menu-arrow" name="personspicker">
 
 							  		<?php
 							  		$personsno = $this->get_reservation_persons_limit(12);
@@ -571,7 +566,7 @@ class Eggz_Reservations_Public {
 
 							  			if( $i == 0 ){
 
-							  				echo '<option value="' . ( $i+1 ) . '">' . ( $i+1 ) . ' ' . __("Person", "eggz-reservations") . '</option>';
+							  				echo '<option selected value="' . ( $i+1 ) . '">' . ( $i+1 ) . ' ' . __("Person", "eggz-reservations") . '</option>';
 
 							  			}else{
 
@@ -602,7 +597,7 @@ class Eggz_Reservations_Public {
 			<?php
 			$content = ob_get_clean();
 
-		echo $content;
+		return $content;
 	}
 
 	/**
@@ -625,9 +620,9 @@ class Eggz_Reservations_Public {
 					<div class="eggz-reservation-box-text-wrapper">
 						<form class="eggz-reservations-details">
 							<?php wp_nonce_field( 'eggz_reservations' ); ?>
-							<input type="hidden" id="date" name="send-reservation-date" class="send-reservation-date" value="<?php echo $_POST['date']; ?>">
-							<input type="hidden" id="time" name="send-reservation-time" class="send-reservation-time" value="<?php echo $_POST['time']; ?>">
-							<input type="hidden" id="persons" name="send-reservation-persons" class="send-reservation-persons" value="<?php echo $_POST['persons']; ?>">
+							<input type="hidden" id="date" name="send_reservation_date" class="send-reservation-date" value="<?php echo $_POST['date']; ?>">
+							<input type="hidden" id="time" name="send_reservation_time" class="send-reservation-time" value="<?php echo $_POST['time']; ?>">
+							<input type="hidden" id="persons" name="send_reservation_persons" class="send-reservation-persons" value="<?php echo $_POST['persons']; ?>">
 
 							<h2 class="reservation-details special-line"><?php _e( "Reservation details", "eggz-reservations" ); ?></h2>
 							<p>
@@ -640,19 +635,19 @@ class Eggz_Reservations_Public {
 							<div class="row row-no-gutters">
 
 								<div class="col-sm-6">
-									<input type="text" required name="email" class="send-reservation-email datepicker" required aria-required="true" placeholder="<?php _e( 'Email', 'eggz-reservations' ); ?>">
+									<input type="email" name="send_reservation_email" class="send-reservation-email datepicker" aria-required="true" placeholder="<?php _e( 'Email', 'eggz-reservations' ); ?>">
 								</div>
 
 								<div class="col-sm-6">
-									<input type="text" required name="send-reservation-phone" class="send-reservation-phone timepicker" required aria-required="true" placeholder="<?php _e( 'Phone', 'eggz-reservations' ); ?>">
+									<input type="text" name="send_reservation_phone" class="send-reservation-phone timepicker" aria-required="true" placeholder="<?php _e( 'Phone', 'eggz-reservations' ); ?>">
 								</div>
 
 								<div class="col-sm-12">
-									<input type="text" required name="full-name" class="send-reservation-full-name" placeholder="<?php _e( 'Full Name', 'eggz-reservations' ); ?>">
+									<input type="text" name="send_reservation_name" class="send-reservation-full-name" placeholder="<?php _e( 'Full Name', 'eggz-reservations' ); ?>">
 								</div>
 
 								<div class="col-sm-12">
-									<textarea name="send-reservation-special-request" class="send-reservation-special-request" placeholder="<?php _e( 'Special Requests', 'eggz-reservations' ); ?>"></textarea>
+									<textarea name="send_reservation_special-request" class="send-reservation-special-request" placeholder="<?php _e( 'Special Requests', 'eggz-reservations' ); ?>"></textarea>
 								</div>
 
 							</div>

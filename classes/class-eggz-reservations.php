@@ -217,7 +217,6 @@ class Eggz_Reservations {
 		$this->loader->action( 'request', $plugin_cpt_reservation, 'reservation_order_sorting', 10, 2 );
 		$this->loader->action( 'init', $plugin_cpt_reservation, 'add_image_sizes' );
 
-
 		$plugin_tax_table =new Eggz_Reservations_Tax_Table( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->action( 'init', $plugin_tax_table, 'new_taxonomy_table' );
@@ -258,10 +257,10 @@ class Eggz_Reservations {
 
 		$this->loader->action( 'wp_ajax_nopriv_eggz_reservation_details', $plugin_public, 'eggz_reservation_details' );
 		$this->loader->action( 'wp_ajax_eggz_reservation_details', $plugin_public, 'eggz_reservation_details' );
-		
+
 		$this->loader->action( 'wp_ajax_nopriv_eggz_add_reservation', $plugin_public, 'eggz_add_reservation' );
 		$this->loader->action( 'wp_ajax_eggz_add_reservation', $plugin_public, 'eggz_add_reservation' );
-		
+
 		$this->loader->action( 'wp_ajax_nopriv_eggz_set_reservation_table', $plugin_public, 'eggz_set_reservation_table' );
 		$this->loader->action( 'wp_ajax_eggz_set_reservation_table', $plugin_public, 'eggz_set_reservation_table' );
 
@@ -291,7 +290,7 @@ class Eggz_Reservations {
 		 */
 		$this->loader->action( 'actionname', $plugin_public, 'eggzreservations' );
 
-		
+
 		// $this->loader->action( 'eggz-reservations-before-loop', $plugin_public, 'eggz_reservations_form_book_a_table' );
 		// $this->loader->action( 'eggz-reservations-before-loop', $plugin_public, 'eggz_reservations_form_reservation_details', 10, 3 );
 

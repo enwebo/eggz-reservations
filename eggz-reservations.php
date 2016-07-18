@@ -15,7 +15,7 @@
  * @wordpress-plugin
  * Plugin Name: 		Eggz Reservations
  * Plugin URI: 			http://enwebo.com/plugins/eggz-reservations/
- * Description: 		This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Description: 		Reservation Plugin for Eggz theme.
  * Version: 			1.0.0
  * Author: 				Enwebo
  * Author URI: 			http://enwebo.com/

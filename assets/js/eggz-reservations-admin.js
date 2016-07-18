@@ -8,20 +8,27 @@
 	 */
 	$(function() {
 
-    	$('.datepicker').datetimepicker({
-            useCurrent: false, //Important! See issue #1075
-	        stepping: 15,
-	        format: 'MM/DD/YYYY',
-			allowInputToggle: true,
-        });
+		var args = {
+			useCurrent: false, //Important! See issue #1075
+			stepping: 15,
+			format: 'hh:mm a',
+			keepOpen: true,
+			debug:true
+		};
 
-    	$('.timepicker').datetimepicker({
-            useCurrent: false, //Important! See issue #1075
-            stepping: 15,
-            format: 'hh:mm a'
-        });
+		$('.timepicker').datetimepicker(args);
+
+
+		$('#add-repeater').on('click tap', function(e){
+			setTimeout( function(){
+				$('.repeater').last().prev().find('input.timepicker').each( function () {
+					console.log( $(this).datetimepicker(args) );
+					$(this).datetimepicker(args);
+				}, 1000);
+			});
+		});
 
 	});
-	
+
 
 })( jQuery );
