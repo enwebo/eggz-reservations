@@ -637,7 +637,7 @@ class Eggz_Reservations_Public {
 							</p>
 
 
-							<div class="row row-no-gutters">
+							<div class="row row-no-gutters eggz-form-sm">
 
 								<div class="col-sm-6">
 									<input type="text" required name="email" class="send-reservation-email datepicker" required aria-required="true" placeholder="<?php _e( 'Email', 'eggz-reservations' ); ?>">
