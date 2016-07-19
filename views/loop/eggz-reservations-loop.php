@@ -12,7 +12,7 @@
  * @subpackage Eggz_Reservations/classes/loop-views
  */
 if ( !is_user_logged_in() ) {
-	echo __('<div class="eggz-notice notice-info with-icon eggz-box-shadow">You need to be logged in to view staff area. <a href="/my-account/" class="showcoupon">Login</a></div>', 'eggz-reservations');
+	echo __('<div class="eggz-notice notice-info with-icon"><div class="notice-text">You need to be logged in to view staff area.</div><a href="/my-account/" class="eggz-btn eggz-btn-primary-outline eggz-btn-sm text-uppercase">Login</a></div>', 'eggz-reservations');
 	return;
 }
 /**
