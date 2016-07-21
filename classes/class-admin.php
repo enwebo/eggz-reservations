@@ -624,7 +624,7 @@ class Eggz_Reservations_Admin {
 			$this->plugin_name,
 			$this->plugin_name . '-settingssection',
 			array(
-				'description' 	=> __( 'Number of days for upcoming reservations.', 'eggz-reservations' ),
+				'description' 	=> __( 'Number of persons for each reservation.', 'eggz-reservations' ),
 				'id' 			=> 'persons-for-reservations',
 				'value' 		=> '',
 			)

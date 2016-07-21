@@ -22,11 +22,12 @@
 		});
 
 		$('#timepicker').datetimepicker({
-			useCurrent: false, //Important! See issue #1075
+			useCurrent: true, //Important! See issue #1075
 			stepping: 15,
 			format: 'hh:mm a',
 			allowInputToggle: true
 		});
+
 
 		$("#datepicker")
 		.on("dp.show", function (e) {
@@ -81,6 +82,7 @@
 				$( '#timepicker' ).data( "DateTimePicker" ).maxDate( moment( e.date ).hour( closingHour ).minute(0).second(0) );
 				$( '#timepicker' ).data( "DateTimePicker" ).minDate( moment( e.date ).hour( openingHour ).minute(0).second(0) );
 			}
+			$( '#timepicker' ).data( "DateTimePicker" ).hide();
 
 		});
 
