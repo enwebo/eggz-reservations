@@ -1949,6 +1949,12 @@
 .eggz-reservations .form-group {
 	margin-bottom: 15px;
 }
+.eggz-reservations .selects-container .form-group label.error {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	padding-top: 5px;
+}
 .eggz-reservations .radio,
 .eggz-reservations .checkbox {
 	position: relative;
