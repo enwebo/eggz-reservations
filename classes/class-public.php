@@ -825,7 +825,7 @@ class Eggz_Reservations_Public {
 		// Check if user logged in and has staff area permisions to edit.
 		if ( is_user_logged_in() && is_admin() ) {
 
-			if ( isset( $_POST['deleteall'] ) && !empty( $_POST['deleteall'] && $_POST['deleteall'] == 'true' ) ) {
+			if ( isset( $_POST['deleteall'] ) && !empty( $_POST['deleteall'] ) && $_POST['deleteall'] == 'true' ) {
 
 				$args = array(
 					'numberposts' => -1,

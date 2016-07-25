@@ -658,7 +658,7 @@ class Eggz_Reservations_Admin {
 
 		add_settings_field(
 			'on-holiday',
-			apply_filters( $this->plugin_name . '-label-on-holiday', esc_html__( 'Select Field', 'eggz-reservations' ) ),
+			apply_filters( $this->plugin_name . '-label-on-holiday', esc_html__( 'On Holiday? :)', 'eggz-reservations' ) ),
 			array( $this, 'field_select' ),
 			$this->plugin_name,
 			$this->plugin_name . '-settingssection',

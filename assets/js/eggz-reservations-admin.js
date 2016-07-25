@@ -11,9 +11,7 @@
 		var args = {
 			useCurrent: false, //Important! See issue #1075
 			stepping: 15,
-			format: 'hh:mm a',
-			keepOpen: true,
-			debug:true
+			format: 'hh:mm a'
 		};
 
 		$('.timepicker').datetimepicker(args);
