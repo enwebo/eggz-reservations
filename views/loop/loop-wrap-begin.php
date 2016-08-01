@@ -72,7 +72,7 @@
 
 				<div class="modal-body">
 
-					<form class="modal-edit-reservation">
+					<form class="modal-edit-reservation eggz-form-sm">
 						<div class="edit-reservation-row">
 
 							<div class="edit-reservation-cell">

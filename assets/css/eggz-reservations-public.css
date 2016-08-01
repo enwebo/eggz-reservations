@@ -1949,6 +1949,12 @@
 .eggz-reservations .form-group {
 	margin-bottom: 15px;
 }
+.eggz-reservations .selects-container .form-group label.error {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	padding-top: 5px;
+}
 .eggz-reservations .radio,
 .eggz-reservations .checkbox {
 	position: relative;
@@ -4777,9 +4783,9 @@
 
 .eggz-reservations .modal-eggz .eggz-btn-container button {
 	margin-left: 11px;
-	margin-right: 11px; 
+	margin-right: 11px;
 	min-width: 135px;
-	margin-bottom: 15px; 
+	margin-bottom: 15px;
 }
 
 .eggz-reservations button.close {
@@ -4901,7 +4907,7 @@
 	position: relative;
 	width: 50%;
 	float: right;
-	
+
 	z-index: 9;
 }
 .eggz-reservation-box-text-wrapper {
