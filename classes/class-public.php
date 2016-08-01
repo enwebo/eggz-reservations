@@ -519,7 +519,7 @@ class Eggz_Reservations_Public {
 
 		ob_start(); ?>
 
-			<div class="eggz-reservations reservations-form">
+			<div class="container-fluid eggz-reservations reservations-form">
 				<form class="add-reservation-form">
 					<?php wp_nonce_field( 'eggz_reservations' ); ?>
 					<!-- Fullwidth Banner -->
@@ -608,7 +608,7 @@ class Eggz_Reservations_Public {
 	function eggz_reservation_details() {
 
 			ob_start(); ?>
-			<div class="eggz-reservation-details-wrap eggz-reservation-row">
+			<div class="container-fluid eggz-reservation-details-wrap eggz-reservation-row">
 				<div class="eggz-reservation-form-poster eggz-overlay eggz-overlay-opacity-60 parallax" style="background-image: url('<?php echo $this->get_reservation_details_background(); ?>');">
 					<div class="eggz-reservation-form-poster-container">
 						<div class="eggz-reservation-form-poster-wrapper">

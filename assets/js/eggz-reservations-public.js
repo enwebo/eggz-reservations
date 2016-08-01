@@ -135,12 +135,7 @@
 						$( '.add-reservation-form' ).css( 'opacity', '.5' );
 
 						if( typeof jarallax === "function" ){
-							$('.parallax').jarallax({
-								type: 'scroll',
-								speed: 0.2,
-								zIndex: 0,
-								enableTransform: false
-							});
+							$('.parallax').jarallax('destroy').jarallax({ speed: 0.2 });
 						}
 						// Add reservation on database
 						saveReservation();
@@ -219,12 +214,7 @@
 							}
 							$( '.eggz-reservation-details-wrap' ).css( 'opacity', '.5' );
 							if( typeof jarallax === "function" ){
-								$('.parallax').jarallax({
-									type: 'scroll-opacity',
-									speed: 0.2,
-									zIndex: 0,
-									enableTransform: true
-								});
+								$('.parallax').jarallax('destroy').jarallax({ speed: 0.2 });
 							}
 						},
 						fail : function( response ) {
