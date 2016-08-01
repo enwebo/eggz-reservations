@@ -128,6 +128,9 @@
 						nonce: POST_SUBMITTER.nonce
 					},
 					success : function( response ) {
+
+						$( '.reservations-form' ).off( 'click', '#book-a-table-trigger' );
+
 						$( '.reservations-form' ).append( response );
 						if( TweenLite != 'undefined' ){
 							TweenLite.to( window, 2.5, {scrollTo:{y:$('.eggz-reservation-details-wrap').offset().top - $(".header-primary").height() }, ease:Power4.easeOut});
