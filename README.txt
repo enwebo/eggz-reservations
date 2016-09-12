@@ -1,4 +1,4 @@
-=== Plugin Name ===
+=== Eggz Reservations ===
 Contributors: (this should be a list of wordpress.org userid's)
 Donate link: http://enwebo.com/
 Tags: comments, spam
