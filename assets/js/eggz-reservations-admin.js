@@ -20,7 +20,7 @@
 		$('#add-repeater').on('click tap', function(e){
 			setTimeout( function(){
 				$('.repeater').last().prev().find('input.timepicker').each( function () {
-					console.log( $(this).datetimepicker(args) );
+					// console.log( $(this).datetimepicker(args) );
 					$(this).datetimepicker(args);
 				}, 1000);
 			});

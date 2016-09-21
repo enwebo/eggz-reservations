@@ -47,7 +47,7 @@
 			$( '#timepicker' ).data( "DateTimePicker" ).show();
 		})
 		.on("dp.change", function (e) {
-			console.log( moment( e.date ).day() );
+			// console.log( moment( e.date ).day() );
 
 			// get openenig/closing hours for selected day.
 			var openingHour = openHours[ ( moment( e.date ).day() ) ].open;
@@ -107,7 +107,7 @@
 			e.preventDefault();
 
 			if( $( '.add-reservation-form' ).valid() ){
-				console.log($( '.add-reservation-form' ).valid());
+				// console.log($( '.add-reservation-form' ).valid());
 				var name = $( '.add-reservation-name' ).val();
 				var date = $( '#datepicker input' ).val();
 				var time = $( '#timepicker input' ).val();
@@ -221,7 +221,7 @@
 							}
 						},
 						fail : function( response ) {
-							console.log( response );
+							// console.log( response );
 						}
 
 					});
@@ -275,10 +275,10 @@
 
 		// sort reservations
 		$( '.eggz-reservations-sort-order select' ).on( 'change', function(){
-			console.log($(this).val());
+			// console.log($(this).val());
 			switch ($(this).val()) {
 				case 'latest':
-					console.log('latest first');
+					// console.log('latest first');
 					$( ".reservation-box" ).sort( function (a, b) {return ( parseInt( $(b).data('time') ) < parseInt( $(a).data('time') ) ) ? 1 : -1; } ).appendTo( '.eggz-reservations-list' );
 					break;
 				case 'oldest':
@@ -390,7 +390,7 @@
 						success : function( response ) {
 							modal.find( '.eggz-abs-loader' ).hide();
 							modal.find( 'form' ).css('opacity', "1");
-							console.log( response + ' - ok' );
+							// console.log( response + ' - ok' );
 
 							// Set modal form values
 							var id = modal.find( '.modal-body input#reservation-id' ).val();
@@ -409,7 +409,7 @@
 						fail : function( response ) {
 							modal.find( '.eggz-abs-loader' ).hide();
 							modal.find( 'form' ).css('opacity', "1");
-							console.log( response );
+							// console.log( response );
 						}
 					});
 
@@ -459,7 +459,7 @@
 					id: id
 				},
 				success : function( response ) {
-					console.log( response );
+					// console.log( response );
 					if ( deleteAll ) {
 						$( '.eggz-reservations-list' ).empty();
 					}else{
@@ -468,7 +468,7 @@
 					$( '#deleteReservationModal' ).modal('hide');
 				},
 				fail : function( response ) {
-					console.log( response );
+					// console.log( response );
 				}
 			});
 
