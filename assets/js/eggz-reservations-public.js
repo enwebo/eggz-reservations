@@ -135,7 +135,7 @@
 						if( TweenLite != 'undefined' ){
 							TweenLite.to( window, 2.5, {scrollTo:{y:$('.eggz-reservation-details-wrap').offset().top - $(".header-primary").height() }, ease:Power4.easeOut});
 						}
-						$( '.add-reservation-form' ).css( 'opacity', '.5' );
+						$( '.add-reservation-form' ).css( 'opacity', '.5' ).css( 'pointer-events', 'none' );
 
 						if( typeof jarallax === "function" ){
 							$('.parallax').jarallax('destroy').jarallax({ speed: 0.2 });
