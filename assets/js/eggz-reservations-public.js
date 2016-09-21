@@ -215,7 +215,7 @@
 							if( TweenLite != 'undefined' ){
 								TweenLite.to( window, 2.5, {scrollTo:{y:$('.eggz-show-reservation-details-wrap').offset().top - $(".header-primary").height() }, ease:Power4.easeOut});
 							}
-							$( '.eggz-reservation-details-wrap' ).css( 'opacity', '.5' );
+							$( '.eggz-reservation-details-wrap' ).css( 'opacity', '.5' ).css( 'pointer-events', 'none' );
 							if( typeof jarallax === "function" ){
 								$('.parallax').jarallax('destroy').jarallax({ speed: 0.2 });
 							}

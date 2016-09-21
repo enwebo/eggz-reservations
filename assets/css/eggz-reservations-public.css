@@ -5018,6 +5018,31 @@
 	}
 }
 
+@media (max-width: 990px) {
+	.eggz-reservation-row .eggz-reservation-form-poster .eggz-reservation-form-poster-container .special-heading {
+		margin-right: 0 !important;
+		margin-left: 0 !important;
+		padding-right: 0 !important;
+		padding-left: 0 !important;
+	}
+	.eggz-reservation-box-text-wrapper {
+		margin-right: 0 !important;
+		margin-left: 0 !important;
+	}
+	.eggz-reservations table.details,
+	.eggz-reservations table.details tr.detail-row,
+	.eggz-reservations table.details tr.detail-row td {
+		display: block;
+		padding: 0;
+	}
+	.eggz-reservations table.details tr.detail-row {
+		margin-bottom: 10px;
+	}
+	.eggz-reservations table.details tr.detail-row td.detail-label {
+		font-weight: 500;
+	}
+}
+
 
 @media (max-width: 767px) {
 	.eggz-reservations .eggz-reservations-filters .reservations-filters,
