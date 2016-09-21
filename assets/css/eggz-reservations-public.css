@@ -4893,6 +4893,12 @@
 .eggz-reservation-form-poster-wrapper {
 	display: table-cell;
 	vertical-align: middle;
+	padding-left: 0;
+	padding-right: 120px;
+}
+.reverse-order .eggz-reservation-form-poster-wrapper {
+	padding-left: 120px;
+	padding-right: 0;
 }
 
 .eggz-reservation-row .eggz-reservation-form-poster .eggz-reservation-form-poster-container h1 {
@@ -5019,11 +5025,11 @@
 }
 
 @media (max-width: 990px) {
-	.eggz-reservation-row .eggz-reservation-form-poster .eggz-reservation-form-poster-container .special-heading {
-		margin-right: 0 !important;
-		margin-left: 0 !important;
-		padding-right: 0 !important;
-		padding-left: 0 !important;
+	.eggz-reservation-form-poster-wrapper {
+		padding-right: 0;
+	}
+	.reverse-order .eggz-reservation-form-poster-wrapper {
+		padding-left: 0;
 	}
 	.eggz-reservation-box-text-wrapper {
 		margin-right: 0 !important;
