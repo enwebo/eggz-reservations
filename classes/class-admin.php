@@ -871,20 +871,6 @@ class Eggz_Reservations_Admin {
 
 			}
 
-			/* if ( ! isset( $input[$option[0]] ) ) { continue; }
-
-			$sanitizer = new Eggz_Reservations_Sanitize();
-
-			$valid[$option[0]] = $sanitizer->clean( $input[$option[0]], $option[1] );
-
-			if ( $valid[$option[0]] != $input[$option[0]] ) {
-
-				add_settings_error( $option[0], $option[0] . '_error', esc_html__( $option[0] . ' error.', 'eggz-reservations' ), 'error' );
-
-			}
-
-			unset( $sanitizer ); */
-
 
 		}
 
