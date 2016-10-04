@@ -71,7 +71,7 @@ class Eggz_Reservations_Admin {
      * Saves them in a temporary plugin option.
      * This method is called on plugin activation, so its needs to be static.
      */
-    public static function add_admin_notices() {
+    public static function eggz_add_admin_notices() {
 
     	$notices 	= get_option( 'eggz_reservations_deferred_admin_notices', array() );
 
@@ -81,7 +81,7 @@ class Eggz_Reservations_Admin {
   		apply_filters( 'eggz_reservations_admin_notices', $notices );
   		update_option( 'eggz_reservations_deferred_admin_notices', $notices );
 
-    } // add_admin_notices
+    } // eggz_add_admin_notices
 
 
 	/**
