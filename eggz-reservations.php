@@ -16,7 +16,7 @@
  * Plugin Name: 		Eggz Reservations
  * Plugin URI: 			http://enwebo.com/plugins/eggz-reservations/
  * Description: 		Reservation Plugin for Eggz theme.
- * Version: 			1.0.0
+ * Version: 			1.0.1
  * Author: 				Enwebo
  * Author URI: 			http://enwebo.com/
  * License: 			GPL-2.0+

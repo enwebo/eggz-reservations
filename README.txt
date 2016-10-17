@@ -3,8 +3,8 @@ Contributors: (this should be a list of wordpress.org userid's)
 Donate link: http://enwebo.com/
 Tags: comments, spam
 Requires at least: 3.0.1
-Tested up to: 3.4
-Stable tag: 4.3
+Tested up to: 4.5
+Stable tag: 4.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -67,20 +67,18 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 
 == Changelog ==
 
-= 1.0 =
-* A change since the previous version.
+= 1.0.1 =
+* Fixed deleting of all reservations from single reservation delete modal.
 * Another change.
 
-= 0.5 =
-* List versions from most recent at top to oldest at bottom.
+= 1.0 =
+* Launched theme and plugin to ThemeForest.
 
 == Upgrade Notice ==
 
-= 1.0 =
-Upgrade notices describe the reason a user should upgrade.  No more than 300 characters.
+= 1.0.1 =
+Fixes removal of all reservations when deleting just one is asked for.
 
-= 0.5 =
-This version fixes a security related bug.  Upgrade immediately.
 
 == Arbitrary section ==
 
