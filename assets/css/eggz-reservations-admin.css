@@ -1,15 +1,7 @@
 /**
- * All of the CSS for your admin-specific functionality should be
- * included in this file.
+ * All of the CSS for Eggz Reservations plugin.
  */
 
-/**
- * All of the CSS for your dashboard-specific functionality should be
- * included in this file.
- *
- * Pattern for first selector:
- * cpt + '_page_' + plugin_name + page name
- */
 .reservation_page_eggz-reservations-help ul li {
   list-style: disc;
   margin-left: 1.5em;

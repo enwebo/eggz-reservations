@@ -13,7 +13,7 @@
 
 		// Render datepicker and timepicker
 		$('#datepicker').datetimepicker({
-			useCurrent: true, //Important! See issue #1075
+			useCurrent: true,
 			stepping: 15,
 			format: 'MM/DD/YYYY',
 			allowInputToggle: true,
@@ -22,7 +22,7 @@
 		});
 
 		$('#timepicker').datetimepicker({
-			useCurrent: true, //Important! See issue #1075
+			useCurrent: true,
 			stepping: 15,
 			format: 'hh:mm a',
 			allowInputToggle: true
@@ -35,7 +35,7 @@
 			// reinitialize timepicker
 			$( '#timepicker' ).data( "DateTimePicker" ).destroy();
 			$( '#timepicker' ).datetimepicker({
-				useCurrent: false, //Important! See issue #1075
+				useCurrent: false,
 				stepping: 15,
 				allowInputToggle: true,
 				format: 'hh:mm a'
@@ -440,6 +440,7 @@
 				modal.find( 'p' ).hide();
 				modal.find( 'p.delete-all-reservations-message' ).show();
 			} else {
+				deleteAll = false;
 				modal.find( 'p' ).hide();
 				modal.find( 'p.delete-single-reservation-message' ).show();
 			}
