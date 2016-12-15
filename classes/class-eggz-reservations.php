@@ -7,7 +7,7 @@
  * public-facing side of the site and the admin area.
  *
  * @link 		http://enwebo.com
- * @since 		1.0.0
+ * @since 		1.0.1
  *
  * @package 	Eggz_Reservations
  * @subpackage 	Eggz_Reservations/classes
