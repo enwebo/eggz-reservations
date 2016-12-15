@@ -7,6 +7,46 @@
 
 <div class="eggz-reservations eggz-reservations-list-wrap<?php echo $class; ?>">
 
+	<!-- Modal for demo alerts -->
+	<div id="demoModal" class="modal modal-eggz modal-outside-close-btn fade">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+
+					<button type="button" class="close"  data-dismiss="modal" data-target="#demoReservationModal" aria-label="Close"></button>
+
+					<div class="video-caption">
+
+						<div class="eggz-abs-loader" style="display: none;">
+							<div class="loading">
+							    <span class="ball1"></span>
+							    <span class="ball2"></span>
+							</div>
+						</div>
+
+					</div>
+
+					<div class="demo-modal-wrap">
+
+						<div class="demo-modal-image eggz-overlay eggz-overlay-opacity-60"></div>
+
+						<div class="demo-modal-content">
+							<h3 class="line-disabled"><?php esc_html_e( 'Nothing changed', 'eggz-reservations' ); ?></h3>
+							<p><?php esc_html_e( 'This action is limited on demo.', 'eggz-reservations' ); ?></p>
+							<br />
+							<div class="eggz-btn-container align-center">
+								<button type="button" class="eggz-btn eggz-btn-brand-outline yes" data-dismiss="modal" data-target="#demoModal"><?php esc_html_e( 'Ok', 'eggz-reservations' ); ?></button>
+								<a href="https://themeforest.net/item/eggz-a-delicious-restaurant-wordpress-theme/17367632?ref=Enwebo" target="_blank" class="eggz-btn eggz-btn-brand-outline yes"><?php esc_html_e( 'Buy now', 'eggz-reservations' ); ?></a>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<!-- Modal for delete Reservations -->
 	<div id="deleteReservationModal" class="modal modal-eggz modal-outside-close-btn fade">
 		<div class="modal-dialog modal-lg" role="document">

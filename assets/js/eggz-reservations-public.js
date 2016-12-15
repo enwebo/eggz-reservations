@@ -297,7 +297,7 @@
 		});
 
 		// set table for reservation
-		$( '.eggz-reservations' ).on( 'change', 'select', function() {
+		$( '.eggz-reservations' ).on( 'change', '.reservation-heading-box select', function() {
 
 			var id = $(this).data( 'postid' ),
 			currentTable = $(this).data( 'table' ),
@@ -312,7 +312,11 @@
 					table: table
 				},
 				success : function( response ) {
-					$( '.eggz-reservations-list' ).find( '[data-postid="' + id + '"]' ).removeClass( 'unassigned' ).removeClass( currentTable ).addClass( table ).data( 'table', table );
+					if ( response.error.code == '0' ) {
+						$( '#demoModal' ).modal('show');
+					} else {
+						$( '.eggz-reservations-list' ).find( '[data-postid="' + id + '"]' ).removeClass( 'unassigned' ).removeClass( currentTable ).addClass( table ).data( 'table', table );
+					}
 				}
 
 			});
@@ -388,22 +392,28 @@
 							request: request
 						},
 						success : function( response ) {
-							modal.find( '.eggz-abs-loader' ).hide();
-							modal.find( 'form' ).css('opacity', "1");
-							// console.log( response + ' - ok' );
+							if ( response.error.code == '0' ) {
+								modal.find( '.eggz-abs-loader' ).hide();
+								$( '#editReservationModal' ).modal('hide')
+								$( '#demoModal' ).modal('show');
+							} else {
+								modal.find( '.eggz-abs-loader' ).hide();
+								modal.find( 'form' ).css('opacity', "1");
+								// console.log( response + ' - ok' );
 
-							// Set modal form values
-							var id = modal.find( '.modal-body input#reservation-id' ).val();
-							$('[data-postid="' + id + '"] .eggz-reservations-date').text(modal.find( '.modal-body input#date' ).val());
-							$('[data-postid="' + id + '"] .eggz-reservations-reservation-date.field-value').text(modal.find( '.modal-body input#date' ).val());
-							$('[data-postid="' + id + '"] .eggz-reservations-reservation-time.field-value').text(modal.find( '.modal-body input#time' ).val());
-							$('[data-postid="' + id + '"] .eggz-reservations-reservation-persons.field-value').text(modal.find( '.modal-body input#persons' ).val());
-							$('[data-postid="' + id + '"] .eggz-reservations-reservation-email.field-value').text(modal.find( '.modal-body input#email' ).val());
-							$('[data-postid="' + id + '"] .eggz-reservations-reservation-phone.field-value').text(modal.find( '.modal-body input#phone' ).val());
-							$('[data-postid="' + id + '"] .eggz-reservations-reservation-name.field-value').text(modal.find( '.modal-body input#name' ).val());
-							$('[data-postid="' + id + '"] .eggz-reservations-reservation-specialrequest.field-value').text(modal.find( '.modal-body input#specialrequest' ).val());
-							$( '#editReservationModal' ).modal('hide');
-							// $( '#editReservationModal' ).
+								// Set modal form values
+								var id = modal.find( '.modal-body input#reservation-id' ).val();
+								$('[data-postid="' + id + '"] .eggz-reservations-date').text(modal.find( '.modal-body input#date' ).val());
+								$('[data-postid="' + id + '"] .eggz-reservations-reservation-date.field-value').text(modal.find( '.modal-body input#date' ).val());
+								$('[data-postid="' + id + '"] .eggz-reservations-reservation-time.field-value').text(modal.find( '.modal-body input#time' ).val());
+								$('[data-postid="' + id + '"] .eggz-reservations-reservation-persons.field-value').text(modal.find( '.modal-body input#persons' ).val());
+								$('[data-postid="' + id + '"] .eggz-reservations-reservation-email.field-value').text(modal.find( '.modal-body input#email' ).val());
+								$('[data-postid="' + id + '"] .eggz-reservations-reservation-phone.field-value').text(modal.find( '.modal-body input#phone' ).val());
+								$('[data-postid="' + id + '"] .eggz-reservations-reservation-name.field-value').text(modal.find( '.modal-body input#name' ).val());
+								$('[data-postid="' + id + '"] .eggz-reservations-reservation-specialrequest.field-value').text(modal.find( '.modal-body input#specialrequest' ).val());
+								$( '#editReservationModal' ).modal('hide');
+								// $( '#editReservationModal' ).
+							}
 
 						},
 						fail : function( response ) {
@@ -460,16 +470,19 @@
 					id: id
 				},
 				success : function( response ) {
-					// console.log( response );
-					if ( deleteAll ) {
-						$( '.eggz-reservations-list' ).empty();
-					}else{
-						$( '.eggz-reservations-list' ).find( '[data-postid="' + id + '"]' ).remove();
+					if ( response.error.code == '0' ) {
+						// alert( response.error.message );
+						$( '#deleteReservationModal' ).modal('hide');
+						$( '#demoModal' ).modal('show');
+						
+					} else {
+						if ( deleteAll ) {
+							$( '.eggz-reservations-list' ).empty();
+						}else{
+							$( '.eggz-reservations-list' ).find( '[data-postid="' + id + '"]' ).remove();
+						}
+						$( '#deleteReservationModal' ).modal('hide');
 					}
-					$( '#deleteReservationModal' ).modal('hide');
-				},
-				fail : function( response ) {
-					// console.log( response );
 				}
 			});
 

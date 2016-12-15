@@ -360,7 +360,7 @@ class Eggz_Reservations_Public {
 
 
 	/**
-	 * Processes shortcode shortcodename
+	 * Processes eggzreservations
 	 *
 	 * @param 	array 	$atts 		Shortcode attributes
 	 *
@@ -395,7 +395,7 @@ class Eggz_Reservations_Public {
 
 		return $output;
 
-	} // shortcode_shortcodename()
+	} // eggzreservations()
 
 
 
@@ -741,7 +741,6 @@ class Eggz_Reservations_Public {
 
 	/**
 	 * Add reservation.
-	 *
 	 */
 
 	public function eggz_add_reservation() {
@@ -796,7 +795,7 @@ class Eggz_Reservations_Public {
 	public function eggz_set_reservation_table() {
 
 		// Check if user logged in and has staff area permisions to edit.
-		if ( is_user_logged_in () && is_admin() ) {
+		if ( is_user_logged_in() && is_admin() ) {
 
 			if ( !isset( $_POST['id'] ) && empty( $_POST['id'] ) ) { echo '-1'; die(); }
 			if ( !isset( $_POST['table'] ) && empty( $_POST['table'] ) ) { echo '-2'; die(); }
@@ -809,6 +808,16 @@ class Eggz_Reservations_Public {
 
 			wp_set_post_terms( $post_id, $term_id['term_id'], $taxonomy, false );
 
+		} else {
+			header( 'Content-type: application/json' );
+			echo json_encode( array(
+				'error' => array(
+					'code' => 0,
+				    'message' => 'Nothing changed. Functionality is limited on demo.',
+				    )
+				)
+			);
+			exit;
 		}
 
 		die();
@@ -855,6 +864,16 @@ class Eggz_Reservations_Public {
 				echo 'Nothing deleted';
 			}
 
+		} else {
+			header( 'Content-type: application/json' );
+			echo json_encode( array(
+				'error' => array(
+					'code' => 0,
+				    'message' => 'Nothing changed. Functionality is limited on demo.',
+				    )
+				)
+			);
+			exit;
 		}
 
 		die();
@@ -877,11 +896,21 @@ class Eggz_Reservations_Public {
 
 			$this->eggz_update_reservation_meta( $_POST['id'], $_POST );
 
+		} else {
+			header( 'Content-type: application/json' );
+			echo json_encode( array(
+				'error' => array(
+					'code' => 0,
+				    'message' => 'Nothing changed. Functionality is limited on demo.',
+				    )
+				)
+			);
+			exit;
 		}
 
 		die();
 
-	} // end eggz_delete_reservation
+	} // end eggz_update_reservation
 
 
 

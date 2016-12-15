@@ -4674,12 +4674,15 @@
 	text-align: center;
 }
 
-.eggz-reservations .delete-modal-wrap {
+.eggz-reservations .delete-modal-wrap,
+.eggz-reservations .demo-modal-wrap {
 	display: table;
 	width: 100%;
 	table-layout: fixed;
 }
-.eggz-reservations .delete-modal-wrap .delete-modal-image {
+
+.eggz-reservations .delete-modal-wrap .delete-modal-image,
+.eggz-reservations .demo-modal-wrap .demo-modal-image {
 	display: table-cell;
 	width: 50%;
 	background: url('../images/delete-reservation-bg.jpg');
@@ -4687,6 +4690,7 @@
 	background-position: center;
 }
 
+.eggz-reservations .demo-modal-wrap .demo-modal-content,
 .eggz-reservations .delete-modal-wrap .delete-modal-content {
 	display: table-cell;
 	vertical-align: middle;
@@ -4695,8 +4699,23 @@
 	text-align: center;
 }
 
+.eggz-reservations .demo-modal-wrap .demo-modal-content h3,
 .eggz-reservations .delete-modal-wrap .delete-modal-content h3 {
 	margin-top: 0;
+}
+
+.eggz-reservations .demo-modal-wrap .demo-modal-image {
+	display: table-cell;
+	width: 50%;
+	background: url('../images/demo-bg.jpg');
+	background-size:cover;
+	background-position: center;
+}
+
+.eggz-reservations .demo-modal-wrap button,
+.eggz-reservations .demo-modal-wrap a {
+	line-height: 24px;
+	margin-bottom: 10px !important;
 }
 
 #editReservationModal .modal-body h4 {
@@ -5075,17 +5094,20 @@
 		padding-bottom: 5px;
 	}
 
+	.eggz-reservations .demo-modal-wrap,
 	.eggz-reservations .delete-modal-wrap {
 		display: block;
 		width: auto;
 		table-layout: initial;
 	}
+	.eggz-reservations .demo-modal-wrap .demo-modal-image,
 	.eggz-reservations .delete-modal-wrap .delete-modal-image {
 		display: block;
 		width: auto;
 		height: 150px;
 	}
 
+	.eggz-reservations .demo-modal-wrap .demo-modal-content,
 	.eggz-reservations .delete-modal-wrap .delete-modal-content {
 		display: block;
 		width: auto;
