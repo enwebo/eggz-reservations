@@ -28,7 +28,7 @@
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) { die; }
 
-// Used for referring to the plugin file or basename
+// Used for referring to the plugin file or basename.
 if ( ! defined( 'EGGZ_RESERVATIONS_FILE' ) ) {
 	define( 'EGGZ_RESERVATIONS_FILE', plugin_basename( __FILE__ ) );
 }
@@ -38,14 +38,14 @@ if ( ! defined( 'EGGZ_RESERVATIONS_FILE' ) ) {
  * This action is documented in classes/class-activator.php
  */
 require_once plugin_dir_path( __FILE__ ) . 'classes/class-activator.php';
-register_activation_hook( __FILE__, array('Eggz_Reservations_Activator', 'activate' ) );
+register_activation_hook( __FILE__, array( 'Eggz_Reservations_Activator', 'activate' ) );
 
 /**
  * Code that runs during plugin deactivation.
  * This action is documented in classes/class-deactivator.php
  */
 require_once plugin_dir_path( __FILE__ ) . 'classes/class-deactivator.php';
-register_deactivation_hook( __FILE__, array('Eggz_Reservations_Deactivator', 'deactivate' ) );
+register_deactivation_hook( __FILE__, array( 'Eggz_Reservations_Deactivator', 'deactivate' ) );
 
 /**
  * The core plugin class that is used to define internationalization,
