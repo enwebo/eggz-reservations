@@ -191,7 +191,7 @@
 		</ul>
 
 		<div class="eggz-reservations-sort-order">
-			<div class="name-field-sort"><?php _e( 'Sort by', 'eggz_reservations' ); ?></div>
+			<div class="name-field-sort"><?php _e( 'Sort by', 'eggz-reservations' ); ?></div>
 			<div class="select-sort">
 				<select class="selectpicker show-menu-arrow">
 				  	<option value="latest"><?php _e( 'Latest', 'eggz-reservations' ); ?></option>
