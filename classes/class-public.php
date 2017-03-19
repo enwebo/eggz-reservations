@@ -247,6 +247,27 @@ class Eggz_Reservations_Public {
 	}
 
 	/**
+	 * Get reservation details background parallax fx.
+	 * @return  string 		class for parallax
+	 */
+
+	public function get_reservation_details_background_parallax( $details_background_parallax = '' ) {
+
+		// $options = get_option( $this->plugin_name . '-options' );
+
+		if ( isset( $this->options['background-parallax'] ) && $this->options['background-parallax'] != '' ) {
+
+			if ( $this->options['background-parallax'] === '1' ) {
+				$details_background_parallax = ' parallax';
+			}
+
+		}
+
+		return $details_background_parallax;
+
+	}
+
+	/**
 	 * Get reservation successful background.
 	 * @return  string 		image url for reservation successful
 	 */
@@ -611,7 +632,8 @@ class Eggz_Reservations_Public {
 
 			ob_start(); ?>
 			<div class="container-fluid eggz-reservation-details-wrap eggz-reservation-row">
-				<div class="eggz-reservation-form-poster eggz-overlay eggz-overlay-opacity-60 parallax" style="background-image: url('<?php echo $this->get_reservation_details_background(); ?>');">
+				<div class="eggz-reservation-form-poster eggz-overlay eggz-overlay-opacity-60<?php echo $this->get_reservation_details_background_parallax(); ?>">
+					<div class="eggz-reservation-form-poster-image" style="background-image: url('<?php echo $this->get_reservation_details_background(); ?>');"></div>
 					<div class="eggz-reservation-form-poster-container">
 						<div class="eggz-reservation-form-poster-wrapper">
 							<h1 class="special-heading vertical-lines"><?php _e( 'Details', 'eggz-reservations' ); ?></h1>
@@ -684,7 +706,8 @@ class Eggz_Reservations_Public {
 
 		ob_start(); ?>
 		<div class="eggz-show-reservation-details-wrap eggz-reservation-row reverse-order">
-			<div class="eggz-reservation-form-poster eggz-overlay eggz-overlay-opacity-60 parallax" style="background-image: url('<?php echo $this->get_reservation_successful_background(); ?>');">
+			<div class="eggz-reservation-form-poster eggz-overlay eggz-overlay-opacity-60<?php echo $this->get_reservation_details_background_parallax(); ?>">
+				<div class="eggz-reservation-form-poster-image" style="background-image: url('<?php echo $this->get_reservation_successful_background(); ?>');"></div>
 				<div class="eggz-reservation-form-poster-container">
 					<div class="eggz-reservation-form-poster-wrapper">
 						<h1 class="special-heading vertical-lines"><?php _e( 'Thank You', 'eggz-reservations' ); ?></h1>

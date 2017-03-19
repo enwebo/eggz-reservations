@@ -523,6 +523,7 @@ class Eggz_Reservations_Admin {
 		$options[] = array( 'persons-for-reservations', 'text', '' );
 		$options[] = array( 'reservation-details-background', 'text', '' );
 		$options[] = array( 'reservation-successful-background', 'text', '' );
+		$options[] = array( 'background-parallax', 'select', '' );
 		$options[] = array( 'on-holiday', 'select', '' );
 		$options[] = array( 'open-hours', 'repeater', array( array( 'day', 'text', 'Monday' ), array( 'open_hours', 'text', '12:00 AM' ), array( 'close_hours', 'text', '12:00 PM' ) ) );
 		$options[] = array( 'reservations-description', 'editor', '' );
@@ -653,6 +654,23 @@ class Eggz_Reservations_Admin {
 				'description' 	=> __( 'Background image for reservation successful section.', 'eggz-reservations' ),
 				'id' 			=> 'reservation-successful-background',
 				'value' 		=> '',
+			)
+		);
+
+		add_settings_field(
+			'background-parallax',
+			apply_filters( $this->plugin_name . '-label-background-parallax', esc_html__( 'Background Parallax?', 'eggz-reservations' ) ),
+			array( $this, 'field_select' ),
+			$this->plugin_name,
+			$this->plugin_name . '-settingssection',
+			array(
+				'description' 	=> __( 'Check if you want parallax effect.', 'eggz-reservations' ),
+				'id' 			=> 'background-parallax',
+				'selections'	=> array(
+					array( 'label' => esc_html__( 'Yes', 'eggz-reservations' ), 'value' => '1' ),
+					array( 'label' => esc_html__( 'No', 'eggz-reservations' ), 'value' => '2' ),
+				),
+				'value' 		=> ''
 			)
 		);
 

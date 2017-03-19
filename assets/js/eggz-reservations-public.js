@@ -6,6 +6,65 @@
 	*
 	*/
 
+	// Parallax fx functions
+
+	function eggz_reservation_image_parallax_fx() {
+		var controller = new ScrollMagic.Controller();
+
+		if ( $('.eggz-reservation-form-poster.parallax').length ) {
+
+			$('.eggz-reservation-form-poster.parallax').each( function() {
+
+				var height_el = $(this).innerHeight(),
+					height_el_calc = height_el * 1.25;
+
+				var el = $(this).find('.eggz-reservation-form-poster-image');
+
+				el.css('min-height', height_el_calc);
+
+				// add a timeline to a scene
+				var tl_poster_text_image = new TimelineMax();
+					tl_poster_text_image.to(el, 0, { y: '-35%', ease: Linear.easeNone })
+										.to(el, 1, { y: '+35%', ease: Linear.easeNone });
+
+				// build scenes
+				new ScrollMagic.Scene({triggerElement: this, triggerHook: 1, duration: '200%' })
+					.setTween(tl_poster_text_image)
+					.triggerElement(this)
+					.addTo(controller);
+
+			});
+
+		}
+
+	}
+
+	function eggz_reservation_text_parallax_fx() {
+		var controller = new ScrollMagic.Controller();
+
+		if ( $('.eggz-reservation-form-poster.parallax').length ) {
+
+			$('.eggz-reservation-form-poster.parallax .special-heading').each( function() {
+
+				// add a timeline to a scene
+				var tl_poster_text_letters = new TimelineMax();
+					tl_poster_text_letters.to(this, 0, { autoAlpha: 0, y: '0%', ease: Linear.easeNone })
+										  .to(this, 0.1, { autoAlpha: 1, y: '0%', ease: Linear.easeNone })
+										  .to(this, 0.75, { autoAlpha: 1, y: '0%', ease: Linear.easeNone })
+										  .to(this, 1, { autoAlpha: 0, y: '-35%', ease: Linear.easeNone });
+
+				// build scenes
+				new ScrollMagic.Scene({triggerElement: this, triggerHook: 1, duration: '150%' })
+					.setTween(tl_poster_text_letters)
+					.triggerElement(this)
+					.addTo(controller);
+
+			});
+
+		}
+
+	}
+
 	$(function() {
 
 		var dateDaysToShow = parseInt( POST_SUBMITTER.date_picker_days );
@@ -137,9 +196,12 @@
 						}
 						$( '.add-reservation-form' ).css( 'opacity', '.5' ).css( 'pointer-events', 'none' );
 
-						if( typeof jarallax === "function" ){
-							$('.parallax').jarallax('destroy').jarallax({ speed: 0.2 });
+						if( TimelineMax != 'undefined' ){
+							eggz_reservation_image_parallax_fx();
+							eggz_reservation_text_parallax_fx();
 						}
+						
+
 						// Add reservation on database
 						saveReservation();
 
@@ -215,10 +277,11 @@
 							if( TweenLite != 'undefined' ){
 								TweenLite.to( window, 2.5, {scrollTo:{y:$('.eggz-show-reservation-details-wrap').offset().top - $(".header-primary").height() }, ease:Power4.easeOut});
 							}
-							$( '.eggz-reservation-details-wrap' ).css( 'opacity', '.5' ).css( 'pointer-events', 'none' );
-							if( typeof jarallax === "function" ){
-								$('.parallax').jarallax('destroy').jarallax({ speed: 0.2 });
+							if( TimelineMax != 'undefined' ){
+								eggz_reservation_image_parallax_fx();
+								eggz_reservation_text_parallax_fx();
 							}
+							$( '.eggz-reservation-details-wrap' ).css( 'opacity', '.5' ).css( 'pointer-events', 'none' );
 						},
 						fail : function( response ) {
 							// console.log( response );
